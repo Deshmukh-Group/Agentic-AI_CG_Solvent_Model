@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CG Solvent Optimization Results</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #1c2330;
+  --border: #30363d;
+  --border-light: #21262d;
+  --text: #e6edf3;
+  --text-muted: #7d8590;
+  --text-dim: #484f58;
+  --accent: #58a6ff;
+  --accent2: #3fb950;
+  --accent3: #d29922;
+  --accent4: #f78166;
+  --v0: #6e76e5;
+  --v1: #3fb950;
+  --v2: #f0883e;
+  --swarm2: #58a6ff;
+  --swarm4: #bc8cff;
+  --swarm8: #56d364;
+  --low: #3fb950;
+  --med: #d29922;
+  --high: #f78166;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 13px;
+}
+
+/* HEADER */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--v0));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.header h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; }
+.header p { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.badge { font-family: var(--mono); font-size: 10px; padding: 3px 8px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); }
+
+/* LAYOUT */
+.layout { display: flex; height: calc(100vh - 73px); }
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.sidebar-section { padding: 16px 12px 8px; }
+.sidebar-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; padding: 0 4px; }
+.mol-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 8px 10px; border: none;
+  background: transparent; color: var(--text-muted); cursor: pointer;
+  border-radius: 6px; font-family: var(--sans); font-size: 13px;
+  text-align: left; transition: all 0.15s;
+}
+.mol-btn:hover { background: var(--surface2); color: var(--text); }
+.mol-btn.active { background: rgba(88,166,255,0.12); color: var(--accent); }
+.mol-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.sidebar-divider { height: 1px; background: var(--border-light); margin: 8px 12px; }
+
+/* VIEW TOGGLE */
+.view-toggle {
+  display: flex; padding: 12px;
+  gap: 4px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.view-btn {
+  flex: 1; padding: 7px 4px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted); cursor: pointer;
+  border-radius: 5px; font-family: var(--sans); font-size: 11px;
+  font-weight: 500; transition: all 0.15s;
+}
+.view-btn:hover { border-color: var(--accent); color: var(--accent); }
+.view-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* MAIN CONTENT */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  background: var(--bg);
+}
+
+.mol-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.mol-title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+.mol-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+/* SECTION */
+.section { margin-bottom: 32px; }
+.section-title {
+  font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.section-title::after { content:''; flex:1; height:1px; background: var(--border-light); }
+
+/* SUMMARY TABLE */
+.table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  background: var(--surface); padding: 10px 14px;
+  text-align: left; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted);
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border-light); font-size: 12px; vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+.mono { font-family: var(--mono); }
+.err-low { color: var(--low); font-weight: 600; font-family: var(--mono); }
+.err-med { color: var(--med); font-weight: 600; font-family: var(--mono); }
+.err-high { color: var(--high); font-weight: 600; font-family: var(--mono); }
+
+/* Version pills */
+.vpill {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+}
+.vpill-v0 { background: rgba(110,118,229,0.15); color: var(--v0); }
+.vpill-v1 { background: rgba(63,185,80,0.15); color: var(--v1); }
+.vpill-v2 { background: rgba(240,136,62,0.15); color: var(--v2); }
+
+/* Swarm pills */
+.spill {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-family: var(--mono); font-size: 11px;
+}
+.spill-s2 { background: rgba(88,166,255,0.1); color: var(--swarm2); }
+.spill-s4 { background: rgba(188,140,255,0.1); color: var(--swarm4); }
+.spill-s8 { background: rgba(86,211,100,0.1); color: var(--swarm8); }
+
+/* Epoch bar */
+.epoch-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.epoch-bar { height: 4px; background: var(--border); border-radius: 2px; width: 60px; overflow: hidden; }
+.epoch-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
+.epoch-num { font-family: var(--mono); font-size: 12px; }
+
+/* ERROR GRID - per property */
+.prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.prop-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.prop-card-header {
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.prop-name { font-size: 12px; font-weight: 600; }
+.prop-temp { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
+.prop-card table { font-size: 12px; }
+.prop-card thead th { font-size: 10px; background: transparent; }
+
+/* PARAMS SECTION */
+.params-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.param-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+}
+.param-card-header {
+  padding: 10px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.param-card table { font-size: 11.5px; }
+.param-card thead th { font-size: 10px; background: transparent; padding: 7px 12px; }
+.param-card tbody td { padding: 6px 12px; }
+.param-name { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+.param-val { font-family: var(--mono); font-size: 11.5px; }
+.param-diff { font-family: var(--mono); font-size: 10px; opacity: 0.7; }
+
+/* HEATMAP VIEW */
+.heatmap-grid { display: grid; gap: 16px; }
+.heatmap-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+}
+.heatmap-title {
+  padding: 10px 16px; background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; font-weight: 600;
+}
+.heatmap-table { width: 100%; border-collapse: collapse; }
+.heatmap-table th, .heatmap-table td { padding: 9px 14px; text-align: center; border-bottom: 1px solid var(--border-light); font-size: 12px; }
+.heatmap-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); background: transparent; }
+.heatmap-table td:first-child { text-align: left; }
+.heat-cell { display: inline-block; padding: 3px 10px; border-radius: 4px; font-family: var(--mono); font-weight: 600; font-size: 12px; }
+
+/* PUBLICATION TABLE */
+.pub-tab-wrap {
+  padding: 32px 40px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: #fff;
+  color: #111;
+  min-height: 100%;
+}
+.pub-title {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+}
+.pub-subtitle {
+  font-size: 12px;
+  text-align: center;
+  color: #444;
+  margin-bottom: 18px;
+}
+.pub-mol-section { margin-bottom: 36px; }
+.pub-mol-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.pub-table-wrap { overflow-x: auto; }
+.pub-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+.pub-table caption {
+  font-size: 11px;
+  text-align: left;
+  margin-bottom: 4px;
+  color: #333;
+  caption-side: top;
+}
+.pub-table th, .pub-table td {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  padding: 5px 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+.pub-table th {
+  font-weight: bold;
+  background: #fff;
+  font-size: 10.5px;
+}
+.pub-table td:first-child {
+  text-align: left;
+  font-weight: bold;
+  padding-left: 6px;
+}
+.pub-table tr:first-child th { border-top: 2px solid #111; }
+.pub-table tbody tr:last-child td { border-bottom: 2px solid #111; }
+.pub-th-unit {
+  font-weight: normal;
+  font-size: 9.5px;
+  color: #555;
+  display: block;
+  margin-top: 1px;
+}
+.pub-th-group {
+  border-bottom: 1px solid #aaa !important;
+  font-size: 10px;
+  color: #333;
+}
+.pub-swarm-header td {
+  background: #f2f2f2;
+  font-weight: bold;
+  font-size: 10.5px;
+  border-top: 1.5px solid #555;
+  border-bottom: 1px solid #aaa;
+  text-align: left;
+  padding-left: 6px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.pub-epoch-best {
+  background: #c8f7c5;
+  color: #1a6b16;
+  font-weight: bold;
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+.pub-note {
+  font-size: 10px;
+  color: #555;
+  margin-top: 6px;
+  font-style: italic;
+}
+.pub-separator { border: none; border-top: 1px solid #ccc; margin: 24px 0; }
+/* LOADING */
+.loading-overlay {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  z-index: 999;
+}
+.loader { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-family: var(--mono); font-size: 13px; color: var(--text-muted); }
+
+/* ERROR */
+.error-msg {
+  background: rgba(247,129,102,0.1); border: 1px solid var(--high);
+  border-radius: 8px; padding: 20px; color: var(--high); font-family: var(--mono); font-size: 13px;
+}
+
+/* SUMMARY CARDS ROW */
+.summary-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.summary-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px;
+}
+.summary-card .label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); margin-bottom: 6px; }
+.summary-card .value { font-size: 22px; font-family: var(--mono); font-weight: 600; }
+.summary-card .sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* NAV TABS IN HEADER */
+.nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-tab {
+  padding: 6px 13px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted); cursor: pointer;
+  border-radius: 6px; font-family: var(--sans); font-size: 12px;
+  font-weight: 500; transition: all 0.15s; white-space: nowrap;
+}
+.nav-tab:hover { border-color: var(--accent); color: var(--accent); }
+.nav-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* BG TOGGLE */
+.bg-toggle {
+  width: 32px; height: 32px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted); cursor: pointer;
+  border-radius: 6px; font-size: 15px; display: flex; align-items: center;
+  justify-content: center; transition: all 0.15s; flex-shrink: 0;
+}
+.bg-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+/* GREEN best-in-row highlight */
+.best-in-row {
+  display: inline-block;
+  background: rgba(46,160,67,0.18); color: #2ea043 !important;
+  font-weight: bold; border-radius: 2px; padding: 1px 5px;
+}
+
+/* LIGHT THEME */
+:root.light {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface2: #f0f2f5;
+  --border: #d0d7de;
+  --border-light: #e1e4e8;
+  --text: #24292f;
+  --text-muted: #57606a;
+  --text-dim: #8c959f;
+  --low: #1a7f37;
+  --med: #9a6700;
+  --high: #cf222e;
+}
+:root.light tbody tr:hover td { background: rgba(0,0,0,0.02); }
+:root.light .err-low { color: var(--low); }
+:root.light .err-med { color: var(--med); }
+:root.light .err-high { color: var(--high); }
+
+/* MD RESULTS — Arial 12 font override */
+.md-results-wrap,
+.md-results-wrap .pub-table,
+.md-results-wrap .pub-table th,
+.md-results-wrap .pub-table td,
+.md-results-wrap .pub-title,
+.md-results-wrap .pub-subtitle,
+.md-results-wrap .pub-mol-label,
+.md-results-wrap .pub-note {
+  font-family: Arial, sans-serif !important;
+}
+.md-results-wrap .pub-table th,
+.md-results-wrap .pub-table td { font-size: 12px; }
+.md-results-wrap .pub-table th { font-size: 10.5px; }
+.md-results-wrap .pub-th-unit { font-size: 9.5px; }
+.md-results-wrap .pub-title { font-size: 14px; }
+.md-results-wrap .pub-subtitle { font-size: 11.5px; }
+.md-results-wrap .pub-mol-label { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loader">
+  <div class="loader"></div>
+  <div class="loading-text">Loading optimization data…</div>
+</div>
+
+<div class="header">
+  <div class="header-icon">⚗</div>
+  <div>
+    <h1>CG Solvent Optimization</h1>
+    <p>Coarse-grained force field parameter analysis</p>
+  </div>
+  <div class="header-right">
+    <div class="nav-tabs">
+      <button class="nav-tab" id="btnMapping" onclick="setView('mapping')">🗺 Mapping Scheme</button>
+      <button class="nav-tab active" id="btnResults" onclick="setView('results')">Results</button>
+      <button class="nav-tab" id="btnParams" onclick="setView('params')">Parameters</button>
+      <button class="nav-tab" id="btnHeatmap" onclick="setView('heatmap')">Error Heatmap</button>
+      <button class="nav-tab" id="btnTable" onclick="setView('table')">Performance Table</button>
+      <button class="nav-tab" id="btnOptruns" onclick="setView('optruns')">MD Results (100ns)</button>
+    </div>
+    <button class="bg-toggle" id="bgToggle" onclick="toggleBg()" title="Toggle light/dark">🌙</button>
+  </div>
+</div>
+
+<div class="layout" id="app" style="display:none">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Molecules</div>
+      <div id="molList"></div>
+    </div>
+    <div class="sidebar-divider"></div>
+  </div>
+  <div class="main" id="mainContent"></div>
+</div>
+
+<script>
+let DATA = null;
+let OPT_DATA = null;
+let currentMol = null;
+let currentView = 'results';
+
+const MOL_COLORS = {
+  DMA:     '#58a6ff',
+  DMA_RE1: '#79c0ff',
+  DMA_RE2: '#a5d6ff',
+  DMSO:    '#f0883e',
+  DMSO_RE2:'#ffa657',
+  DMSO_RE4:'#ffc78e',
+};
+
+const GROUP_LABELS = {
+  DMA: 'DMA family',
+  DMSO: 'DMSO family',
+};
+
+const GROUPS = {
+  DMA: ['DMA', 'DMA_RE1', 'DMA_RE2'],
+  DMSO: ['DMSO', 'DMSO_RE2', 'DMSO_RE4'],
+};
+
+const RUNS = ['Swarm_2', 'Swarm_4', 'Swarm_8'];
+const VERSIONS = ['v0', 'v1', 'v2'];
+
+const VERSION_LABELS = {
+  v0: 'Scheme 1 (v0)',
+  v1: 'Scheme 2 (v1)',
+  v2: 'Scheme 3 (v2)',
+};
+
+const MOL_RUN_LABELS = {
+  DMA:      'DMA (Run 1)',
+  DMA_RE1:  'DMA (Run 2) (RE1)',
+  DMA_RE2:  'DMA (Run 3) (RE2)',
+  DMSO:     'DMSO (Run 1)',
+  DMSO_RE2: 'DMSO (Run 2) (RE2)',
+  DMSO_RE4: 'DMSO (Run 3) (RE4)',
+};
+
+function errClass(v) {
+  if (v === null || v === undefined || isNaN(v)) return '';
+  if (v < 10) return 'err-low';
+  if (v < 30) return 'err-med';
+  return 'err-high';
+}
+
+function fmt(v, digits=3) {
+  if (v === null || v === undefined || isNaN(v)) return '<span style="color:var(--text-dim)">—</span>';
+  return v.toFixed(digits);
+}
+
+function heatBg(v) {
+  if (v === null || isNaN(v)) return 'rgba(255,255,255,0.04)';
+  if (v < 5)  return 'rgba(63,185,80,0.2)';
+  if (v < 15) return 'rgba(63,185,80,0.1)';
+  if (v < 30) return 'rgba(210,153,34,0.2)';
+  return 'rgba(247,129,102,0.25)';
+}
+function heatColor(v) {
+  if (v === null || isNaN(v)) return 'var(--text-dim)';
+  if (v < 5)  return 'var(--low)';
+  if (v < 15) return '#8dc875';
+  if (v < 30) return 'var(--med)';
+  return 'var(--high)';
+}
+
+async function loadData() {
+  try {
+    const [r, ro] = await Promise.all([
+      fetch('best_epochs_summary.json'),
+      fetch('opt_run.json'),
+    ]);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    DATA = await r.json();
+    if (ro.ok) OPT_DATA = await ro.json();
+    init();
+  } catch(e) {
+    document.getElementById('loader').innerHTML = `<div class="error-msg">Failed to load data: ${e.message}</div>`;
+  }
+}
+
+function toggleBg() {
+  const isLight = document.documentElement.classList.toggle('light');
+  document.getElementById('bgToggle').textContent = isLight ? '🌑' : '🌙';
+  if (currentView === 'table') {
+    document.getElementById('mainContent').style.background = isLight ? '' : '#fff';
+  }
+}
+
+function init() {
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+
+  // Build sidebar
+  let html = '';
+  for (const [group, mols] of Object.entries(GROUPS)) {
+    html += `<div style="padding: 4px 4px 0; font-size:10px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-dim); margin-top:8px">${group}</div>`;
+    for (const mol of mols) {
+      if (!DATA[mol]) continue;
+      html += `<button class="mol-btn" id="mol-${mol}" onclick="selectMol('${mol}')">
+        <span class="mol-dot" style="background:${MOL_COLORS[mol]||'#666'}"></span>
+        ${mol}
+      </button>`;
+    }
+  }
+  document.getElementById('molList').innerHTML = html;
+
+  // Select first
+  const first = Object.keys(GROUPS).flatMap(g => GROUPS[g]).find(m => DATA[m]);
+  selectMol(first);
+}
+
+function selectMol(mol) {
+  currentMol = mol;
+  document.querySelectorAll('.mol-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('mol-' + mol);
+  if (btn) btn.classList.add('active');
+  renderView();
+}
+
+function setView(v) {
+  currentView = v;
+  ['mapping','results','params','heatmap','table','optruns'].forEach(id => {
+    const btn = document.getElementById('btn' + id.charAt(0).toUpperCase() + id.slice(1));
+    if (btn) btn.classList.toggle('active', v === id);
+  });
+  renderView();
+}
+
+function renderView() {
+  const main = document.getElementById('mainContent');
+  const isLight = document.documentElement.classList.contains('light');
+  if (currentView === 'mapping') {
+    main.innerHTML = renderMappingScheme();
+    main.style.background = '';
+    return;
+  }
+  if (currentView === 'optruns') {
+    main.innerHTML = renderOptRuns();
+    main.style.background = isLight ? '' : '#fff';
+    return;
+  }
+  if (currentView === 'table') {
+    main.innerHTML = renderPublicationTable();
+    main.style.background = isLight ? '' : '#fff';
+    return;
+  }
+  if (!currentMol || !DATA[currentMol]) { main.innerHTML = ''; return; }
+  if (currentView === 'results') main.innerHTML = renderResults(currentMol);
+  else if (currentView === 'params') main.innerHTML = renderParams(currentMol);
+  else if (currentView === 'heatmap') main.innerHTML = renderHeatmap(currentMol);
+  main.style.background = '';
+}
+
+// ═══════════════════════════════════════
+// RESULTS VIEW
+// ═══════════════════════════════════════
+function renderResults(mol) {
+  const d = DATA[mol];
+
+  // Summary stats
+  let bestMeanErr = Infinity, bestRun = '', bestVer = '';
+  let totalConfigs = 0;
+  RUNS.forEach(run => VERSIONS.forEach(ver => {
+    const e = d?.[run]?.[ver];
+    if (!e) return;
+    totalConfigs++;
+    if (e.mean_error_pct < bestMeanErr) { bestMeanErr = e.mean_error_pct; bestRun = run; bestVer = ver; }
+  }));
+
+  const firstRun = RUNS.find(r => d[r]);
+  const temps = firstRun ? Object.keys(d[firstRun]?.v0?.properties || d[firstRun]?.v1?.properties || d[firstRun]?.v2?.properties || {}) : [];
+
+  let html = `<div class="mol-header">
+    <div class="mol-dot" style="width:14px;height:14px;border-radius:50%;background:${MOL_COLORS[mol]||'#58a6ff'}"></div>
+    <div><div class="mol-title">${mol}</div><div class="mol-sub">Optimization Results — ${totalConfigs} configurations</div></div>
+  </div>`;
+
+  // Summary cards
+  html += `<div class="summary-row">
+    <div class="summary-card">
+      <div class="label">Best Mean Error</div>
+      <div class="value" style="color:var(--low)">${isFinite(bestMeanErr) ? bestMeanErr.toFixed(2)+'%' : '—'}</div>
+      <div class="sub">${bestRun} · ${bestVer}</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Configurations</div>
+      <div class="value" style="color:var(--accent)">${totalConfigs}</div>
+      <div class="sub">${RUNS.filter(r=>d[r]).length} runs × up to 3 versions</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Temperatures</div>
+      <div class="value" style="color:var(--v0)">${temps.length}</div>
+      <div class="sub">${temps.join(', ')}</div>
+    </div>
+  </div>`;
+
+  // Main results table
+  html += `<div class="section">
+    <div class="section-title">Run Summary</div>
+    <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Run</th><th>Version</th><th>Best Epoch</th><th>Max Epoch</th>
+        <th>Mean Err %</th><th>Total Err %</th><th>Abs Error</th>
+      </tr></thead>
+      <tbody>`;
+
+  RUNS.forEach(run => {
+    if (!d[run]) return;
+    VERSIONS.forEach(ver => {
+      const e = d[run][ver];
+      if (!e) return;
+      const pct = e.best_epoch / e.max_epoch * 100;
+      html += `<tr>
+        <td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>
+        <td><span class="vpill vpill-${ver}">${ver}</span></td>
+        <td>
+          <div class="epoch-bar-wrap">
+            <div class="epoch-bar"><div class="epoch-bar-fill" style="width:${pct}%"></div></div>
+            <span class="epoch-num">${e.best_epoch}</span>
+          </div>
+        </td>
+        <td class="mono">${e.max_epoch}</td>
+        <td class="${errClass(e.mean_error_pct)}">${fmt(e.mean_error_pct, 2)}</td>
+        <td class="${errClass(e.total_error_pct)}">${fmt(e.total_error_pct, 2)}</td>
+        <td class="mono" style="color:var(--text-muted)">${fmt(e.abs_error, 3)}</td>
+      </tr>`;
+    });
+  });
+
+  html += `</tbody></table></div></div>`;
+
+  // Per-property errors — grouped by temp, then run/version
+  html += `<div class="section"><div class="section-title">Property Errors by Temperature</div><div class="prop-grid">`;
+
+  const allTemps = new Set();
+  const allProps = new Set();
+  RUNS.forEach(run => VERSIONS.forEach(ver => {
+    const ep = d?.[run]?.[ver]?.error_pct_by_property;
+    if (!ep) return;
+    Object.keys(ep).forEach(t => {
+      allTemps.add(t);
+      Object.keys(ep[t]).forEach(p => allProps.add(p));
+    });
+  }));
+
+  allTemps.forEach(temp => {
+    allProps.forEach(prop => {
+      html += `<div class="prop-card">
+        <div class="prop-card-header">
+          <span class="prop-name">${prop.replace(/_/g,' ')}</span>
+          <span class="prop-temp">${temp}</span>
+        </div>
+        <table>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}" title="${VERSION_LABELS[v]}">${v}</span></th>`).join('')}</tr></thead>
+          <tbody>`;
+      RUNS.forEach(run => {
+        if (!d[run]) return;
+        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+        VERSIONS.forEach(ver => {
+          const val = d[run]?.[ver]?.error_pct_by_property?.[temp]?.[prop];
+          html += val !== undefined
+            ? `<td class="${errClass(val)}">${fmt(val,2)}</td>`
+            : `<td style="color:var(--text-dim)">—</td>`;
+        });
+        html += '</tr>';
+      });
+      html += `</tbody></table></div>`;
+    });
+  });
+
+  html += `</div></div>`;
+
+  // Computed properties values
+  html += `<div class="section"><div class="section-title">Computed Property Values</div><div class="prop-grid">`;
+
+  allTemps.forEach(temp => {
+    allProps.forEach(prop => {
+      // Check if any run has this
+      const hasAny = RUNS.some(r => VERSIONS.some(v => d[r]?.[v]?.properties?.[temp]?.[prop] !== undefined));
+      if (!hasAny) return;
+      html += `<div class="prop-card">
+        <div class="prop-card-header">
+          <span class="prop-name">${prop.replace(/_/g,' ')}</span>
+          <span class="prop-temp">${temp}</span>
+        </div>
+        <table>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}" title="${VERSION_LABELS[v]}">${v}</span></th>`).join('')}</tr></thead>
+          <tbody>`;
+      RUNS.forEach(run => {
+        if (!d[run]) return;
+        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+        VERSIONS.forEach(ver => {
+          const val = d[run]?.[ver]?.properties?.[temp]?.[prop];
+          html += val !== undefined && !isNaN(val)
+            ? `<td class="mono">${fmt(val,4)}</td>`
+            : `<td style="color:var(--text-dim)">—</td>`;
+        });
+        html += '</tr>';
+      });
+      html += `</tbody></table></div>`;
+    });
+  });
+
+  html += `</div></div>`;
+  return html;
+}
+
+// ═══════════════════════════════════════
+// PARAMS VIEW
+// ═══════════════════════════════════════
+function renderParams(mol) {
+  const d = DATA[mol];
+
+  let html = `<div class="mol-header">
+    <div class="mol-dot" style="width:14px;height:14px;border-radius:50%;background:${MOL_COLORS[mol]||'#58a6ff'}"></div>
+    <div><div class="mol-title">${mol}</div><div class="mol-sub">Parameter Comparison — all runs & versions</div></div>
+  </div>`;
+
+  html += `<div class="section"><div class="section-title">Parameters by Run</div><div class="params-grid">`;
+
+  RUNS.forEach(run => {
+    if (!d[run]) return;
+
+    // Collect all param names across versions
+    const paramNames = new Set();
+    VERSIONS.forEach(ver => {
+      const params = d[run]?.[ver]?.params;
+      if (params) Object.keys(params).forEach(p => paramNames.add(p));
+    });
+
+    const sorted = Array.from(paramNames).sort();
+
+    html += `<div class="param-card">
+      <div class="param-card-header">
+        <span class="spill spill-s${run.split('_')[1]}">${run}</span>
+        <span style="color:var(--text-muted);font-size:11px;font-weight:400">${sorted.length} parameters</span>
+      </div>
+      <table>
+        <thead><tr>
+          <th style="text-align:left">Parameter</th>
+          <th style="text-align:center"><span class="vpill vpill-v0">v0</span></th>
+          <th style="text-align:center"><span class="vpill vpill-v1">v1</span></th>
+          <th style="text-align:center"><span class="vpill vpill-v2">v2</span></th>
+        </tr></thead>
+        <tbody>`;
+
+    sorted.forEach(param => {
+      const vals = VERSIONS.map(ver => d[run]?.[ver]?.params?.[param]);
+      const hasAny = vals.some(v => v !== undefined && !isNaN(v));
+      if (!hasAny) return;
+
+      // Short display name (strip leading "param_")
+      const shortName = param.replace(/^param_/, '');
+
+      html += `<tr><td class="param-name" title="${param}">${shortName}</td>`;
+      vals.forEach((val, i) => {
+        const ver = VERSIONS[i];
+        if (val === undefined || val === null || isNaN(val)) {
+          html += `<td style="text-align:center;color:var(--text-dim)">—</td>`;
+        } else {
+          html += `<td style="text-align:center"><span class="param-val" style="color:var(--${ver})">${val.toFixed(3)}</span></td>`;
+        }
+      });
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+  });
+
+  html += `</div></div>`;
+
+  // Cross-run param comparison for each version
+  html += `<div class="section"><div class="section-title">Cross-Run Comparison by Version</div><div class="params-grid">`;
+
+  VERSIONS.forEach(ver => {
+    const runData = RUNS.filter(r => d[r]?.[ver]?.params);
+    if (!runData.length) return;
+
+    const paramNames = new Set();
+    runData.forEach(r => Object.keys(d[r][ver].params).forEach(p => paramNames.add(p)));
+    const sorted = Array.from(paramNames).sort();
+
+    html += `<div class="param-card">
+      <div class="param-card-header">
+        <span class="vpill vpill-${ver}">${ver}</span>
+        <span style="color:var(--text-muted);font-size:11px;font-weight:400">${sorted.length} params · across runs</span>
+      </div>
+      <table>
+        <thead><tr>
+          <th style="text-align:left">Parameter</th>
+          ${runData.map(r=>`<th style="text-align:center"><span class="spill spill-s${r.split('_')[1]}">${r}</span></th>`).join('')}
+        </tr></thead>
+        <tbody>`;
+
+    sorted.forEach(param => {
+      const vals = runData.map(r => d[r]?.[ver]?.params?.[param]);
+      const hasAny = vals.some(v => v !== undefined && !isNaN(v));
+      if (!hasAny) return;
+
+      const shortName = param.replace(/^param_/, '');
+
+      // Highlight min val
+      const numVals = vals.filter(v => v !== undefined && !isNaN(v));
+      const minVal = Math.min(...numVals);
+      const maxVal = Math.max(...numVals);
+      const range = maxVal - minVal;
+
+      html += `<tr><td class="param-name" title="${param}">${shortName}</td>`;
+      vals.forEach((val, i) => {
+        if (val === undefined || val === null || isNaN(val)) {
+          html += `<td style="text-align:center;color:var(--text-dim)">—</td>`;
+        } else {
+          const run = runData[i];
+          const col = `var(--swarm${run.split('_')[1]})`;
+          html += `<td style="text-align:center"><span class="param-val" style="color:${col}">${val.toFixed(3)}</span></td>`;
+        }
+      });
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+  });
+
+  html += `</div></div>`;
+  return html;
+}
+
+// ═══════════════════════════════════════
+// HEATMAP VIEW
+// ═══════════════════════════════════════
+function renderHeatmap(mol) {
+  const d = DATA[mol];
+
+  let html = `<div class="mol-header">
+    <div class="mol-dot" style="width:14px;height:14px;border-radius:50%;background:${MOL_COLORS[mol]||'#58a6ff'}"></div>
+    <div><div class="mol-title">${mol}</div><div class="mol-sub">Error Heatmap — comparative overview</div></div>
+  </div>`;
+
+  // Mean error heatmap: rows = runs, cols = versions
+  html += `<div class="section"><div class="section-title">Mean Error % — Runs vs Versions</div>
+    <div class="table-wrap">
+    <table class="heatmap-table">
+      <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${v}</span></th>`).join('')}</tr></thead>
+      <tbody>`;
+
+  RUNS.forEach(run => {
+    if (!d[run]) return;
+    html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+    VERSIONS.forEach(ver => {
+      const v = d[run]?.[ver]?.mean_error_pct;
+      html += `<td><span class="heat-cell" style="background:${heatBg(v)};color:${heatColor(v)}">${v !== undefined && !isNaN(v) ? v.toFixed(2)+'%' : '—'}</span></td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += `</tbody></table></div></div>`;
+
+  // Total error heatmap
+  html += `<div class="section"><div class="section-title">Total Error % — Runs vs Versions</div>
+    <div class="table-wrap">
+    <table class="heatmap-table">
+      <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${v}</span></th>`).join('')}</tr></thead>
+      <tbody>`;
+
+  RUNS.forEach(run => {
+    if (!d[run]) return;
+    html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+    VERSIONS.forEach(ver => {
+      const v = d[run]?.[ver]?.total_error_pct;
+      html += `<td><span class="heat-cell" style="background:${heatBg(v)};color:${heatColor(v)}">${v !== undefined && !isNaN(v) ? v.toFixed(2)+'%' : '—'}</span></td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += `</tbody></table></div></div>`;
+
+  // Per-property heatmap
+  const allTemps = new Set();
+  const allProps = new Set();
+  RUNS.forEach(run => VERSIONS.forEach(ver => {
+    const ep = d?.[run]?.[ver]?.error_pct_by_property;
+    if (!ep) return;
+    Object.keys(ep).forEach(t => {
+      allTemps.add(t);
+      Object.keys(ep[t]).forEach(p => allProps.add(p));
+    });
+  }));
+
+  allTemps.forEach(temp => {
+    allProps.forEach(prop => {
+      const hasAny = RUNS.some(r => VERSIONS.some(v => d[r]?.[v]?.error_pct_by_property?.[temp]?.[prop] !== undefined));
+      if (!hasAny) return;
+
+      html += `<div class="section">
+        <div class="section-title">${prop.replace(/_/g,' ')} @ ${temp}</div>
+        <div class="table-wrap">
+        <table class="heatmap-table">
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${v}</span></th>`).join('')}</tr></thead>
+          <tbody>`;
+
+      RUNS.forEach(run => {
+        if (!d[run]) return;
+        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+        VERSIONS.forEach(ver => {
+          const v = d[run]?.[ver]?.error_pct_by_property?.[temp]?.[prop];
+          html += `<td><span class="heat-cell" style="background:${heatBg(v)};color:${heatColor(v)}">${v !== undefined && !isNaN(v) ? v.toFixed(2)+'%' : '—'}</span></td>`;
+        });
+        html += '</tr>';
+      });
+
+      html += `</tbody></table></div></div>`;
+    });
+  });
+
+  // Legend
+  html += `<div class="section"><div class="section-title">Error Legend</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <span class="heat-cell" style="background:rgba(63,185,80,0.2);color:var(--low)">&lt; 5% Excellent</span>
+      <span class="heat-cell" style="background:rgba(63,185,80,0.1);color:#8dc875">5–15% Good</span>
+      <span class="heat-cell" style="background:rgba(210,153,34,0.2);color:var(--med)">15–30% Fair</span>
+      <span class="heat-cell" style="background:rgba(247,129,102,0.25);color:var(--high)">&gt; 30% Poor</span>
+    </div>
+  </div>`;
+
+  return html;
+}
+
+// ═══════════════════════════════════════
+// MAPPING SCHEME VIEW
+// ═══════════════════════════════════════
+function renderMappingScheme() {
+  return `<div class="mol-header">
+    <div><div class="mol-title">CG Mapping Scheme</div>
+    <div class="mol-sub">Coarse-grained mapping illustration for DMA &amp; DMSO variants</div></div>
+  </div>
+  <div style="display:flex;justify-content:center;align-items:flex-start;padding:8px 0 32px">
+    <img src="mapping_scheme.png" alt="CG Mapping Scheme"
+      style="max-width:100%;border-radius:8px;border:1px solid var(--border);background:white;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18)">
+  </div>`;
+}
+
+// ═══════════════════════════════════════
+// PUBLICATION TABLE VIEW — separate DMA & DMSO tables
+// ═══════════════════════════════════════
+function renderPublicationTable() {
+  const FAMILY_RUNS = [
+    { family: 'DMA',  mols: ['DMA','DMA_RE1','DMA_RE2'],    runLabels: ['DMA (Run 1)', 'DMA (Run 2) (RE1)', 'DMA (Run 3) (RE2)'] },
+    { family: 'DMSO', mols: ['DMSO','DMSO_RE2','DMSO_RE4'], runLabels: ['DMSO (Run 1)', 'DMSO (Run 2) (RE2)', 'DMSO (Run 3) (RE4)'] },
+  ];
+  const SWARMS_ORDER = ['Swarm_1','Swarm_2','Swarm_4','Swarm_8'];
+  const VERSIONS_PUB = ['v0','v1','v2'];
+  const VER_DISPLAY  = { v0: 'Scheme 1 (v0)', v1: 'Scheme 2 (v1)', v2: 'Scheme 3 (v2)' };
+
+  const SUB = [
+    { label: 'Density',        unit: '(g cm⁻³)'   },
+    { label: 'Heat of Vap.',   unit: '(cal mol⁻¹)' },
+    { label: 'Surf. Tension',  unit: '(dyn cm⁻¹)'  },
+    { label: 'Mean Error',     unit: '(%)'          },
+    { label: 'Best Epoch',     unit: ''             },
+  ];
+  const nSub = SUB.length;
+
+  function getErrPct(mol, swarm, ver, propKey) {
+    const ep = DATA?.[mol]?.[swarm]?.[ver]?.error_pct_by_property;
+    if (!ep) return null;
+    const vals = [];
+    Object.values(ep).forEach(tempObj => {
+      Object.entries(tempObj).forEach(([k,v]) => {
+        if (v === null || v === undefined || isNaN(v)) return;
+        const kl = k.toLowerCase().replace(/[\s\-]/g,'_');
+        if (kl.includes(propKey.split('_')[0])) vals.push(v);
+      });
+    });
+    return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+  }
+
+  function fmtN(v, dec=2) {
+    return (v === null || v === undefined || isNaN(v)) ? '—' : v.toFixed(dec);
+  }
+
+  function buildFamilyTable(fr) {
+    function swarmHasData(swarm) { return fr.mols.some(mol => DATA?.[mol]?.[swarm]); }
+    const SWARMS_PRESENT = SWARMS_ORDER.filter(swarmHasData);
+    const nMols = fr.mols.length;
+    const totalCols = 1 + nMols * nSub;
+
+    // 2-row header: row1 = run labels (colspan nSub), row2 = sub-column labels
+    let hdr1 = `<th rowspan="2" style="text-align:left;vertical-align:bottom;min-width:138px;border-right:2px solid #888;padding-bottom:6px">Mapping<br>Scheme</th>`;
+    let hdr2 = '';
+    fr.mols.forEach((mol, mi) => {
+      const lb = mi === 0 ? 'border-left:2px solid #888;' : 'border-left:1px solid #ccc;';
+      hdr1 += `<th colspan="${nSub}" style="${lb}border-bottom:1px solid #bbb;font-size:10px">${fr.runLabels[mi]}</th>`;
+      SUB.forEach((sh, si) => {
+        const lb2 = (si === 0 && mi === 0) ? 'border-left:2px solid #888;' : (si === 0 ? 'border-left:1px solid #ccc;' : '');
+        hdr2 += `<th style="${lb2}font-size:9px;min-width:64px;font-weight:600">${sh.label}<span class="pub-th-unit">${sh.unit || '&nbsp;'}</span></th>`;
+      });
+    });
+
+    let body = '';
+    SWARMS_PRESENT.forEach(swarm => {
+      const swarmLabel = swarm.replace('_', ' ');
+      body += `<tr class="pub-swarm-header"><td colspan="${totalCols}">${swarmLabel}</td></tr>`;
+
+      VERSIONS_PUB.forEach(ver => {
+        // Collect mean errors across runs for this swarm+ver row
+        const meanErrors = fr.mols.map(mol => {
+          const e = DATA?.[mol]?.[swarm]?.[ver];
+          return (e?.mean_error_pct !== undefined && e?.mean_error_pct !== null) ? e.mean_error_pct : null;
+        });
+        const validErrs = meanErrors.filter(v => v !== null && !isNaN(v));
+        const minMeanErr = validErrs.length ? Math.min(...validErrs) : null;
+
+        body += `<tr>
+          <td style="border-right:2px solid #888;font-style:italic;font-weight:bold">${VER_DISPLAY[ver] || ver}</td>`;
+
+        fr.mols.forEach((mol, mi) => {
+          const e   = DATA?.[mol]?.[swarm]?.[ver];
+          const lb  = mi === 0 ? 'border-left:2px solid #888;' : 'border-left:1px solid #ccc;';
+          if (!e) {
+            SUB.forEach((sh, si) => { body += `<td style="${si===0?lb:''}color:#ccc">—</td>`; });
+            return;
+          }
+          const densErr   = getErrPct(mol, swarm, ver, 'density');
+          const hvapErr   = getErrPct(mol, swarm, ver, 'heat_of_vaporization');
+          const stErr     = getErrPct(mol, swarm, ver, 'surface_tension');
+          const meanErr   = e.mean_error_pct ?? null;
+          const bestEpoch = e.best_epoch ?? null;
+          const isMin     = meanErr !== null && minMeanErr !== null && meanErr === minMeanErr;
+          const meanErrCell = isMin
+            ? `<span class="pub-epoch-best">${fmtN(meanErr)}</span>`
+            : fmtN(meanErr);
+          body += `
+            <td style="${lb}">${fmtN(densErr)}</td>
+            <td>${fmtN(hvapErr)}</td>
+            <td>${fmtN(stErr)}</td>
+            <td>${meanErrCell}</td>
+            <td>${bestEpoch !== null ? bestEpoch : '—'}</td>`;
+        });
+        body += `</tr>`;
+      });
+    });
+
+    return `<div class="pub-mol-section">
+      <div class="pub-mol-label">${fr.family} Family</div>
+      <div class="pub-table-wrap">
+      <table class="pub-table">
+        <thead>
+          <tr>${hdr1}</tr>
+          <tr>${hdr2}</tr>
+        </thead>
+        <tbody>${body}</tbody>
+      </table>
+      </div>
+    </div>`;
+  }
+
+  return `<div class="pub-tab-wrap">
+  <div class="pub-title">
+    Table 1. Optimization Performance of CG Mapping Schemes Across Swarm Sizes and Molecular Systems
+  </div>
+  <div class="pub-subtitle">
+    Error percentages are mean absolute deviations (%) from experimental reference data averaged across all temperatures.
+    Units: Density in g cm⁻³; Heat of Vaporization in cal mol⁻¹; Surface Tension in dyn cm⁻¹.
+    Best Epoch: training epoch yielding minimum total error.
+    <span style="display:inline-block;background:#c8f7c5;color:#1a6b16;padding:0 6px;border-radius:2px;font-style:normal;font-weight:bold">Green cell</span> = lowest Mean Error in the row (across runs for that Swarm &amp; Scheme).
+  </div>
+  ${FAMILY_RUNS.map(fr => buildFamilyTable(fr)).join('<hr class="pub-separator">')}
+  <div class="pub-note">
+    Swarm 1/2/4/8: number of parallel PSO optimization agents. Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): coarse-grained mapping scheme variants.
+    DMA family — Run 1: DMA; Run 2: DMA_RE1 (RE1); Run 3: DMA_RE2 (RE2).
+    DMSO family — Run 1: DMSO; Run 2: DMSO_RE2 (RE2); Run 3: DMSO_RE4 (RE4).
+  </div>
+</div>`;
+}
+
+// ═══════════════════════════════════════
+// MD RESULTS VIEW  (opt_run.json) — publication-style, two temps side-by-side
+// ═══════════════════════════════════════
+function renderOptRuns() {
+  if (!OPT_DATA) return '<div style="padding:24px"><div class="error-msg">opt_run.json not loaded.</div></div>';
+
+  const PROPS = ['Density','Heat_of_Vaporization','Surface_Tension','Dipole_Moment'];
+  const PROP_LABEL = {
+    Density:             'Density',
+    Heat_of_Vaporization:'Heat of Vap.',
+    Surface_Tension:     'Surf. Tension',
+    Dipole_Moment:       'Dipole',
+  };
+  const PROP_UNIT = {
+    Density:             'g cm⁻³',
+    Heat_of_Vaporization:'kcal mol⁻¹',
+    Surface_Tension:     'dyn cm⁻¹',
+    Dipole_Moment:       'D',
+  };
+
+  const results = OPT_DATA.results || OPT_DATA;
+  const VER_DISPLAY = { v0:'Scheme 1 (v0)', v1:'Scheme 2 (v1)', v2:'Scheme 3 (v2)' };
+  const SWARM_VER_ORDER = [
+    'Swarm_2/v0','Swarm_2/v1','Swarm_2/v2',
+    'Swarm_4/v0','Swarm_4/v1','Swarm_4/v2',
+    'Swarm_8/v0','Swarm_8/v1','Swarm_8/v2',
+  ];
+
+  function fmtV(v, dec=4) {
+    return (v === null || v === undefined || isNaN(v)) ? null : v.toFixed(dec);
+  }
+  function errColor(v) {
+    if (v === null || v === undefined || isNaN(v)) return '';
+    if (v < 5)  return 'color:#1a6b16';
+    if (v < 15) return 'color:#5a6e0a';
+    if (v < 30) return 'color:#7a5800';
+    return 'color:#8b1a0a';
+  }
+
+  function buildMolTable(mol, molData) {
+    const temps = Object.keys(molData);
+    const nDataCols = PROPS.length + 1; // 4 props + Mean Err
+
+    // Targets per temp
+    const targets = {};
+    temps.forEach(temp => {
+      const firstKey = Object.keys(molData[temp])[0];
+      targets[temp] = molData[temp][firstKey]?.targets || {};
+    });
+
+    // ── Header row 1: "Mapping Scheme" | Temp1 colspan | Temp2 colspan ──
+    let hdr1 = `<th rowspan="2" style="text-align:left;vertical-align:bottom;min-width:152px;border-right:2px solid #888;padding-bottom:6px">Mapping<br>Scheme</th>`;
+    temps.forEach(temp => {
+      hdr1 += `<th colspan="${nDataCols}" style="border-left:2px solid #888;border-bottom:1px solid #999;font-size:11px;letter-spacing:.04em">${temp}</th>`;
+    });
+
+    // ── Header row 2: prop labels repeated per temp ──
+    let hdr2 = '';
+    temps.forEach(temp => {
+      PROPS.forEach((p, pi) => {
+        hdr2 += `<th style="${pi===0?'border-left:2px solid #888;':''}font-size:9px;min-width:82px;font-weight:600">${PROP_LABEL[p]}<span class="pub-th-unit">${PROP_UNIT[p]}</span></th>`;
+      });
+      hdr2 += `<th style="font-size:9px;min-width:62px;font-weight:600">Mean Err<span class="pub-th-unit">(%)</span></th>`;
+    });
+
+    // ── Target row ──
+    let targetRow = `<tr style="background:#f2f6fb">
+      <td style="border-right:2px solid #888;border-bottom:2px solid #666;font-weight:bold;font-style:italic;font-size:10.5px;color:#334;padding-left:6px">Target</td>`;
+    temps.forEach(temp => {
+      const tgt = targets[temp];
+      PROPS.forEach((p, pi) => {
+        const v = tgt[p];
+        targetRow += `<td style="${pi===0?'border-left:2px solid #888;':''}border-bottom:2px solid #666;font-weight:bold;font-size:10.5px;color:#1a3a6b">${v != null ? parseFloat(v).toFixed(4) : '—'}</td>`;
+      });
+      targetRow += `<td style="border-bottom:2px solid #666;color:#aaa;font-size:10px">—</td>`;
+    });
+    targetRow += `</tr>`;
+
+    // ── Data rows ──
+    const SWARM_BG    = { '2':'rgba(30,100,210,0.05)', '4':'rgba(150,60,200,0.05)', '8':'rgba(20,155,70,0.05)' };
+    const SWARM_COLOR = { '2':'#1a4a9a',               '4':'#6a2a9a',              '8':'#0a6a35' };
+    let lastSwarm = null;
+    let dataRows = '';
+    SWARM_VER_ORDER.forEach(key => {
+      const [swarmPart, verPart] = key.split('/');
+      const swarmN   = swarmPart.split('_')[1];
+      const verLabel = VER_DISPLAY[verPart] || verPart;
+      const hasAny   = temps.some(t => molData[t]?.[key]);
+      if (!hasAny) return;
+
+      const isNewSwarm  = swarmPart !== lastSwarm;
+      lastSwarm = swarmPart;
+      const rowBg       = SWARM_BG[swarmN]    || '';
+      const swarmColor  = SWARM_COLOR[swarmN] || '#333';
+      const thickTop    = isNewSwarm ? 'border-top:2.5px solid #444;' : '';
+
+      dataRows += `<tr style="background:${rowBg}">
+        <td style="${thickTop}border-right:2px solid #888;font-weight:bold;font-size:12px;padding-left:6px">
+          ${verLabel}<br>
+          <span style="font-weight:normal;font-size:10px;color:${swarmColor}">Swarm ${swarmN}</span>
+        </td>`;
+
+      temps.forEach(temp => {
+        const entry = molData[temp]?.[key];
+        const lb = `border-left:2px solid #888;${thickTop}`;
+        const tt = thickTop;
+        if (!entry) {
+          PROPS.forEach((p, pi) => { dataRows += `<td style="${pi===0?lb:tt}color:#ccc">—</td>`; });
+          dataRows += `<td style="${tt}color:#ccc">—</td>`;
+          return;
+        }
+        const meanErr = entry.mean_pct_error;
+        PROPS.forEach((p, pi) => {
+          const simVal = entry.simulated?.[p];
+          const errVal = entry.errors?.[p];
+          const simStr = fmtV(simVal);
+          if (simStr === null) {
+            dataRows += `<td style="${pi===0?lb:tt}color:#bbb">—</td>`;
+          } else {
+            const errDisp = (errVal !== null && errVal !== undefined && !isNaN(errVal))
+              ? `<span style="font-size:9.5px;${errColor(errVal)}">(${errVal.toFixed(2)}%)</span>`
+              : '';
+            dataRows += `<td style="${pi===0?lb:tt}font-size:12px">${simStr} ${errDisp}</td>`;
+          }
+        });
+        const mec = errColor(meanErr);
+        dataRows += `<td style="${tt}font-weight:bold;font-size:12px;${mec}">${meanErr != null ? meanErr.toFixed(2)+'%' : '—'}</td>`;
+      });
+
+      dataRows += `</tr>`;
+    });
+
+    return `<div class="pub-mol-section">
+      <div class="pub-mol-label">${mol}</div>
+      <div class="pub-table-wrap">
+      <table class="pub-table">
+        <thead>
+          <tr>${hdr1}</tr>
+          <tr>${hdr2}</tr>
+        </thead>
+        <tbody>
+          ${targetRow}
+          ${dataRows}
+        </tbody>
+      </table>
+      </div>
+    </div>`;
+  }
+
+  const tablesHtml = Object.entries(results)
+    .filter(([, v]) => typeof v === 'object' && !Array.isArray(v))
+    .map(([mol, molData]) => buildMolTable(mol, molData))
+    .join('<hr class="pub-separator">');
+
+  return `<div class="pub-tab-wrap md-results-wrap">
+  <div class="pub-title">
+    Table 2. MD Simulation Results (100 ns) — Simulated Properties vs Experimental Targets
+  </div>
+  <div class="pub-subtitle">
+    Values shown as: <em>simulated value</em> <span style="color:#555">(% error)</span>.
+    Error is the absolute percentage deviation from the experimental target.
+    Mean Error is averaged over all applicable properties. Dipole Moment omitted from mean for v0/Scheme 1 runs (value = 0).
+  </div>
+  ${tablesHtml}
+  <div class="pub-note">
+    Swarm 2/4/8: number of parallel PSO optimization agents used during training.
+    Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): CG mapping scheme variants. Simulations run for 100 ns.
+  </div>
+</div>`;
+}
+
+loadData();
+</script>
+</body>
+</html>

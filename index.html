@@ -362,6 +362,71 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* NAV TABS IN HEADER */
+.nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-tab {
+  padding: 6px 13px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted); cursor: pointer;
+  border-radius: 6px; font-family: var(--sans); font-size: 12px;
+  font-weight: 500; transition: all 0.15s; white-space: nowrap;
+}
+.nav-tab:hover { border-color: var(--accent); color: var(--accent); }
+.nav-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* BG TOGGLE */
+.bg-toggle {
+  width: 32px; height: 32px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted); cursor: pointer;
+  border-radius: 6px; font-size: 15px; display: flex; align-items: center;
+  justify-content: center; transition: all 0.15s; flex-shrink: 0;
+}
+.bg-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+/* GREEN best-in-row highlight */
+.best-in-row {
+  display: inline-block;
+  background: rgba(46,160,67,0.18); color: #2ea043 !important;
+  font-weight: bold; border-radius: 2px; padding: 1px 5px;
+}
+
+/* LIGHT THEME */
+:root.light {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface2: #f0f2f5;
+  --border: #d0d7de;
+  --border-light: #e1e4e8;
+  --text: #24292f;
+  --text-muted: #57606a;
+  --text-dim: #8c959f;
+  --low: #1a7f37;
+  --med: #9a6700;
+  --high: #cf222e;
+}
+:root.light tbody tr:hover td { background: rgba(0,0,0,0.02); }
+:root.light .err-low { color: var(--low); }
+:root.light .err-med { color: var(--med); }
+:root.light .err-high { color: var(--high); }
+
+/* MD RESULTS — Arial 12 font override */
+.md-results-wrap,
+.md-results-wrap .pub-table,
+.md-results-wrap .pub-table th,
+.md-results-wrap .pub-table td,
+.md-results-wrap .pub-title,
+.md-results-wrap .pub-subtitle,
+.md-results-wrap .pub-mol-label,
+.md-results-wrap .pub-note {
+  font-family: Arial, sans-serif !important;
+}
+.md-results-wrap .pub-table th,
+.md-results-wrap .pub-table td { font-size: 12px; }
+.md-results-wrap .pub-table th { font-size: 10.5px; }
+.md-results-wrap .pub-th-unit { font-size: 9.5px; }
+.md-results-wrap .pub-title { font-size: 14px; }
+.md-results-wrap .pub-subtitle { font-size: 11.5px; }
+.md-results-wrap .pub-mol-label { font-size: 13px; }
 </style>
 </head>
 <body>
@@ -378,8 +443,15 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
     <p>Coarse-grained force field parameter analysis</p>
   </div>
   <div class="header-right">
-    <span class="badge">v0 · v1 · v2</span>
-    <span class="badge">Swarm 2/4/8</span>
+    <div class="nav-tabs">
+      <button class="nav-tab" id="btnMapping" onclick="setView('mapping')">🗺 Mapping Scheme</button>
+      <button class="nav-tab active" id="btnResults" onclick="setView('results')">Results</button>
+      <button class="nav-tab" id="btnParams" onclick="setView('params')">Parameters</button>
+      <button class="nav-tab" id="btnHeatmap" onclick="setView('heatmap')">Error Heatmap</button>
+      <button class="nav-tab" id="btnTable" onclick="setView('table')">Performance Table</button>
+      <button class="nav-tab" id="btnOptruns" onclick="setView('optruns')">MD Results (100ns)</button>
+    </div>
+    <button class="bg-toggle" id="bgToggle" onclick="toggleBg()" title="Toggle light/dark">🌙</button>
   </div>
 </div>
 
@@ -389,18 +461,14 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
       <div class="sidebar-label">Molecules</div>
       <div id="molList"></div>
     </div>
-    <div class="view-toggle">
-      <button class="view-btn active" id="btnResults" onclick="setView('results')">Results</button>
-      <button class="view-btn" id="btnParams" onclick="setView('params')">Params</button>
-      <button class="view-btn" id="btnHeatmap" onclick="setView('heatmap')">Heat</button>
-      <button class="view-btn" id="btnTable" onclick="setView('table')">Table</button>
-    </div>
+    <div class="sidebar-divider"></div>
   </div>
   <div class="main" id="mainContent"></div>
 </div>
 
 <script>
 let DATA = null;
+let OPT_DATA = null;
 let currentMol = null;
 let currentView = 'results';
 
@@ -425,6 +493,21 @@ const GROUPS = {
 
 const RUNS = ['Swarm_2', 'Swarm_4', 'Swarm_8'];
 const VERSIONS = ['v0', 'v1', 'v2'];
+
+const VERSION_LABELS = {
+  v0: 'Scheme 1 (v0)',
+  v1: 'Scheme 2 (v1)',
+  v2: 'Scheme 3 (v2)',
+};
+
+const MOL_RUN_LABELS = {
+  DMA:      'DMA (Run 1)',
+  DMA_RE1:  'DMA (Run 2) (RE1)',
+  DMA_RE2:  'DMA (Run 3) (RE2)',
+  DMSO:     'DMSO (Run 1)',
+  DMSO_RE2: 'DMSO (Run 2) (RE2)',
+  DMSO_RE4: 'DMSO (Run 3) (RE4)',
+};
 
 function errClass(v) {
   if (v === null || v === undefined || isNaN(v)) return '';
@@ -455,13 +538,24 @@ function heatColor(v) {
 
 async function loadData() {
   try {
-    const r = await fetch('best_epochs_summary.json');
+    const [r, ro] = await Promise.all([
+      fetch('best_epochs_summary.json'),
+      fetch('opt_run.json'),
+    ]);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     DATA = await r.json();
-    // Replace NaN strings (JSON doesn't support NaN, but json.dumps might produce null)
+    if (ro.ok) OPT_DATA = await ro.json();
     init();
   } catch(e) {
     document.getElementById('loader').innerHTML = `<div class="error-msg">Failed to load data: ${e.message}</div>`;
+  }
+}
+
+function toggleBg() {
+  const isLight = document.documentElement.classList.toggle('light');
+  document.getElementById('bgToggle').textContent = isLight ? '🌑' : '🌙';
+  if (currentView === 'table') {
+    document.getElementById('mainContent').style.background = isLight ? '' : '#fff';
   }
 }
 
@@ -498,7 +592,7 @@ function selectMol(mol) {
 
 function setView(v) {
   currentView = v;
-  ['results','params','heatmap','table'].forEach(id => {
+  ['mapping','results','params','heatmap','table','optruns'].forEach(id => {
     const btn = document.getElementById('btn' + id.charAt(0).toUpperCase() + id.slice(1));
     if (btn) btn.classList.toggle('active', v === id);
   });
@@ -507,13 +601,27 @@ function setView(v) {
 
 function renderView() {
   const main = document.getElementById('mainContent');
+  const isLight = document.documentElement.classList.contains('light');
+  if (currentView === 'mapping') {
+    main.innerHTML = renderMappingScheme();
+    main.style.background = '';
+    return;
+  }
+  if (currentView === 'optruns') {
+    main.innerHTML = renderOptRuns();
+    main.style.background = isLight ? '' : '#fff';
+    return;
+  }
+  if (currentView === 'table') {
+    main.innerHTML = renderPublicationTable();
+    main.style.background = isLight ? '' : '#fff';
+    return;
+  }
   if (!currentMol || !DATA[currentMol]) { main.innerHTML = ''; return; }
   if (currentView === 'results') main.innerHTML = renderResults(currentMol);
   else if (currentView === 'params') main.innerHTML = renderParams(currentMol);
   else if (currentView === 'heatmap') main.innerHTML = renderHeatmap(currentMol);
-  else if (currentView === 'table') main.innerHTML = renderPublicationTable();
-  // Set background for pub table
-  main.style.background = currentView === 'table' ? '#fff' : '';
+  main.style.background = '';
 }
 
 // ═══════════════════════════════════════
@@ -617,7 +725,7 @@ function renderResults(mol) {
           <span class="prop-temp">${temp}</span>
         </div>
         <table>
-          <thead><tr><th>Run</th><th>v0</th><th>v1</th><th>v2</th></tr></thead>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}" title="${VERSION_LABELS[v]}">${v}</span></th>`).join('')}</tr></thead>
           <tbody>`;
       RUNS.forEach(run => {
         if (!d[run]) return;
@@ -650,7 +758,7 @@ function renderResults(mol) {
           <span class="prop-temp">${temp}</span>
         </div>
         <table>
-          <thead><tr><th>Run</th><th>v0</th><th>v1</th><th>v2</th></tr></thead>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}" title="${VERSION_LABELS[v]}">${v}</span></th>`).join('')}</tr></thead>
           <tbody>`;
       RUNS.forEach(run => {
         if (!d[run]) return;
@@ -892,31 +1000,40 @@ function renderHeatmap(mol) {
 }
 
 // ═══════════════════════════════════════
-// PUBLICATION TABLE VIEW  (single unified table)
+// MAPPING SCHEME VIEW
+// ═══════════════════════════════════════
+function renderMappingScheme() {
+  return `<div class="mol-header">
+    <div><div class="mol-title">CG Mapping Scheme</div>
+    <div class="mol-sub">Coarse-grained mapping illustration for DMA &amp; DMSO variants</div></div>
+  </div>
+  <div style="display:flex;justify-content:center;align-items:flex-start;padding:8px 0 32px">
+    <img src="mapping_scheme.png" alt="CG Mapping Scheme"
+      style="max-width:100%;border-radius:8px;border:1px solid var(--border);background:white;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18)">
+  </div>`;
+}
+
+// ═══════════════════════════════════════
+// PUBLICATION TABLE VIEW — separate DMA & DMSO tables
 // ═══════════════════════════════════════
 function renderPublicationTable() {
-  // Molecule → Run column mapping
-  // DMA family:  DMA = Run 1,  DMA_RE1 = Run 2,  DMA_RE2 = Run 3
-  // DMSO family: DMSO = Run 1, DMSO_RE2 = Run 2  (no Run 3)
   const FAMILY_RUNS = [
-    { family: 'DMA',  mols: ['DMA','DMA_RE1','DMA_RE2'],  runLabels: ['Run 1','Run 2','Run 3'] },
-    { family: 'DMSO', mols: ['DMSO','DMSO_RE2','DMSO_RE4'], runLabels: ['Run 1','Run 2','Run 3'] },
+    { family: 'DMA',  mols: ['DMA','DMA_RE1','DMA_RE2'],    runLabels: ['DMA (Run 1)', 'DMA (Run 2) (RE1)', 'DMA (Run 3) (RE2)'] },
+    { family: 'DMSO', mols: ['DMSO','DMSO_RE2','DMSO_RE4'], runLabels: ['DMSO (Run 1)', 'DMSO (Run 2) (RE2)', 'DMSO (Run 3) (RE4)'] },
   ];
-
   const SWARMS_ORDER = ['Swarm_1','Swarm_2','Swarm_4','Swarm_8'];
-  const VERSIONS = ['v0','v1','v2'];
+  const VERSIONS_PUB = ['v0','v1','v2'];
+  const VER_DISPLAY  = { v0: 'Scheme 1 (v0)', v1: 'Scheme 2 (v1)', v2: 'Scheme 3 (v2)' };
 
-  // Sub-column definitions (CGS / cal·mol⁻¹)
   const SUB = [
-    { label: 'Density',              unit: '(g cm⁻³)'      },
-    { label: 'Heat of Vaporization', unit: '(cal mol⁻¹)'   },
-    { label: 'Surface Tension',      unit: '(dyn cm⁻¹)'    },
-    { label: 'Mean Error',           unit: '(%)'            },
-    { label: 'Best Epoch',           unit: ''               },
+    { label: 'Density',        unit: '(g cm⁻³)'   },
+    { label: 'Heat of Vap.',   unit: '(cal mol⁻¹)' },
+    { label: 'Surf. Tension',  unit: '(dyn cm⁻¹)'  },
+    { label: 'Mean Error',     unit: '(%)'          },
+    { label: 'Best Epoch',     unit: ''             },
   ];
   const nSub = SUB.length;
 
-  // Helper: get avg error% for a property across all temps for (mol, swarm, ver)
   function getErrPct(mol, swarm, ver, propKey) {
     const ep = DATA?.[mol]?.[swarm]?.[ver]?.error_pct_by_property;
     if (!ep) return null;
@@ -935,102 +1052,81 @@ function renderPublicationTable() {
     return (v === null || v === undefined || isNaN(v)) ? '—' : v.toFixed(dec);
   }
 
-  // Determine which swarms actually have any data for at least one molecule
-  function swarmHasData(swarm) {
-    return FAMILY_RUNS.some(fr => fr.mols.some(mol => DATA?.[mol]?.[swarm]));
-  }
-  const SWARMS_PRESENT = SWARMS_ORDER.filter(swarmHasData);
+  function buildFamilyTable(fr) {
+    function swarmHasData(swarm) { return fr.mols.some(mol => DATA?.[mol]?.[swarm]); }
+    const SWARMS_PRESENT = SWARMS_ORDER.filter(swarmHasData);
+    const nMols = fr.mols.length;
+    const totalCols = 1 + nMols * nSub;
 
-  // For green highlight: min best_epoch across all (mol, ver) combos within a swarm
-  function minEpochInSwarm(swarm) {
-    let mn = Infinity;
-    FAMILY_RUNS.forEach(fr => {
-      fr.mols.forEach(mol => {
-        VERSIONS.forEach(ver => {
-          const ep = DATA?.[mol]?.[swarm]?.[ver]?.best_epoch;
-          if (ep != null && !isNaN(ep) && ep < mn) mn = ep;
-        });
-      });
-    });
-    return isFinite(mn) ? mn : null;
-  }
-
-  // Build total column span
-  // Cols: 1 (Mapping Scheme) + sum of (nMols * nSub) per family, separated by a divider col
-  // We'll insert a thin visual separator between families via CSS, not an extra column
-  const totalFamilyCols = FAMILY_RUNS.reduce((s, fr) => s + fr.mols.length * nSub, 0);
-  const totalCols = 1 + totalFamilyCols;
-
-  // ── Header rows ──────────────────────────────────────────────────────────────
-  // Row 1: "Mapping Scheme" | [DMA family colspan] | [DMSO family colspan]
-  // Row 2: Run 1 | Run 2 | Run 3  (per family)
-  // Row 3: 5 sub-cols repeated per run
-
-  let hdr1 = `<th rowspan="3" style="text-align:left;vertical-align:bottom;min-width:108px;border-right:2px solid #888;padding-bottom:6px">Mapping<br>Scheme</th>`;
-  let hdr2 = '';
-  let hdr3 = '';
-
-  FAMILY_RUNS.forEach((fr, fi) => {
-    const famCols = fr.mols.length * nSub;
-    const leftBorder = 'border-left:2px solid #888;';
-    hdr1 += `<th colspan="${famCols}" style="${leftBorder}border-bottom:1px solid #999;font-size:11px;letter-spacing:.04em">${fr.family} Family</th>`;
-
+    // 2-row header: row1 = run labels (colspan nSub), row2 = sub-column labels
+    let hdr1 = `<th rowspan="2" style="text-align:left;vertical-align:bottom;min-width:138px;border-right:2px solid #888;padding-bottom:6px">Mapping<br>Scheme</th>`;
+    let hdr2 = '';
     fr.mols.forEach((mol, mi) => {
-      const lb = mi === 0 ? leftBorder : 'border-left:1px solid #ccc;';
-      hdr2 += `<th colspan="${nSub}" style="${lb}border-bottom:1px solid #bbb;font-size:10px">${fr.runLabels[mi]}<br><span style="font-weight:normal;font-size:9px;color:#666">(${mol})</span></th>`;
+      const lb = mi === 0 ? 'border-left:2px solid #888;' : 'border-left:1px solid #ccc;';
+      hdr1 += `<th colspan="${nSub}" style="${lb}border-bottom:1px solid #bbb;font-size:10px">${fr.runLabels[mi]}</th>`;
       SUB.forEach((sh, si) => {
-        const lb2 = (si === 0 && mi === 0) ? leftBorder : (si === 0 ? 'border-left:1px solid #ccc;' : '');
-        hdr3 += `<th style="${lb2}font-size:9px;min-width:62px;font-weight:600">${sh.label}<span class="pub-th-unit">${sh.unit || '&nbsp;'}</span></th>`;
+        const lb2 = (si === 0 && mi === 0) ? 'border-left:2px solid #888;' : (si === 0 ? 'border-left:1px solid #ccc;' : '');
+        hdr2 += `<th style="${lb2}font-size:9px;min-width:64px;font-weight:600">${sh.label}<span class="pub-th-unit">${sh.unit || '&nbsp;'}</span></th>`;
       });
     });
-  });
 
-  // ── Table body ───────────────────────────────────────────────────────────────
-  let body = '';
+    let body = '';
+    SWARMS_PRESENT.forEach(swarm => {
+      const swarmLabel = swarm.replace('_', ' ');
+      body += `<tr class="pub-swarm-header"><td colspan="${totalCols}">${swarmLabel}</td></tr>`;
 
-  SWARMS_PRESENT.forEach(swarm => {
-    const swarmLabel = swarm.replace('_', ' ');
-    const minEpoch   = minEpochInSwarm(swarm);
+      VERSIONS_PUB.forEach(ver => {
+        // Collect mean errors across runs for this swarm+ver row
+        const meanErrors = fr.mols.map(mol => {
+          const e = DATA?.[mol]?.[swarm]?.[ver];
+          return (e?.mean_error_pct !== undefined && e?.mean_error_pct !== null) ? e.mean_error_pct : null;
+        });
+        const validErrs = meanErrors.filter(v => v !== null && !isNaN(v));
+        const minMeanErr = validErrs.length ? Math.min(...validErrs) : null;
 
-    body += `<tr class="pub-swarm-header"><td colspan="${totalCols}">${swarmLabel}</td></tr>`;
+        body += `<tr>
+          <td style="border-right:2px solid #888;font-style:italic;font-weight:bold">${VER_DISPLAY[ver] || ver}</td>`;
 
-    VERSIONS.forEach(ver => {
-      body += `<tr>
-        <td style="border-right:2px solid #888;font-style:italic;font-weight:bold">${ver}</td>`;
-
-      FAMILY_RUNS.forEach((fr, fi) => {
         fr.mols.forEach((mol, mi) => {
           const e   = DATA?.[mol]?.[swarm]?.[ver];
           const lb  = mi === 0 ? 'border-left:2px solid #888;' : 'border-left:1px solid #ccc;';
           if (!e) {
-            SUB.forEach((sh, si) => {
-              body += `<td style="${si===0?lb:''}color:#ccc">—</td>`;
-            });
+            SUB.forEach((sh, si) => { body += `<td style="${si===0?lb:''}color:#ccc">—</td>`; });
             return;
           }
-
-          const densErr  = getErrPct(mol, swarm, ver, 'density');
-          const hvapErr  = getErrPct(mol, swarm, ver, 'heat_of_vaporization');
-          const stErr    = getErrPct(mol, swarm, ver, 'surface_tension');
-          const meanErr  = e.mean_error_pct ?? null;
-          const bestEpoch= e.best_epoch     ?? null;
-          const isMin    = bestEpoch !== null && bestEpoch === minEpoch;
-          const epochCell= isMin
-            ? `<span class="pub-epoch-best">${bestEpoch}</span>`
-            : (bestEpoch !== null ? bestEpoch : '—');
-
+          const densErr   = getErrPct(mol, swarm, ver, 'density');
+          const hvapErr   = getErrPct(mol, swarm, ver, 'heat_of_vaporization');
+          const stErr     = getErrPct(mol, swarm, ver, 'surface_tension');
+          const meanErr   = e.mean_error_pct ?? null;
+          const bestEpoch = e.best_epoch ?? null;
+          const isMin     = meanErr !== null && minMeanErr !== null && meanErr === minMeanErr;
+          const meanErrCell = isMin
+            ? `<span class="pub-epoch-best">${fmtN(meanErr)}</span>`
+            : fmtN(meanErr);
           body += `
             <td style="${lb}">${fmtN(densErr)}</td>
             <td>${fmtN(hvapErr)}</td>
             <td>${fmtN(stErr)}</td>
-            <td>${fmtN(meanErr)}</td>
-            <td>${epochCell}</td>`;
+            <td>${meanErrCell}</td>
+            <td>${bestEpoch !== null ? bestEpoch : '—'}</td>`;
         });
+        body += `</tr>`;
       });
-
-      body += `</tr>`;
     });
-  });
+
+    return `<div class="pub-mol-section">
+      <div class="pub-mol-label">${fr.family} Family</div>
+      <div class="pub-table-wrap">
+      <table class="pub-table">
+        <thead>
+          <tr>${hdr1}</tr>
+          <tr>${hdr2}</tr>
+        </thead>
+        <tbody>${body}</tbody>
+      </table>
+      </div>
+    </div>`;
+  }
 
   return `<div class="pub-tab-wrap">
   <div class="pub-title">
@@ -1040,22 +1136,184 @@ function renderPublicationTable() {
     Error percentages are mean absolute deviations (%) from experimental reference data averaged across all temperatures.
     Units: Density in g cm⁻³; Heat of Vaporization in cal mol⁻¹; Surface Tension in dyn cm⁻¹.
     Best Epoch: training epoch yielding minimum total error.
-    <span style="display:inline-block;background:#c8f7c5;color:#1a6b16;padding:0 6px;border-radius:2px;font-style:normal;font-weight:bold">Green cell</span> = minimum Best Epoch within each swarm block.
+    <span style="display:inline-block;background:#c8f7c5;color:#1a6b16;padding:0 6px;border-radius:2px;font-style:normal;font-weight:bold">Green cell</span> = lowest Mean Error in the row (across runs for that Swarm &amp; Scheme).
   </div>
-  <div class="pub-table-wrap">
-  <table class="pub-table">
-    <thead>
-      <tr>${hdr1}</tr>
-      <tr>${hdr2}</tr>
-      <tr>${hdr3}</tr>
-    </thead>
-    <tbody>${body}</tbody>
-  </table>
-  </div>
+  ${FAMILY_RUNS.map(fr => buildFamilyTable(fr)).join('<hr class="pub-separator">')}
   <div class="pub-note">
-    Swarm 1/2/4/8: number of parallel PSO optimization agents. v0, v1, v2: coarse-grained mapping scheme variants.
-    DMA family — Run 1: DMA; Run 2: DMA_RE1; Run 3: DMA_RE2.
-    DMSO family — Run 1: DMSO; Run 2: DMSO_RE2.
+    Swarm 1/2/4/8: number of parallel PSO optimization agents. Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): coarse-grained mapping scheme variants.
+    DMA family — Run 1: DMA; Run 2: DMA_RE1 (RE1); Run 3: DMA_RE2 (RE2).
+    DMSO family — Run 1: DMSO; Run 2: DMSO_RE2 (RE2); Run 3: DMSO_RE4 (RE4).
+  </div>
+</div>`;
+}
+
+// ═══════════════════════════════════════
+// MD RESULTS VIEW  (opt_run.json) — publication-style, two temps side-by-side
+// ═══════════════════════════════════════
+function renderOptRuns() {
+  if (!OPT_DATA) return '<div style="padding:24px"><div class="error-msg">opt_run.json not loaded.</div></div>';
+
+  const PROPS = ['Density','Heat_of_Vaporization','Surface_Tension','Dipole_Moment'];
+  const PROP_LABEL = {
+    Density:             'Density',
+    Heat_of_Vaporization:'Heat of Vap.',
+    Surface_Tension:     'Surf. Tension',
+    Dipole_Moment:       'Dipole',
+  };
+  const PROP_UNIT = {
+    Density:             'g cm⁻³',
+    Heat_of_Vaporization:'kcal mol⁻¹',
+    Surface_Tension:     'dyn cm⁻¹',
+    Dipole_Moment:       'D',
+  };
+
+  const results = OPT_DATA.results || OPT_DATA;
+  const VER_DISPLAY = { v0:'Scheme 1 (v0)', v1:'Scheme 2 (v1)', v2:'Scheme 3 (v2)' };
+  const SWARM_VER_ORDER = [
+    'Swarm_2/v0','Swarm_2/v1','Swarm_2/v2',
+    'Swarm_4/v0','Swarm_4/v1','Swarm_4/v2',
+    'Swarm_8/v0','Swarm_8/v1','Swarm_8/v2',
+  ];
+
+  function fmtV(v, dec=4) {
+    return (v === null || v === undefined || isNaN(v)) ? null : v.toFixed(dec);
+  }
+  function errColor(v) {
+    if (v === null || v === undefined || isNaN(v)) return '';
+    if (v < 5)  return 'color:#1a6b16';
+    if (v < 15) return 'color:#5a6e0a';
+    if (v < 30) return 'color:#7a5800';
+    return 'color:#8b1a0a';
+  }
+
+  function buildMolTable(mol, molData) {
+    const temps = Object.keys(molData);
+    const nDataCols = PROPS.length + 1; // 4 props + Mean Err
+
+    // Targets per temp
+    const targets = {};
+    temps.forEach(temp => {
+      const firstKey = Object.keys(molData[temp])[0];
+      targets[temp] = molData[temp][firstKey]?.targets || {};
+    });
+
+    // ── Header row 1: "Mapping Scheme" | Temp1 colspan | Temp2 colspan ──
+    let hdr1 = `<th rowspan="2" style="text-align:left;vertical-align:bottom;min-width:152px;border-right:2px solid #888;padding-bottom:6px">Mapping<br>Scheme</th>`;
+    temps.forEach(temp => {
+      hdr1 += `<th colspan="${nDataCols}" style="border-left:2px solid #888;border-bottom:1px solid #999;font-size:11px;letter-spacing:.04em">${temp}</th>`;
+    });
+
+    // ── Header row 2: prop labels repeated per temp ──
+    let hdr2 = '';
+    temps.forEach(temp => {
+      PROPS.forEach((p, pi) => {
+        hdr2 += `<th style="${pi===0?'border-left:2px solid #888;':''}font-size:9px;min-width:82px;font-weight:600">${PROP_LABEL[p]}<span class="pub-th-unit">${PROP_UNIT[p]}</span></th>`;
+      });
+      hdr2 += `<th style="font-size:9px;min-width:62px;font-weight:600">Mean Err<span class="pub-th-unit">(%)</span></th>`;
+    });
+
+    // ── Target row ──
+    let targetRow = `<tr style="background:#f2f6fb">
+      <td style="border-right:2px solid #888;border-bottom:2px solid #666;font-weight:bold;font-style:italic;font-size:10.5px;color:#334;padding-left:6px">Target</td>`;
+    temps.forEach(temp => {
+      const tgt = targets[temp];
+      PROPS.forEach((p, pi) => {
+        const v = tgt[p];
+        targetRow += `<td style="${pi===0?'border-left:2px solid #888;':''}border-bottom:2px solid #666;font-weight:bold;font-size:10.5px;color:#1a3a6b">${v != null ? parseFloat(v).toFixed(4) : '—'}</td>`;
+      });
+      targetRow += `<td style="border-bottom:2px solid #666;color:#aaa;font-size:10px">—</td>`;
+    });
+    targetRow += `</tr>`;
+
+    // ── Data rows ──
+    const SWARM_BG    = { '2':'rgba(30,100,210,0.05)', '4':'rgba(150,60,200,0.05)', '8':'rgba(20,155,70,0.05)' };
+    const SWARM_COLOR = { '2':'#1a4a9a',               '4':'#6a2a9a',              '8':'#0a6a35' };
+    let lastSwarm = null;
+    let dataRows = '';
+    SWARM_VER_ORDER.forEach(key => {
+      const [swarmPart, verPart] = key.split('/');
+      const swarmN   = swarmPart.split('_')[1];
+      const verLabel = VER_DISPLAY[verPart] || verPart;
+      const hasAny   = temps.some(t => molData[t]?.[key]);
+      if (!hasAny) return;
+
+      const isNewSwarm  = swarmPart !== lastSwarm;
+      lastSwarm = swarmPart;
+      const rowBg       = SWARM_BG[swarmN]    || '';
+      const swarmColor  = SWARM_COLOR[swarmN] || '#333';
+      const thickTop    = isNewSwarm ? 'border-top:2.5px solid #444;' : '';
+
+      dataRows += `<tr style="background:${rowBg}">
+        <td style="${thickTop}border-right:2px solid #888;font-weight:bold;font-size:12px;padding-left:6px">
+          ${verLabel}<br>
+          <span style="font-weight:normal;font-size:10px;color:${swarmColor}">Swarm ${swarmN}</span>
+        </td>`;
+
+      temps.forEach(temp => {
+        const entry = molData[temp]?.[key];
+        const lb = `border-left:2px solid #888;${thickTop}`;
+        const tt = thickTop;
+        if (!entry) {
+          PROPS.forEach((p, pi) => { dataRows += `<td style="${pi===0?lb:tt}color:#ccc">—</td>`; });
+          dataRows += `<td style="${tt}color:#ccc">—</td>`;
+          return;
+        }
+        const meanErr = entry.mean_pct_error;
+        PROPS.forEach((p, pi) => {
+          const simVal = entry.simulated?.[p];
+          const errVal = entry.errors?.[p];
+          const simStr = fmtV(simVal);
+          if (simStr === null) {
+            dataRows += `<td style="${pi===0?lb:tt}color:#bbb">—</td>`;
+          } else {
+            const errDisp = (errVal !== null && errVal !== undefined && !isNaN(errVal))
+              ? `<span style="font-size:9.5px;${errColor(errVal)}">(${errVal.toFixed(2)}%)</span>`
+              : '';
+            dataRows += `<td style="${pi===0?lb:tt}font-size:12px">${simStr} ${errDisp}</td>`;
+          }
+        });
+        const mec = errColor(meanErr);
+        dataRows += `<td style="${tt}font-weight:bold;font-size:12px;${mec}">${meanErr != null ? meanErr.toFixed(2)+'%' : '—'}</td>`;
+      });
+
+      dataRows += `</tr>`;
+    });
+
+    return `<div class="pub-mol-section">
+      <div class="pub-mol-label">${mol}</div>
+      <div class="pub-table-wrap">
+      <table class="pub-table">
+        <thead>
+          <tr>${hdr1}</tr>
+          <tr>${hdr2}</tr>
+        </thead>
+        <tbody>
+          ${targetRow}
+          ${dataRows}
+        </tbody>
+      </table>
+      </div>
+    </div>`;
+  }
+
+  const tablesHtml = Object.entries(results)
+    .filter(([, v]) => typeof v === 'object' && !Array.isArray(v))
+    .map(([mol, molData]) => buildMolTable(mol, molData))
+    .join('<hr class="pub-separator">');
+
+  return `<div class="pub-tab-wrap md-results-wrap">
+  <div class="pub-title">
+    Table 2. MD Simulation Results (100 ns) — Simulated Properties vs Experimental Targets
+  </div>
+  <div class="pub-subtitle">
+    Values shown as: <em>simulated value</em> <span style="color:#555">(% error)</span>.
+    Error is the absolute percentage deviation from the experimental target.
+    Mean Error is averaged over all applicable properties. Dipole Moment omitted from mean for v0/Scheme 1 runs (value = 0).
+  </div>
+  ${tablesHtml}
+  <div class="pub-note">
+    Swarm 2/4/8: number of parallel PSO optimization agents used during training.
+    Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): CG mapping scheme variants. Simulations run for 100 ns.
   </div>
 </div>`;
 }

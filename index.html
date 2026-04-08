@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -450,8 +450,9 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
       <button class="nav-tab" id="btnHeatmap" onclick="setView('heatmap')">Error Heatmap</button>
       <button class="nav-tab" id="btnTable" onclick="setView('table')">Performance Table</button>
       <button class="nav-tab" id="btnOptruns" onclick="setView('optruns')">MD Results (100ns)</button>
+      <button class="nav-tab" id="btnAgents" onclick="setView('agents')">Agents Efficiency</button>
     </div>
-    <button class="bg-toggle" id="bgToggle" onclick="toggleBg()" title="Toggle light/dark">🌙</button>
+    <button class="bg-toggle" id="bgToggle" onclick="toggleBg()" title="Toggle light/dark">🌑</button>
   </div>
 </div>
 
@@ -592,7 +593,7 @@ function selectMol(mol) {
 
 function setView(v) {
   currentView = v;
-  ['mapping','results','params','heatmap','table','optruns'].forEach(id => {
+  ['mapping','results','params','heatmap','table','optruns','agents'].forEach(id => {
     const btn = document.getElementById('btn' + id.charAt(0).toUpperCase() + id.slice(1));
     if (btn) btn.classList.toggle('active', v === id);
   });
@@ -615,6 +616,11 @@ function renderView() {
   if (currentView === 'table') {
     main.innerHTML = renderPublicationTable();
     main.style.background = isLight ? '' : '#fff';
+    return;
+  }
+  if (currentView === 'agents') {
+    main.innerHTML = renderAgentsEfficiency();
+    main.style.background = '';
     return;
   }
   if (!currentMol || !DATA[currentMol]) { main.innerHTML = ''; return; }
@@ -1140,7 +1146,7 @@ function renderPublicationTable() {
   </div>
   ${FAMILY_RUNS.map(fr => buildFamilyTable(fr)).join('<hr class="pub-separator">')}
   <div class="pub-note">
-    Swarm 1/2/4/8: number of parallel PSO optimization agents. Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): coarse-grained mapping scheme variants.
+    Swarm 1/2/4/8: number of parallel Fork optimization agents. Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): coarse-grained mapping scheme variants.
     DMA family — Run 1: DMA; Run 2: DMA_RE1 (RE1); Run 3: DMA_RE2 (RE2).
     DMSO family — Run 1: DMSO; Run 2: DMSO_RE2 (RE2); Run 3: DMSO_RE4 (RE4).
   </div>
@@ -1312,13 +1318,71 @@ function renderOptRuns() {
   </div>
   ${tablesHtml}
   <div class="pub-note">
-    Swarm 2/4/8: number of parallel PSO optimization agents used during training.
+    Swarm 2/4/8: number of parallel Fork optimization agents used during training.
     Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): CG mapping scheme variants. Simulations run for 100 ns.
   </div>
 </div>`;
 }
 
 loadData();
+
+// ═══════════════════════════════════════
+// AGENTS EFFICIENCY VIEW
+// ═══════════════════════════════════════
+function renderAgentsEfficiency() {
+  return `
+  <div class="mol-header">
+    <div style="width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--v0));flex-shrink:0"></div>
+    <div>
+      <div class="mol-title">Agents Efficiency</div>
+      <div class="mol-sub">Training convergence — error vs. epoch for each molecule family</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">DMA Family — Error vs Epoch</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px 28px;display:flex;justify-content:center;align-items:center;">
+      <img src="error_vs_epoch_DMA.svg" alt="Error vs Epoch — DMA"
+        style="max-width:100%;width:100%;border-radius:6px;" />
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:16px;margin:8px 0 28px;padding:0 4px;">
+    <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);"></div>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;padding:4px 12px;border:1px solid var(--border-light);border-radius:20px;background:var(--surface);">DMSO Family</span>
+    <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">DMSO Family — Error vs Epoch</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px 28px;display:flex;justify-content:center;align-items:center;">
+      <img src="error_vs_epoch_DMSO.svg" alt="Error vs Epoch — DMSO"
+        style="max-width:100%;width:100%;border-radius:6px;" />
+    </div>
+  </div>
+
+  <div class="section" style="margin-top:8px;">
+    <div class="section-title">Legend</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;padding:4px 0;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="spill spill-s2">Swarm 2</span>
+        <span style="font-size:12px;color:var(--text-muted)">2 parallel Fork agents</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="spill spill-s4">Swarm 4</span>
+        <span style="font-size:12px;color:var(--text-muted)">4 parallel Fork agents</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="spill spill-s8">Swarm 8</span>
+        <span style="font-size:12px;color:var(--text-muted)">8 parallel Fork agents</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="vpill vpill-v0">v0</span><span class="vpill vpill-v1">v1</span><span class="vpill vpill-v2">v2</span>
+        <span style="font-size:12px;color:var(--text-muted)">CG mapping scheme variants</span>
+      </div>
+    </div>
+  </div>`;
+}
 </script>
 </body>
 </html>

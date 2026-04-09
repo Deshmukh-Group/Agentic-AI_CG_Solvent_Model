@@ -3,7 +3,7 @@
     "Swarm_2": {
       "v0": {
         "best_epoch": 63,
-        "max_epoch": 152,
+        "max_epoch": 178,
         "abs_error": 126.75179578602106,
         "properties": {
           "298K": {
@@ -46,7 +46,7 @@
       },
       "v1": {
         "best_epoch": 30,
-        "max_epoch": 68,
+        "max_epoch": 72,
         "abs_error": 22.911300930527545,
         "properties": {
           "298K": {
@@ -217,7 +217,7 @@
       },
       "v1": {
         "best_epoch": 35,
-        "max_epoch": 51,
+        "max_epoch": 54,
         "abs_error": 21.734119892320507,
         "properties": {
           "298K": {
@@ -445,21 +445,21 @@
         "total_error_pct": 20.8046
       },
       "v2": {
-        "best_epoch": 57,
-        "max_epoch": 57,
-        "abs_error": 18.06330116930215,
+        "best_epoch": 59,
+        "max_epoch": 59,
+        "abs_error": 15.821109977865484,
         "properties": {
           "298K": {
-            "Density": 0.9013125739361856,
-            "Heat_of_Vaporization": 10.726115526004232,
-            "Surface_Tension": 36.2744,
-            "Dipole_Moment": 3.8267
+            "Density": 0.9016907690658588,
+            "Heat_of_Vaporization": 10.82785088245243,
+            "Surface_Tension": 35.978,
+            "Dipole_Moment": 3.8269
           },
           "313K": {
-            "Density": 0.8875629868937565,
-            "Heat_of_Vaporization": 10.431654330655396,
-            "Surface_Tension": 33.4417,
-            "Dipole_Moment": 3.8249
+            "Density": 0.8873672124207709,
+            "Heat_of_Vaporization": 10.60273774566596,
+            "Surface_Tension": 33.1074,
+            "Dipole_Moment": 3.8258
           }
         },
         "params": {
@@ -494,20 +494,20 @@
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 3.7162,
-            "Heat_of_Vaporization": 2.0536,
-            "Surface_Tension": 11.8545,
-            "Dipole_Moment": 2.8683
+            "Density": 3.6758,
+            "Heat_of_Vaporization": 1.1245,
+            "Surface_Tension": 10.9405,
+            "Dipole_Moment": 2.8737
           },
           "313K": {
-            "Density": 3.9538,
-            "Heat_of_Vaporization": 2.8981,
-            "Surface_Tension": 5.9623,
-            "Dipole_Moment": 2.8199
+            "Density": 3.975,
+            "Heat_of_Vaporization": 1.3056,
+            "Surface_Tension": 4.903,
+            "Dipole_Moment": 2.8441
           }
         },
-        "mean_error_pct": 4.5158,
-        "total_error_pct": 36.1266
+        "mean_error_pct": 3.9553,
+        "total_error_pct": 31.6422
       }
     }
   },
@@ -515,7 +515,7 @@
     "Swarm_2": {
       "v0": {
         "best_epoch": 76,
-        "max_epoch": 89,
+        "max_epoch": 105,
         "abs_error": 135.67597099071736,
         "properties": {
           "298K": {
@@ -556,7 +556,7 @@
       },
       "v1": {
         "best_epoch": 86,
-        "max_epoch": 104,
+        "max_epoch": 106,
         "abs_error": 35.80921330684008,
         "properties": {
           "298K": {
@@ -608,21 +608,21 @@
         "total_error_pct": 71.6184
       },
       "v2": {
-        "best_epoch": 63,
-        "max_epoch": 95,
-        "abs_error": 32.831343326856015,
+        "best_epoch": 97,
+        "max_epoch": 98,
+        "abs_error": 30.78410608254244,
         "properties": {
           "298K": {
-            "Density": 1.0321709750905457,
-            "Heat_of_Vaporization": 11.83682595787475,
-            "Surface_Tension": 47.518,
-            "Dipole_Moment": 3.6882
+            "Density": 1.0324116727342318,
+            "Heat_of_Vaporization": 11.825784248197348,
+            "Surface_Tension": 46.4811,
+            "Dipole_Moment": 3.6885
           },
           "323K": {
-            "Density": 1.0128273848858889,
-            "Heat_of_Vaporization": 11.462762645161298,
-            "Surface_Tension": 45.6394,
-            "Dipole_Moment": 3.6877
+            "Density": 1.0124172069540047,
+            "Heat_of_Vaporization": 11.523299300189745,
+            "Surface_Tension": 45.1473,
+            "Dipole_Moment": 3.6881
           }
         },
         "params": {
@@ -645,38 +645,38 @@
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 5.7378,
-            "Heat_of_Vaporization": 6.4135,
-            "Surface_Tension": 12.8962,
-            "Dipole_Moment": 6.8636
+            "Density": 5.7158,
+            "Heat_of_Vaporization": 6.5008,
+            "Surface_Tension": 10.4326,
+            "Dipole_Moment": 6.8561
           },
           "323K": {
-            "Density": 5.3609,
-            "Heat_of_Vaporization": 7.5584,
-            "Surface_Tension": 13.9561,
-            "Dipole_Moment": 6.8763
+            "Density": 5.3993,
+            "Heat_of_Vaporization": 7.0702,
+            "Surface_Tension": 12.7273,
+            "Dipole_Moment": 6.8662
           }
         },
-        "mean_error_pct": 8.2078,
-        "total_error_pct": 65.6627
+        "mean_error_pct": 7.696,
+        "total_error_pct": 61.5682
       }
     },
     "Swarm_4": {
       "v0": {
-        "best_epoch": 87,
-        "max_epoch": 94,
-        "abs_error": 134.3967870014836,
+        "best_epoch": 99,
+        "max_epoch": 110,
+        "abs_error": 134.1097168546437,
         "properties": {
           "298K": {
-            "Density": 1.0917839534937237,
-            "Heat_of_Vaporization": 8.725327014990516,
-            "Surface_Tension": 44.058,
+            "Density": 1.0915740650340544,
+            "Heat_of_Vaporization": 8.739378130929792,
+            "Surface_Tension": 43.4645,
             "Dipole_Moment": 0.0
           },
           "323K": {
-            "Density": 1.070220721964935,
-            "Heat_of_Vaporization": 8.577168368500955,
-            "Surface_Tension": 40.8425,
+            "Density": 1.0704686241196393,
+            "Heat_of_Vaporization": 8.507403174003802,
+            "Surface_Tension": 40.9795,
             "Dipole_Moment": 0.0
           }
         },
@@ -690,18 +690,18 @@
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 0.2937,
-            "Heat_of_Vaporization": 31.0142,
-            "Surface_Tension": 4.6757
+            "Density": 0.3129,
+            "Heat_of_Vaporization": 30.9031,
+            "Surface_Tension": 3.2656
           },
           "323K": {
-            "Density": 0.0019,
-            "Heat_of_Vaporization": 30.8293,
-            "Surface_Tension": 1.9788
+            "Density": 0.0251,
+            "Heat_of_Vaporization": 31.3919,
+            "Surface_Tension": 2.3208
           }
         },
-        "mean_error_pct": 11.4656,
-        "total_error_pct": 68.7936
+        "mean_error_pct": 11.3699,
+        "total_error_pct": 68.2194
       },
       "v1": {
         "best_epoch": 31,
@@ -812,30 +812,30 @@
     },
     "Swarm_8": {
       "v0": {
-        "best_epoch": 44,
-        "max_epoch": 47,
-        "abs_error": 24.69363633506066,
+        "best_epoch": 54,
+        "max_epoch": 55,
+        "abs_error": 20.14740787499776,
         "properties": {
           "298K": {
-            "Density": 1.0559437478264444,
-            "Heat_of_Vaporization": 10.633471502277036,
-            "Surface_Tension": 43.2891,
-            "Dipole_Moment": 4.0537
+            "Density": 1.0417146501633965,
+            "Heat_of_Vaporization": 10.20828780683111,
+            "Surface_Tension": 44.046,
+            "Dipole_Moment": 3.9043
           },
           "323K": {
-            "Density": 1.034634983258879,
-            "Heat_of_Vaporization": 10.27057004705882,
-            "Surface_Tension": 40.7731,
-            "Dipole_Moment": 4.0541
+            "Density": 1.0703447845024991,
+            "Heat_of_Vaporization": 12.988722605313091,
+            "Surface_Tension": 41.6261,
+            "Dipole_Moment": 3.905
           }
         },
         "params": {
           "param_MS2_OC_bl": 1.37,
           "param_MS2_OC_kb": 55.0,
-          "param_MS2_OC_epsilon": -0.27,
-          "param_MS2_OC_rmin": 5.16,
-          "param_OC_epsilon": -0.27,
-          "param_OC_rminby2": 2.58,
+          "param_MS2_OC_epsilon": -0.285,
+          "param_MS2_OC_rmin": 5.19,
+          "param_OC_epsilon": -0.285,
+          "param_OC_rminby2": 2.595,
           "param_MS2_DUP_bl": 0.9,
           "param_MS2_DUP_kb": 150.0,
           "param_OC_DUN_bl": 0.9,
@@ -844,27 +844,27 @@
           "param_DUP_MS2_OC_ktheta": 32.0,
           "param_DUN_OC_MS2_theta0": 175.0,
           "param_DUN_OC_MS2_ktheta": 32.0,
-          "param_DUP_charge": 0.27,
-          "param_DUN_charge": -0.27
+          "param_DUP_charge": 0.258,
+          "param_DUN_charge": -0.258
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 3.5668,
-            "Heat_of_Vaporization": 15.9276,
-            "Surface_Tension": 2.8489
+            "Density": 4.8662,
+            "Heat_of_Vaporization": 19.2893,
+            "Surface_Tension": 4.6472
           },
           "323K": {
-            "Density": 3.3232,
-            "Heat_of_Vaporization": 17.1728,
-            "Surface_Tension": 1.8055
+            "Density": 0.0135,
+            "Heat_of_Vaporization": 4.7478,
+            "Surface_Tension": 3.9353
           }
         },
-        "mean_error_pct": 7.4408,
-        "total_error_pct": 44.6448
+        "mean_error_pct": 6.2499,
+        "total_error_pct": 37.4994
       },
       "v1": {
         "best_epoch": 51,
-        "max_epoch": 68,
+        "max_epoch": 70,
         "abs_error": 45.05653371880033,
         "properties": {
           "298K": {
@@ -917,7 +917,7 @@
       },
       "v2": {
         "best_epoch": 41,
-        "max_epoch": 49,
+        "max_epoch": 51,
         "abs_error": 16.818077381015662,
         "properties": {
           "298K": {
@@ -974,7 +974,7 @@
     "Swarm_2": {
       "v0": {
         "best_epoch": 106,
-        "max_epoch": 180,
+        "max_epoch": 212,
         "abs_error": 125.9723530521188,
         "properties": {
           "298K": {
@@ -1017,7 +1017,7 @@
       },
       "v1": {
         "best_epoch": 33,
-        "max_epoch": 51,
+        "max_epoch": 61,
         "abs_error": 23.061486067946493,
         "properties": {
           "298K": {
@@ -1139,7 +1139,7 @@
     "Swarm_4": {
       "v0": {
         "best_epoch": 104,
-        "max_epoch": 107,
+        "max_epoch": 126,
         "abs_error": 121.7624244520798,
         "properties": {
           "298K": {
@@ -1235,12 +1235,74 @@
         "mean_error_pct": 3.0736,
         "total_error_pct": 24.5891
       },
-      "v2": null
+      "v2": {
+        "best_epoch": 19,
+        "max_epoch": 44,
+        "abs_error": 32.35032003955098,
+        "properties": {
+          "298K": {
+            "Density": 0.839066125484017,
+            "Heat_of_Vaporization": 10.71161849133192,
+            "Surface_Tension": 34.7718,
+            "Dipole_Moment": 3.1936
+          },
+          "313K": {
+            "Density": 0.8268886149625599,
+            "Heat_of_Vaporization": 10.450722590486258,
+            "Surface_Tension": 32.6305,
+            "Dipole_Moment": 3.1938
+          }
+        },
+        "params": {
+          "param_BCO_CGD2_epsilon": -0.35,
+          "param_BCO_CGD2_rmin": 4.5,
+          "param_BCO_CNI_CGD2_ktheta": 3.0,
+          "param_BCO_CNI_CGD2_theta0": 32.0,
+          "param_BCO_CNI_DUP_ktheta": 25.0,
+          "param_BCO_CNI_DUP_theta0": 150.0,
+          "param_BCO_CNI_bl": 2.45,
+          "param_BCO_CNI_kb": 20.0,
+          "param_BCO_CNI_epsilon": -0.35,
+          "param_BCO_CNI_rmin": 4.5,
+          "param_BCO_DUN_bl": 1.0,
+          "param_BCO_DUN_kb": 110.0,
+          "param_CGD2_CNI_DUP_ktheta": 25.0,
+          "param_CGD2_CNI_DUP_theta0": 150.0,
+          "param_CGD2_CNI_epsilon": -0.35,
+          "param_CGD2_CNI_rmin": 4.5,
+          "param_CNI_BCO_DUN_ktheta": 25.0,
+          "param_CNI_BCO_DUN_theta0": 150.0,
+          "param_CNI_CGD2_bl": 1.75,
+          "param_CNI_CGD2_kb": 20.0,
+          "param_CNI_DUP_bl": 1.1,
+          "param_CNI_DUP_kb": 110.0,
+          "param_CNI_epsilon": -0.35,
+          "param_CNI_rminby2": 2.6,
+          "param_DUP_charge": 0.16,
+          "param_DUN_charge": -0.16
+        },
+        "error_pct_by_property": {
+          "298K": {
+            "Density": 10.3658,
+            "Heat_of_Vaporization": 2.1859,
+            "Surface_Tension": 7.2211,
+            "Dipole_Moment": 14.1505
+          },
+          "313K": {
+            "Density": 10.5196,
+            "Heat_of_Vaporization": 2.7206,
+            "Surface_Tension": 3.392,
+            "Dipole_Moment": 14.1452
+          }
+        },
+        "mean_error_pct": 8.0876,
+        "total_error_pct": 64.7006
+      }
     },
     "Swarm_8": {
       "v0": {
         "best_epoch": 92,
-        "max_epoch": 137,
+        "max_epoch": 164,
         "abs_error": 121.85530061097164,
         "properties": {
           "298K": {
@@ -1404,64 +1466,64 @@
   "DMA_RE2": {
     "Swarm_2": {
       "v0": {
-        "best_epoch": 67,
-        "max_epoch": 116,
-        "abs_error": 128.3820509093559,
+        "best_epoch": 126,
+        "max_epoch": 126,
+        "abs_error": 128.35308393747977,
         "properties": {
           "298K": {
-            "Density": 0.8352808438675335,
-            "Heat_of_Vaporization": 9.570554021141652,
-            "Surface_Tension": 33.6319,
+            "Density": 0.844923752302325,
+            "Heat_of_Vaporization": 9.5936515372093,
+            "Surface_Tension": 34.6628,
             "Dipole_Moment": 0.0
           },
           "313K": {
-            "Density": 0.8230371386091706,
-            "Heat_of_Vaporization": 9.284463672515852,
-            "Surface_Tension": 33.1914,
+            "Density": 0.8320613413669498,
+            "Heat_of_Vaporization": 9.421257302959832,
+            "Surface_Tension": 33.2716,
             "Dipole_Moment": 0.0
           }
         },
         "params": {
           "param_ACY_DIM_bl": 1.76,
-          "param_ACY_DIM_epsilon": -0.4,
-          "param_ACY_DIM_kb": 70.0,
-          "param_ACY_DIM_rmin": 5.9,
-          "param_ACY_epsilon": -0.75,
-          "param_ACY_rminby2": 2.77,
-          "param_DIM_epsilon": -0.65,
-          "param_DIM_rminby2": 2.38
+          "param_ACY_DIM_epsilon": -0.3,
+          "param_ACY_DIM_kb": 59.5,
+          "param_ACY_DIM_rmin": 6.1,
+          "param_ACY_epsilon": -0.95,
+          "param_ACY_rminby2": 2.68,
+          "param_DIM_epsilon": -0.88,
+          "param_DIM_rminby2": 2.29
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 10.7701,
-            "Heat_of_Vaporization": 12.6057,
-            "Surface_Tension": 3.7061
+            "Density": 9.74,
+            "Heat_of_Vaporization": 12.3947,
+            "Surface_Tension": 6.885
           },
           "313K": {
-            "Density": 10.9364,
-            "Heat_of_Vaporization": 13.5766,
-            "Surface_Tension": 5.1692
+            "Density": 9.9598,
+            "Heat_of_Vaporization": 12.3033,
+            "Surface_Tension": 5.4233
           }
         },
-        "mean_error_pct": 9.4607,
-        "total_error_pct": 56.7641
+        "mean_error_pct": 9.451,
+        "total_error_pct": 56.7062
       },
       "v1": {
-        "best_epoch": 58,
-        "max_epoch": 71,
-        "abs_error": 19.87705004848886,
+        "best_epoch": 73,
+        "max_epoch": 75,
+        "abs_error": 19.86117885486683,
         "properties": {
           "298K": {
-            "Density": 0.910610117587782,
-            "Heat_of_Vaporization": 9.43280772410148,
-            "Surface_Tension": 33.2311,
-            "Dipole_Moment": 3.6745
+            "Density": 0.910757671614895,
+            "Heat_of_Vaporization": 9.376558197674408,
+            "Surface_Tension": 33.9411,
+            "Dipole_Moment": 3.6741
           },
           "313K": {
-            "Density": 0.8988971733954156,
-            "Heat_of_Vaporization": 9.193702536363638,
-            "Surface_Tension": 31.9147,
-            "Dipole_Moment": 3.6753
+            "Density": 0.8987726908437653,
+            "Heat_of_Vaporization": 9.490523968287532,
+            "Surface_Tension": 31.9116,
+            "Dipole_Moment": 3.6742
           }
         },
         "params": {
@@ -1486,24 +1548,24 @@
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 2.723,
-            "Heat_of_Vaporization": 13.8635,
-            "Surface_Tension": 2.4702,
-            "Dipole_Moment": 1.2231
+            "Density": 2.7072,
+            "Heat_of_Vaporization": 14.3772,
+            "Surface_Tension": 4.6596,
+            "Dipole_Moment": 1.2339
           },
           "313K": {
-            "Density": 2.7273,
-            "Heat_of_Vaporization": 14.4215,
-            "Surface_Tension": 1.1239,
-            "Dipole_Moment": 1.2016
+            "Density": 2.7408,
+            "Heat_of_Vaporization": 11.6585,
+            "Surface_Tension": 1.1141,
+            "Dipole_Moment": 1.2312
           }
         },
-        "mean_error_pct": 4.9693,
-        "total_error_pct": 39.7541
+        "mean_error_pct": 4.9653,
+        "total_error_pct": 39.7224
       },
       "v2": {
         "best_epoch": 76,
-        "max_epoch": 80,
+        "max_epoch": 84,
         "abs_error": 47.06673864960893,
         "properties": {
           "298K": {
@@ -1570,7 +1632,7 @@
     "Swarm_4": {
       "v0": {
         "best_epoch": 132,
-        "max_epoch": 158,
+        "max_epoch": 167,
         "abs_error": 133.8916392760953,
         "properties": {
           "298K": {
@@ -1613,7 +1675,7 @@
       },
       "v1": {
         "best_epoch": 74,
-        "max_epoch": 75,
+        "max_epoch": 79,
         "abs_error": 13.841251924245435,
         "properties": {
           "298K": {
@@ -1735,7 +1797,7 @@
     "Swarm_8": {
       "v0": {
         "best_epoch": 125,
-        "max_epoch": 135,
+        "max_epoch": 143,
         "abs_error": 100.5561163036502,
         "properties": {
           "298K": {
@@ -1778,7 +1840,7 @@
       },
       "v1": {
         "best_epoch": 31,
-        "max_epoch": 44,
+        "max_epoch": 46,
         "abs_error": 15.627161021154514,
         "properties": {
           "298K": {
@@ -1898,1157 +1960,923 @@
       }
     }
   },
-  "DMSO_RE1": {
+  "DMSO_RE5": {
     "Swarm_2": {
       "v0": {
-        "best_epoch": 19,
-        "max_epoch": 20,
-        "abs_error": 134.38659435191045,
+        "best_epoch": 12,
+        "max_epoch": 27,
+        "abs_error": 120.79186098450388,
         "properties": {
           "298K": {
-            "Density": 1.0764746151376543,
-            "Heat_of_Vaporization": 8.55874642125237,
-            "Surface_Tension": 42.2662,
+            "Density": 1.118290371973376,
+            "Heat_of_Vaporization": 13.211242861859573,
+            "Surface_Tension": 38.5278,
             "Dipole_Moment": 0.0
           },
           "323K": {
-            "Density": 1.0553651417157706,
-            "Heat_of_Vaporization": 8.403357764516127,
-            "Surface_Tension": 40.3361,
-            "Dipole_Moment": 0.0
-          }
-        },
-        "params": {
-          "param_MS2_OCB_bl": 1.4,
-          "param_MS2_OCB_epsilon": -0.4,
-          "param_MS2_OCB_kb": 30.0,
-          "param_MS2_OCB_rmin": 5.0,
-          "param_OCB_epsilon": -0.3,
-          "param_OCB_rminby2": 2.55
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 1.6918,
-            "Heat_of_Vaporization": 32.3312,
-            "Surface_Tension": 0.4186
-          },
-          "323K": {
-            "Density": 1.3862,
-            "Heat_of_Vaporization": 32.231,
-            "Surface_Tension": 0.7144
-          }
-        },
-        "mean_error_pct": 11.4622,
-        "total_error_pct": 68.7732
-      },
-      "v1": {
-        "best_epoch": 13,
-        "max_epoch": 16,
-        "abs_error": 38.72993614988518,
-        "properties": {
-          "298K": {
-            "Density": 0.8534962957004026,
-            "Heat_of_Vaporization": 11.021630501707794,
-            "Surface_Tension": 43.8605,
-            "Dipole_Moment": 3.9723
-          },
-          "323K": {
-            "Density": 0.8392612806102715,
-            "Heat_of_Vaporization": 10.7854864796964,
-            "Surface_Tension": 41.3184,
-            "Dipole_Moment": 3.9704
-          }
-        },
-        "params": {
-          "param_MS2_OCB_epsilon": -0.4,
-          "param_OCB_epsilon": -0.4,
-          "param_MS2_OCB_rmin": 5.6,
-          "param_OCB_rminby2": 2.85,
-          "param_DUP_charge": 0.27,
-          "param_DUN_charge": -0.27,
-          "param_MS2_DUP_bl": 0.9,
-          "param_OCB_DUN_bl": 0.9,
-          "param_MS2_DUP_kb": 150.0,
-          "param_OCB_DUN_kb": 150.0,
-          "param_MS2_OCB_bl": 1.3,
-          "param_MS2_OCB_kb": 100.0,
-          "param_DUP_MS2_OCB_theta0": 180.0,
-          "param_DUP_MS2_OCB_ktheta": 20.0,
-          "param_DUN_OCB_MS2_theta0": 180.0,
-          "param_DUN_OCB_MS2_ktheta": 20.0
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 22.0551,
-            "Heat_of_Vaporization": 12.8587,
-            "Surface_Tension": 4.2065,
-            "Dipole_Moment": 0.3106
-          },
-          "323K": {
-            "Density": 21.579,
-            "Heat_of_Vaporization": 13.0203,
-            "Surface_Tension": 3.167,
-            "Dipole_Moment": 0.2626
-          }
-        },
-        "mean_error_pct": 9.6825,
-        "total_error_pct": 77.4599
-      },
-      "v2": {
-        "best_epoch": 13,
-        "max_epoch": 20,
-        "abs_error": 82.69852436936306,
-        "properties": {
-          "298K": {
-            "Density": 1.000757021867576,
-            "Heat_of_Vaporization": 10.416637716698292,
-            "Surface_Tension": 52.0189,
-            "Dipole_Moment": 2.4064
-          },
-          "323K": {
-            "Density": 0.9827838208064066,
-            "Heat_of_Vaporization": 10.217787574762816,
-            "Surface_Tension": 44.6847,
-            "Dipole_Moment": 2.4161
-          }
-        },
-        "params": {
-          "param_CGD2_DUP_bl": 1.1,
-          "param_CGD2_DUP_kb": 150.0,
-          "param_CGD2_SUL_DUN_ktheta": 35.0,
-          "param_CGD2_SUL_DUN_theta0": 109.5,
-          "param_CGD2_SUL_bl": 1.6,
-          "param_CGD2_SUL_epsilon": -0.5,
-          "param_CGD2_SUL_kb": 100.0,
-          "param_CGD2_SUL_rmin": 5.0,
-          "param_DUP_CGD2_SUL_ktheta": 35.0,
-          "param_DUP_CGD2_SUL_theta0": 109.5,
-          "param_SUL_DUN_bl": 1.1,
-          "param_SUL_DUN_kb": 150.0,
-          "param_SUL_epsilon": -0.6,
-          "param_SUL_rminby2": 2.6,
-          "param_DUP_charge": 0.2,
-          "param_DUN_charge": -0.2
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 8.6067,
-            "Heat_of_Vaporization": 17.642,
-            "Surface_Tension": 23.5897,
-            "Dipole_Moment": 39.2323
-          },
-          "323K": {
-            "Density": 8.1682,
-            "Heat_of_Vaporization": 17.5985,
-            "Surface_Tension": 11.5723,
-            "Dipole_Moment": 38.9874
-          }
-        },
-        "mean_error_pct": 20.6746,
-        "total_error_pct": 165.397
-      }
-    },
-    "Swarm_4": {
-      "v0": {
-        "best_epoch": 9,
-        "max_epoch": 23,
-        "abs_error": 137.90002690646187,
-        "properties": {
-          "298K": {
-            "Density": 1.0188577070298444,
-            "Heat_of_Vaporization": 9.160173668880455,
-            "Surface_Tension": 44.316,
-            "Dipole_Moment": 0.0
-          },
-          "323K": {
-            "Density": 0.9988822750077136,
-            "Heat_of_Vaporization": 8.907308210626187,
-            "Surface_Tension": 40.5109,
+            "Density": 1.1096963780590012,
+            "Heat_of_Vaporization": 13.086193923719168,
+            "Surface_Tension": 46.985,
             "Dipole_Moment": 0.0
           }
         },
         "params": {
           "param_MS2_OCB_bl": 1.4,
-          "param_MS2_OCB_kb": 15.0,
-          "param_MS2_OCB_epsilon": -0.4,
-          "param_MS2_OCB_rmin": 5.2,
-          "param_OCB_epsilon": -0.4,
+          "param_MS2_OCB_kb": 20.0,
+          "param_MS2_OCB_epsilon": -0.6,
+          "param_MS2_OCB_rmin": 5.1,
+          "param_OCB_epsilon": -0.6,
           "param_OCB_rminby2": 2.6
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 6.9536,
-            "Heat_of_Vaporization": 27.5761,
-            "Surface_Tension": 5.2887
+            "Density": 2.127,
+            "Heat_of_Vaporization": 4.4532,
+            "Surface_Tension": 8.4633
           },
           "323K": {
-            "Density": 6.664,
-            "Heat_of_Vaporization": 28.1669,
-            "Surface_Tension": 1.1508
+            "Density": 3.6906,
+            "Heat_of_Vaporization": 5.5338,
+            "Surface_Tension": 17.3159
           }
         },
-        "mean_error_pct": 12.6333,
-        "total_error_pct": 75.8001
+        "mean_error_pct": 6.9306,
+        "total_error_pct": 41.5837
       },
       "v1": {
-        "best_epoch": 9,
-        "max_epoch": 13,
-        "abs_error": 40.72043448805808,
+        "best_epoch": 76,
+        "max_epoch": 81,
+        "abs_error": 27.83803238398451,
         "properties": {
           "298K": {
-            "Density": 0.9774421798588642,
-            "Heat_of_Vaporization": 11.5307887764706,
-            "Surface_Tension": 49.8301,
-            "Dipole_Moment": 3.8411
+            "Density": 0.8293801912818749,
+            "Heat_of_Vaporization": 12.98124761688805,
+            "Surface_Tension": 42.3189,
+            "Dipole_Moment": 3.9342
           },
           "323K": {
-            "Density": 0.9609923517610256,
-            "Heat_of_Vaporization": 11.049101129601524,
-            "Surface_Tension": 46.5955,
-            "Dipole_Moment": 3.8397
+            "Density": 0.7999284857183301,
+            "Heat_of_Vaporization": 12.434627035104372,
+            "Surface_Tension": 40.6262,
+            "Dipole_Moment": 3.9356
           }
         },
         "params": {
-          "param_DUN_OCB_MS2_ktheta": 15.0,
-          "param_DUN_OCB_MS2_theta0": 180.0,
-          "param_DUP_MS2_OCB_ktheta": 15.0,
-          "param_DUP_MS2_OCB_theta0": 180.0,
-          "param_MS2_DUP_bl": 1.25,
-          "param_MS2_DUP_kb": 300.0,
-          "param_MS2_OCB_bl": 1.35,
-          "param_MS2_OCB_epsilon": -0.38,
-          "param_MS2_OCB_kb": 60.0,
-          "param_MS2_OCB_rmin": 5.35,
-          "param_OCB_DUN_bl": 1.25,
-          "param_OCB_DUN_kb": 300.0,
-          "param_OCB_epsilon": -0.38,
-          "param_OCB_rminby2": 2.675,
-          "param_DUP_charge": 0.2,
-          "param_DUN_charge": -0.2
+          "param_MS2_DUP_bl": 1.58,
+          "param_BCO_DUN_bl": 1.58,
+          "param_DUP_charge": 0.21,
+          "param_DUN_charge": -0.21,
+          "param_MS2_DUP_kb": 132.0,
+          "param_BCO_DUN_kb": 132.0,
+          "param_BCO_MS2_epsilon": -0.83,
+          "param_BCO_MS2_rmin": 5.37,
+          "param_BCO_MS2_DUP_ktheta": 10.0,
+          "param_BCO_MS2_DUP_theta0": 82.0,
+          "param_DUN_BCO_MS2_ktheta": 10.0,
+          "param_DUN_BCO_MS2_theta0": 82.0,
+          "param_MS2_BCO_bl": 3.85,
+          "param_MS2_BCO_kb": 86.0
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 10.7359,
-            "Heat_of_Vaporization": 8.8331,
-            "Surface_Tension": 18.3894,
-            "Dipole_Moment": 3.0025
+            "Density": 24.2575,
+            "Heat_of_Vaporization": 2.6348,
+            "Surface_Tension": 0.5438,
+            "Dipole_Moment": 0.6515
           },
           "323K": {
-            "Density": 10.2044,
-            "Heat_of_Vaporization": 10.8943,
-            "Surface_Tension": 16.3433,
-            "Dipole_Moment": 3.0379
+            "Density": 25.2543,
+            "Heat_of_Vaporization": 0.2793,
+            "Surface_Tension": 1.4387,
+            "Dipole_Moment": 0.6162
           }
         },
-        "mean_error_pct": 10.1801,
-        "total_error_pct": 81.4409
+        "mean_error_pct": 6.9595,
+        "total_error_pct": 55.6761
       },
       "v2": {
-        "best_epoch": 13,
-        "max_epoch": 13,
-        "abs_error": 36.94476382689387,
+        "best_epoch": 43,
+        "max_epoch": 48,
+        "abs_error": 30.773223991615065,
         "properties": {
           "298K": {
-            "Density": 0.8443952231798327,
-            "Heat_of_Vaporization": 11.56268835161291,
-            "Surface_Tension": 42.8281,
-            "Dipole_Moment": 4.0972
+            "Density": 1.0368521692377684,
+            "Heat_of_Vaporization": 12.330259545920288,
+            "Surface_Tension": 51.1702,
+            "Dipole_Moment": 4.1186
           },
           "323K": {
-            "Density": 0.8290908134983611,
-            "Heat_of_Vaporization": 11.15092282011385,
-            "Surface_Tension": 40.5215,
-            "Dipole_Moment": 4.0956
+            "Density": 1.0179024507799974,
+            "Heat_of_Vaporization": 12.063836144971532,
+            "Surface_Tension": 46.7007,
+            "Dipole_Moment": 4.1161
           }
         },
         "params": {
-          "param_CGD2_DUP_bl": 1.4,
+          "param_CGD2_DUP_bl": 1.28,
+          "param_CGD2_DUP_kb": 150.0,
+          "param_CGD2_SUL_DUN_ktheta": 35.0,
+          "param_CGD2_SUL_DUN_theta0": 137.0,
+          "param_CGD2_SUL_bl": 1.72,
+          "param_CGD2_SUL_epsilon": -0.45,
+          "param_CGD2_SUL_kb": 105.0,
+          "param_CGD2_SUL_rmin": 4.95,
+          "param_DUP_CGD2_SUL_ktheta": 35.0,
+          "param_DUP_CGD2_SUL_theta0": 141.0,
+          "param_SUL_DUN_bl": 1.28,
+          "param_SUL_DUN_kb": 150.0,
+          "param_SUL_epsilon": -0.55,
+          "param_SUL_rminby2": 2.475,
+          "param_DUP_charge": 0.225,
+          "param_DUN_charge": -0.225
+        },
+        "error_pct_by_property": {
+          "298K": {
+            "Density": 5.3103,
+            "Heat_of_Vaporization": 2.5122,
+            "Surface_Tension": 21.5733,
+            "Dipole_Moment": 4.0051
+          },
+          "323K": {
+            "Density": 4.8867,
+            "Heat_of_Vaporization": 2.711,
+            "Surface_Tension": 16.606,
+            "Dipole_Moment": 3.9419
+          }
+        },
+        "mean_error_pct": 7.6933,
+        "total_error_pct": 61.5464
+      }
+    },
+    "Swarm_4": {
+      "v0": {
+        "best_epoch": 20,
+        "max_epoch": 29,
+        "abs_error": 135.00802085895458,
+        "properties": {
+          "298K": {
+            "Density": 1.1047345384950111,
+            "Heat_of_Vaporization": 8.652521211954456,
+            "Surface_Tension": 43.1743,
+            "Dipole_Moment": 0.0
+          },
+          "323K": {
+            "Density": 1.081253141606154,
+            "Heat_of_Vaporization": 8.423059747438323,
+            "Surface_Tension": 40.7934,
+            "Dipole_Moment": 0.0
+          }
+        },
+        "params": {
+          "param_MS2_OCB_bl": 1.7,
+          "param_MS2_OCB_epsilon": -0.45,
+          "param_MS2_OCB_kb": 20.0,
+          "param_MS2_OCB_rmin": 4.8,
+          "param_OCB_epsilon": -0.35,
+          "param_OCB_rminby2": 2.4
+        },
+        "error_pct_by_property": {
+          "298K": {
+            "Density": 0.889,
+            "Heat_of_Vaporization": 31.5898,
+            "Surface_Tension": 2.5761
+          },
+          "323K": {
+            "Density": 1.0328,
+            "Heat_of_Vaporization": 32.0721,
+            "Surface_Tension": 1.8562
+          }
+        },
+        "mean_error_pct": 11.6693,
+        "total_error_pct": 70.016
+      },
+      "v1": {
+        "best_epoch": 15,
+        "max_epoch": 16,
+        "abs_error": 25.95111921352488,
+        "properties": {
+          "298K": {
+            "Density": 1.0424114122877597,
+            "Heat_of_Vaporization": 11.738427675142324,
+            "Surface_Tension": 44.57,
+            "Dipole_Moment": 4.2937
+          },
+          "323K": {
+            "Density": 1.022411160737951,
+            "Heat_of_Vaporization": 11.585118228652762,
+            "Surface_Tension": 42.5427,
+            "Dipole_Moment": 4.2898
+          }
+        },
+        "params": {
+          "param_DUN_OCB_MS2_ktheta": 20.0,
+          "param_DUN_OCB_MS2_theta0": 145.0,
+          "param_DUP_MS2_OCB_ktheta": 20.0,
+          "param_DUP_MS2_OCB_theta0": 145.0,
+          "param_MS2_DUP_bl": 1.2,
+          "param_MS2_DUP_kb": 200.0,
+          "param_MS2_OCB_bl": 1.4,
+          "param_MS2_OCB_epsilon": -0.25,
+          "param_MS2_OCB_kb": 50.0,
+          "param_MS2_OCB_rmin": 5.2,
+          "param_OCB_DUN_bl": 1.2,
+          "param_OCB_DUN_kb": 200.0,
+          "param_OCB_epsilon": -0.35,
+          "param_OCB_rminby2": 2.65,
+          "param_DUP_charge": 0.26,
+          "param_DUN_charge": -0.26
+        },
+        "error_pct_by_property": {
+          "298K": {
+            "Density": 4.8026,
+            "Heat_of_Vaporization": 7.1914,
+            "Surface_Tension": 5.8921,
+            "Dipole_Moment": 8.4268
+          },
+          "323K": {
+            "Density": 4.4654,
+            "Heat_of_Vaporization": 6.5716,
+            "Surface_Tension": 6.224,
+            "Dipole_Moment": 8.3283
+          }
+        },
+        "mean_error_pct": 6.4878,
+        "total_error_pct": 51.9022
+      },
+      "v2": {
+        "best_epoch": 50,
+        "max_epoch": 60,
+        "abs_error": 35.15071574010314,
+        "properties": {
+          "298K": {
+            "Density": 0.9240538345740378,
+            "Heat_of_Vaporization": 11.274563803795068,
+            "Surface_Tension": 44.2331,
+            "Dipole_Moment": 3.7823
+          },
+          "323K": {
+            "Density": 0.905292134817322,
+            "Heat_of_Vaporization": 10.916958823908926,
+            "Surface_Tension": 41.0023,
+            "Dipole_Moment": 3.7816
+          }
+        },
+        "params": {
+          "param_CGD2_DUP_bl": 1.5,
           "param_CGD2_DUP_kb": 200.0,
           "param_CGD2_SUL_DUN_ktheta": 25.0,
           "param_CGD2_SUL_DUN_theta0": 165.0,
           "param_CGD2_SUL_bl": 1.55,
-          "param_CGD2_SUL_epsilon": -0.48,
+          "param_CGD2_SUL_epsilon": -0.42,
           "param_CGD2_SUL_kb": 30.0,
-          "param_CGD2_SUL_rmin": 5.25,
+          "param_CGD2_SUL_rmin": 5.0,
           "param_DUP_CGD2_SUL_ktheta": 25.0,
           "param_DUP_CGD2_SUL_theta0": 175.0,
-          "param_SUL_DUN_bl": 1.4,
+          "param_SUL_DUN_bl": 1.5,
           "param_SUL_DUN_kb": 200.0,
-          "param_SUL_epsilon": -0.48,
-          "param_SUL_rminby2": 2.95,
+          "param_SUL_epsilon": -0.42,
+          "param_SUL_rminby2": 2.75,
+          "param_DUP_charge": 0.15,
+          "param_DUN_charge": -0.15
+        },
+        "error_pct_by_property": {
+          "298K": {
+            "Density": 15.6115,
+            "Heat_of_Vaporization": 10.8589,
+            "Surface_Tension": 5.0917,
+            "Dipole_Moment": 4.4874
+          },
+          "323K": {
+            "Density": 15.4091,
+            "Heat_of_Vaporization": 11.96,
+            "Surface_Tension": 2.3778,
+            "Dipole_Moment": 4.5051
+          }
+        },
+        "mean_error_pct": 8.7877,
+        "total_error_pct": 70.3014
+      }
+    },
+    "Swarm_8": {
+      "v0": {
+        "best_epoch": 102,
+        "max_epoch": 103,
+        "abs_error": 46.9561104790624,
+        "properties": {
+          "298K": {
+            "Density": 0.7553985965275263,
+            "Heat_of_Vaporization": 12.42113208633776,
+            "Surface_Tension": 46.1624,
+            "Dipole_Moment": 4.1025
+          },
+          "323K": {
+            "Density": 0.7426927358156803,
+            "Heat_of_Vaporization": 11.97912202675521,
+            "Surface_Tension": 44.1069,
+            "Dipole_Moment": 4.1067
+          }
+        },
+        "params": {
+          "param_DUN_OC_MS2_ktheta": 8.0,
+          "param_DUN_OC_MS2_theta0": 180.0,
+          "param_DUP_MS2_OC_ktheta": 8.0,
+          "param_DUP_MS2_OC_theta0": 180.0,
+          "param_MS2_DUP_bl": 0.8,
+          "param_MS2_DUP_kb": 15.0,
+          "param_MS2_OC_bl": 2.7,
+          "param_MS2_OC_epsilon": -0.8,
+          "param_MS2_OC_kb": 15.0,
+          "param_MS2_OC_rmin": 5.3,
+          "param_OC_DUN_bl": 0.8,
+          "param_OC_DUN_kb": 15.0,
+          "param_OC_epsilon": -0.66,
+          "param_OC_rminby2": 2.7,
           "param_DUP_charge": 0.2,
           "param_DUN_charge": -0.2
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 22.8863,
-            "Heat_of_Vaporization": 8.5809,
-            "Surface_Tension": 1.7536,
-            "Dipole_Moment": 3.4646
+            "Density": 31.0138,
+            "Heat_of_Vaporization": 1.7937,
+            "Surface_Tension": 9.6755
           },
           "323K": {
-            "Density": 22.5294,
-            "Heat_of_Vaporization": 10.0732,
-            "Surface_Tension": 1.1773,
-            "Dipole_Moment": 3.4242
+            "Density": 30.6024,
+            "Heat_of_Vaporization": 3.3942,
+            "Surface_Tension": 10.1296
           }
         },
-        "mean_error_pct": 9.2362,
-        "total_error_pct": 73.8895
-      }
-    },
-    "Swarm_8": {
-      "v0": null,
-      "v1": null,
-      "v2": {
-        "best_epoch": 9,
-        "max_epoch": 10,
-        "abs_error": 32.6066301988499,
+        "mean_error_pct": 14.4349,
+        "total_error_pct": 86.6092
+      },
+      "v1": {
+        "best_epoch": 18,
+        "max_epoch": 20,
+        "abs_error": 37.33273010152709,
         "properties": {
           "298K": {
-            "Density": 0.9310473724696948,
-            "Heat_of_Vaporization": 11.744490466603398,
-            "Surface_Tension": 43.7187,
-            "Dipole_Moment": 4.2377
+            "Density": 0.9667982047979684,
+            "Heat_of_Vaporization": 12.005861323529402,
+            "Surface_Tension": 47.8337,
+            "Dipole_Moment": 4.1613
           },
           "323K": {
-            "Density": 0.913231365706642,
-            "Heat_of_Vaporization": 11.536966280834918,
-            "Surface_Tension": 41.5121,
-            "Dipole_Moment": 4.2347
+            "Density": 0.9497113472264972,
+            "Heat_of_Vaporization": 11.616903118406066,
+            "Surface_Tension": 46.6669,
+            "Dipole_Moment": 4.1602
           }
         },
         "params": {
-          "param_CGD2_DUP_bl": 1.05,
-          "param_CGD2_DUP_kb": 120.0,
-          "param_CGD2_SUL_DUN_ktheta": 15.0,
-          "param_CGD2_SUL_DUN_theta0": 162.0,
-          "param_CGD2_SUL_bl": 1.6,
-          "param_CGD2_SUL_epsilon": -0.48,
-          "param_CGD2_SUL_kb": 22.0,
-          "param_CGD2_SUL_rmin": 5.0,
-          "param_DUP_CGD2_SUL_ktheta": 15.0,
-          "param_DUP_CGD2_SUL_theta0": 135.0,
-          "param_SUL_DUN_bl": 1.05,
-          "param_SUL_DUN_kb": 120.0,
-          "param_SUL_epsilon": -0.5,
-          "param_SUL_rminby2": 2.85,
-          "param_DUP_charge": 0.24,
-          "param_DUN_charge": -0.24
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 14.9728,
-            "Heat_of_Vaporization": 7.1435,
-            "Surface_Tension": 3.8696,
-            "Dipole_Moment": 7.0126
-          },
-          "323K": {
-            "Density": 14.6672,
-            "Heat_of_Vaporization": 6.9599,
-            "Surface_Tension": 3.6507,
-            "Dipole_Moment": 6.9369
-          }
-        },
-        "mean_error_pct": 8.1517,
-        "total_error_pct": 65.2133
-      }
-    }
-  },
-  "DMSO_RE2": {
-    "Swarm_2": {
-      "v0": {
-        "best_epoch": 38,
-        "max_epoch": 84,
-        "abs_error": 138.214046447883,
-        "properties": {
-          "298K": {
-            "Density": 0.9822510536022544,
-            "Heat_of_Vaporization": 9.113823505123335,
-            "Surface_Tension": 42.0451,
-            "Dipole_Moment": 0.0
-          },
-          "323K": {
-            "Density": 0.9626863970895544,
-            "Heat_of_Vaporization": 8.973753379316888,
-            "Surface_Tension": 40.2122,
-            "Dipole_Moment": 0.0
-          }
-        },
-        "params": {
-          "param_MS2_OCB_bl": 1.38,
-          "param_MS2_OCB_kb": 12.0,
+          "param_DUN_OCB_MS2_ktheta": 50.0,
+          "param_DUN_OCB_MS2_theta0": 140.0,
+          "param_DUP_MS2_OCB_ktheta": 50.0,
+          "param_DUP_MS2_OCB_theta0": 140.0,
+          "param_MS2_DUP_bl": 1.25,
+          "param_MS2_DUP_kb": 300.0,
+          "param_MS2_OCB_bl": 1.5,
           "param_MS2_OCB_epsilon": -0.4,
-          "param_MS2_OCB_rmin": 5.3,
-          "param_OCB_epsilon": -0.4,
-          "param_OCB_rminby2": 2.65
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 10.2967,
-            "Heat_of_Vaporization": 27.9426,
-            "Surface_Tension": 0.1067
-          },
-          "323K": {
-            "Density": 10.0461,
-            "Heat_of_Vaporization": 27.631,
-            "Surface_Tension": 0.405
-          }
-        },
-        "mean_error_pct": 12.738,
-        "total_error_pct": 76.4281
-      },
-      "v1": {
-        "best_epoch": 4,
-        "max_epoch": 15,
-        "abs_error": 58.93345713325509,
-        "properties": {
-          "298K": {
-            "Density": 0.7708954021160153,
-            "Heat_of_Vaporization": 10.971867025426942,
-            "Surface_Tension": 41.1221,
-            "Dipole_Moment": 3.3862
-          },
-          "323K": {
-            "Density": 0.7561832497990092,
-            "Heat_of_Vaporization": 10.777481551802666,
-            "Surface_Tension": 39.497,
-            "Dipole_Moment": 3.389
-          }
-        },
-        "params": {
-          "param_MS2_OCB_epsilon": -0.5,
-          "param_OCB_epsilon": -0.5,
-          "param_MS2_OCB_rmin": 5.7,
-          "param_OCB_rminby2": 2.85,
-          "param_DUP_charge": 0.2,
-          "param_DUN_charge": -0.2,
-          "param_MS2_DUP_bl": 1.5,
-          "param_OCB_DUN_bl": 1.5,
-          "param_MS2_OCB_bl": 1.7,
-          "param_MS2_DUP_kb": 150.0,
-          "param_OCB_DUN_kb": 150.0,
-          "param_MS2_OCB_kb": 40.0,
-          "param_DUN_OCB_MS2_ktheta": 30.0,
-          "param_DUN_OCB_MS2_theta0": 120.0,
-          "param_DUP_MS2_OCB_ktheta": 30.0,
-          "param_DUP_MS2_OCB_theta0": 120.0
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 29.5986,
-            "Heat_of_Vaporization": 13.2522,
-            "Surface_Tension": 2.2996,
-            "Dipole_Moment": 14.4899
-          },
-          "323K": {
-            "Density": 29.3419,
-            "Heat_of_Vaporization": 13.0848,
-            "Surface_Tension": 1.3808,
-            "Dipole_Moment": 14.4192
-          }
-        },
-        "mean_error_pct": 14.7334,
-        "total_error_pct": 117.8669
-      },
-      "v2": null
-    },
-    "Swarm_4": {
-      "v0": {
-        "best_epoch": 66,
-        "max_epoch": 67,
-        "abs_error": 134.29386445736765,
-        "properties": {
-          "298K": {
-            "Density": 1.06745711072356,
-            "Heat_of_Vaporization": 8.91556217666034,
-            "Surface_Tension": 43.5536,
-            "Dipole_Moment": 0.0
-          },
-          "323K": {
-            "Density": 1.0414957457653036,
-            "Heat_of_Vaporization": 8.641998427514233,
-            "Surface_Tension": 40.0114,
-            "Dipole_Moment": 0.0
-          }
-        },
-        "params": {
-          "param_MS2_OCB_bl": 1.32,
-          "param_MS2_OCB_epsilon": -0.35,
-          "param_MS2_OCB_kb": 3.5,
+          "param_MS2_OCB_kb": 50.0,
           "param_MS2_OCB_rmin": 5.2,
-          "param_OCB_epsilon": -0.35,
-          "param_OCB_rminby2": 2.6
+          "param_OCB_DUN_bl": 1.25,
+          "param_OCB_DUN_kb": 300.0,
+          "param_OCB_epsilon": -0.4,
+          "param_OCB_rminby2": 2.75,
+          "param_DUP_charge": 0.255,
+          "param_DUN_charge": -0.255
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 2.5153,
-            "Heat_of_Vaporization": 29.5101,
-            "Surface_Tension": 3.4773
+            "Density": 11.7079,
+            "Heat_of_Vaporization": 5.077,
+            "Surface_Tension": 13.6462,
+            "Dipole_Moment": 5.0833
           },
           "323K": {
-            "Density": 2.6821,
-            "Heat_of_Vaporization": 30.3065,
-            "Surface_Tension": 0.0964
+            "Density": 11.2585,
+            "Heat_of_Vaporization": 6.3153,
+            "Surface_Tension": 16.5216,
+            "Dipole_Moment": 5.0556
           }
         },
-        "mean_error_pct": 11.4313,
-        "total_error_pct": 68.5877
-      },
-      "v1": {
-        "best_epoch": 22,
-        "max_epoch": 37,
-        "abs_error": 30.554713382946098,
-        "properties": {
-          "298K": {
-            "Density": 0.9984091994875192,
-            "Heat_of_Vaporization": 10.856998446869069,
-            "Surface_Tension": 44.6684,
-            "Dipole_Moment": 3.845
-          },
-          "323K": {
-            "Density": 0.978631989422634,
-            "Heat_of_Vaporization": 10.654045732068315,
-            "Surface_Tension": 41.4657,
-            "Dipole_Moment": 3.8441
-          }
-        },
-        "params": {
-          "param_DUN_OCB_MS2_ktheta": 11.0,
-          "param_DUN_OCB_MS2_theta0": 138.0,
-          "param_DUP_MS2_OCB_ktheta": 11.0,
-          "param_DUP_MS2_OCB_theta0": 138.0,
-          "param_MS2_DUP_bl": 1.075,
-          "param_MS2_DUP_kb": 100.0,
-          "param_MS2_OCB_bl": 1.7,
-          "param_MS2_OCB_epsilon": -0.37,
-          "param_MS2_OCB_kb": 15.0,
-          "param_MS2_OCB_rmin": 5.15,
-          "param_OCB_DUN_bl": 1.075,
-          "param_OCB_DUN_kb": 100.0,
-          "param_OCB_epsilon": -0.37,
-          "param_OCB_rminby2": 2.575,
-          "param_DUP_charge": 0.245,
-          "param_DUN_charge": -0.245
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 8.8211,
-            "Heat_of_Vaporization": 14.1604,
-            "Surface_Tension": 6.1259,
-            "Dipole_Moment": 2.904
-          },
-          "323K": {
-            "Density": 8.5562,
-            "Heat_of_Vaporization": 14.0803,
-            "Surface_Tension": 3.5348,
-            "Dipole_Moment": 2.9268
-          }
-        },
-        "mean_error_pct": 7.6387,
-        "total_error_pct": 61.1094
+        "mean_error_pct": 9.3332,
+        "total_error_pct": 74.6655
       },
       "v2": {
-        "best_epoch": 27,
-        "max_epoch": 40,
-        "abs_error": 10.599497363422346,
-        "properties": {
-          "298K": {
-            "Density": 1.096024038343724,
-            "Heat_of_Vaporization": 12.524534369829208,
-            "Surface_Tension": 45.4573,
-            "Dipole_Moment": 4.0223
-          },
-          "323K": {
-            "Density": 1.075191806109948,
-            "Heat_of_Vaporization": 12.1485335252372,
-            "Surface_Tension": 42.5747,
-            "Dipole_Moment": 4.0296
-          }
-        },
-        "params": {
-          "param_CGD2_DUP_bl": 1.05,
-          "param_CGD2_DUP_kb": 200.0,
-          "param_CGD2_SUL_DUN_ktheta": 50.0,
-          "param_CGD2_SUL_DUN_theta0": 120.0,
-          "param_CGD2_SUL_bl": 1.5,
-          "param_CGD2_SUL_epsilon": -0.3,
-          "param_CGD2_SUL_kb": 40.0,
-          "param_CGD2_SUL_rmin": 4.83,
-          "param_DUP_CGD2_SUL_ktheta": 50.0,
-          "param_DUP_CGD2_SUL_theta0": 120.0,
-          "param_SUL_DUN_bl": 1.05,
-          "param_SUL_DUN_kb": 200.0,
-          "param_SUL_epsilon": -0.47,
-          "param_SUL_rminby2": 2.625,
-          "param_DUP_charge": 0.32,
-          "param_DUN_charge": -0.32
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 0.0935,
-            "Heat_of_Vaporization": 0.9762,
-            "Surface_Tension": 8.0002,
-            "Dipole_Moment": 1.5732
-          },
-          "323K": {
-            "Density": 0.4664,
-            "Heat_of_Vaporization": 2.028,
-            "Surface_Tension": 6.3039,
-            "Dipole_Moment": 1.7576
-          }
-        },
-        "mean_error_pct": 2.6499,
-        "total_error_pct": 21.199
-      }
-    },
-    "Swarm_8": {
-      "v0": {
-        "best_epoch": 54,
-        "max_epoch": 54,
-        "abs_error": 133.42174851256345,
-        "properties": {
-          "298K": {
-            "Density": 1.0859938190012848,
-            "Heat_of_Vaporization": 8.611228881404177,
-            "Surface_Tension": 42.7446,
-            "Dipole_Moment": 0.0
-          },
-          "323K": {
-            "Density": 1.0640589685087147,
-            "Heat_of_Vaporization": 8.449661011954454,
-            "Surface_Tension": 40.0973,
-            "Dipole_Moment": 0.0
-          }
-        },
-        "params": {
-          "param_MS2_OCB_bl": 1.555,
-          "param_MS2_OCB_kb": 36.0,
-          "param_MS2_OCB_epsilon": -0.392,
-          "param_MS2_OCB_rmin": 4.915,
-          "param_OCB_epsilon": -0.392,
-          "param_OCB_rminby2": 2.4575
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 0.8225,
-            "Heat_of_Vaporization": 31.9163,
-            "Surface_Tension": 1.5552
-          },
-          "323K": {
-            "Density": 0.5738,
-            "Heat_of_Vaporization": 31.8576,
-            "Surface_Tension": 0.1181
-          }
-        },
-        "mean_error_pct": 11.1406,
-        "total_error_pct": 66.8435
-      },
-      "v1": {
         "best_epoch": 27,
         "max_epoch": 28,
-        "abs_error": 35.63987378772061,
+        "abs_error": 19.33519754005277,
         "properties": {
           "298K": {
-            "Density": 1.106516776766046,
-            "Heat_of_Vaporization": 11.660452981593927,
-            "Surface_Tension": 52.9765,
-            "Dipole_Moment": 4.0682
+            "Density": 0.9645932086217438,
+            "Heat_of_Vaporization": 12.623912718026554,
+            "Surface_Tension": 42.9016,
+            "Dipole_Moment": 3.7815
           },
           "323K": {
-            "Density": 1.0874461681562118,
-            "Heat_of_Vaporization": 11.462530455218229,
-            "Surface_Tension": 48.8457,
-            "Dipole_Moment": 4.0665
+            "Density": 0.9452134449238462,
+            "Heat_of_Vaporization": 12.339196830170769,
+            "Surface_Tension": 41.4643,
+            "Dipole_Moment": 3.7844
           }
         },
         "params": {
-          "param_DUN_OCB_MS2_ktheta": 18.0,
-          "param_DUN_OCB_MS2_theta0": 162.0,
-          "param_DUP_MS2_OCB_ktheta": 18.0,
-          "param_DUP_MS2_OCB_theta0": 162.0,
-          "param_MS2_DUP_bl": 0.85,
-          "param_MS2_DUP_kb": 150.0,
-          "param_MS2_OCB_bl": 1.35,
-          "param_MS2_OCB_epsilon": -0.3,
-          "param_MS2_OCB_kb": 55.0,
-          "param_MS2_OCB_rmin": 5.1,
-          "param_OCB_DUN_bl": 0.85,
-          "param_OCB_DUN_kb": 150.0,
-          "param_OCB_epsilon": -0.34,
-          "param_OCB_rminby2": 2.55,
-          "param_DUP_charge": 0.29,
-          "param_DUN_charge": -0.29
+          "param_CGD2_DUP_bl": 1.25,
+          "param_CGD2_DUP_kb": 200.0,
+          "param_CGD2_SUL_DUN_ktheta": 50.0,
+          "param_CGD2_SUL_DUN_theta0": 110.0,
+          "param_CGD2_SUL_bl": 1.7,
+          "param_CGD2_SUL_epsilon": -0.47,
+          "param_CGD2_SUL_kb": 50.0,
+          "param_CGD2_SUL_rmin": 4.9,
+          "param_DUP_CGD2_SUL_ktheta": 50.0,
+          "param_DUP_CGD2_SUL_theta0": 120.0,
+          "param_SUL_DUN_bl": 1.3,
+          "param_SUL_DUN_kb": 200.0,
+          "param_SUL_epsilon": -0.47,
+          "param_SUL_rminby2": 2.8,
+          "param_DUP_charge": 0.26,
+          "param_DUN_charge": -0.26
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 1.0518,
-            "Heat_of_Vaporization": 7.8079,
-            "Surface_Tension": 25.8648,
-            "Dipole_Moment": 2.7323
+            "Density": 11.9093,
+            "Heat_of_Vaporization": 0.1904,
+            "Surface_Tension": 1.9282,
+            "Dipole_Moment": 4.5076
           },
           "323K": {
-            "Density": 1.6115,
-            "Heat_of_Vaporization": 7.5602,
-            "Surface_Tension": 21.9618,
-            "Dipole_Moment": 2.6894
+            "Density": 11.6788,
+            "Heat_of_Vaporization": 0.4903,
+            "Surface_Tension": 3.5313,
+            "Dipole_Moment": 4.4343
           }
         },
-        "mean_error_pct": 8.91,
-        "total_error_pct": 71.2797
-      },
-      "v2": {
-        "best_epoch": 22,
-        "max_epoch": 31,
-        "abs_error": 22.291556728345803,
-        "properties": {
-          "298K": {
-            "Density": 1.0248754907270383,
-            "Heat_of_Vaporization": 11.74790944535104,
-            "Surface_Tension": 43.9347,
-            "Dipole_Moment": 4.1218
-          },
-          "323K": {
-            "Density": 1.0057391560363935,
-            "Heat_of_Vaporization": 11.22651507115749,
-            "Surface_Tension": 41.2671,
-            "Dipole_Moment": 4.1211
-          }
-        },
-        "params": {
-          "param_CGD2_DUP_bl": 0.8,
-          "param_CGD2_DUP_kb": 300.0,
-          "param_CGD2_SUL_DUN_ktheta": 40.0,
-          "param_CGD2_SUL_DUN_theta0": 120.0,
-          "param_CGD2_SUL_bl": 1.525,
-          "param_CGD2_SUL_epsilon": -0.3,
-          "param_CGD2_SUL_kb": 55.0,
-          "param_CGD2_SUL_rmin": 4.75,
-          "param_DUP_CGD2_SUL_ktheta": 40.0,
-          "param_DUP_CGD2_SUL_theta0": 180.0,
-          "param_SUL_DUN_bl": 0.8,
-          "param_SUL_DUN_kb": 300.0,
-          "param_SUL_epsilon": -0.5,
-          "param_SUL_rminby2": 2.75,
-          "param_DUP_charge": 0.31,
-          "param_DUN_charge": -0.31
-        },
-        "error_pct_by_property": {
-          "298K": {
-            "Density": 6.4041,
-            "Heat_of_Vaporization": 7.1165,
-            "Surface_Tension": 4.3828,
-            "Dipole_Moment": 4.0859
-          },
-          "323K": {
-            "Density": 6.0233,
-            "Heat_of_Vaporization": 9.4636,
-            "Surface_Tension": 3.039,
-            "Dipole_Moment": 4.0682
-          }
-        },
-        "mean_error_pct": 5.5729,
-        "total_error_pct": 44.5831
+        "mean_error_pct": 4.8338,
+        "total_error_pct": 38.6704
       }
     }
   },
-  "DMSO_RE4": {
+  "DMSO_RE6": {
     "Swarm_2": {
       "v0": {
-        "best_epoch": 20,
-        "max_epoch": 25,
-        "abs_error": 135.8492164302996,
+        "best_epoch": 75,
+        "max_epoch": 118,
+        "abs_error": 124.81963806221998,
         "properties": {
           "298K": {
-            "Density": 1.0506345943182032,
-            "Heat_of_Vaporization": 9.254994598102469,
-            "Surface_Tension": 45.121,
+            "Density": 1.0928879321985014,
+            "Heat_of_Vaporization": 9.872169901328268,
+            "Surface_Tension": 43.6538,
             "Dipole_Moment": 0.0
           },
           "323K": {
-            "Density": 1.027420090556834,
-            "Heat_of_Vaporization": 8.981928912713466,
-            "Surface_Tension": 40.8737,
+            "Density": 1.0671924003533806,
+            "Heat_of_Vaporization": 9.65976061973435,
+            "Surface_Tension": 40.6125,
             "Dipole_Moment": 0.0
           }
         },
         "params": {
-          "param_MS2_OCB_bl": 1.38,
-          "param_MS2_OCB_epsilon": -0.41,
-          "param_MS2_OCB_kb": 5.0,
-          "param_MS2_OCB_rmin": 5.13,
-          "param_OCB_epsilon": -0.35,
-          "param_OCB_rminby2": 2.66
+          "param_BCO_MS2_epsilon": -1.04,
+          "param_BCO_MS2_rmin": 4.08,
+          "param_MS2_BCO_bl": 3.97,
+          "param_MS2_BCO_kb": 18.58,
+          "param_BCO_MS2_pointdipole": null,
+          "param_BCO_charge": null,
+          "param_MS2_charge": null
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 4.0516,
-            "Heat_of_Vaporization": 26.8264,
-            "Surface_Tension": 7.2012
+            "Density": 0.1929,
+            "Heat_of_Vaporization": 21.9468,
+            "Surface_Tension": 3.7154
           },
           "323K": {
-            "Density": 3.9974,
-            "Heat_of_Vaporization": 27.5651,
-            "Surface_Tension": 2.0567
+            "Density": 0.281,
+            "Heat_of_Vaporization": 22.0987,
+            "Surface_Tension": 1.4045
           }
         },
-        "mean_error_pct": 11.9497,
-        "total_error_pct": 71.6984
+        "mean_error_pct": 8.2732,
+        "total_error_pct": 49.6393
       },
       "v1": {
-        "best_epoch": 15,
-        "max_epoch": 18,
-        "abs_error": 34.02865304120014,
+        "best_epoch": 46,
+        "max_epoch": 47,
+        "abs_error": 33.81830960189848,
         "properties": {
           "298K": {
-            "Density": 0.8078998523398874,
-            "Heat_of_Vaporization": 12.508049969639462,
-            "Surface_Tension": 41.49,
-            "Dipole_Moment": 3.8611
+            "Density": 1.0023066387322863,
+            "Heat_of_Vaporization": 10.684013582542716,
+            "Surface_Tension": 45.8385,
+            "Dipole_Moment": 3.9117
           },
           "323K": {
-            "Density": 0.7790893042279025,
-            "Heat_of_Vaporization": 12.00167983851992,
-            "Surface_Tension": 38.4709,
-            "Dipole_Moment": 3.8629
+            "Density": 0.9845788117002158,
+            "Heat_of_Vaporization": 10.29833807267553,
+            "Surface_Tension": 42.9598,
+            "Dipole_Moment": 3.9084
           }
         },
         "params": {
-          "param_MS2_DUP_bl": 1.7,
-          "param_BCO_DUN_bl": 1.7,
-          "param_DUP_charge": 0.22,
-          "param_DUN_charge": -0.22,
+          "param_MS2_OCB_epsilon": -0.25,
+          "param_OCB_epsilon": -0.25,
+          "param_MS2_OCB_rmin": 5.4,
+          "param_OCB_rminby2": 2.75,
+          "param_DUP_charge": 0.25,
+          "param_DUN_charge": -0.25,
+          "param_MS2_DUP_bl": 0.95,
+          "param_OCB_DUN_bl": 0.95,
           "param_MS2_DUP_kb": 150.0,
-          "param_BCO_DUN_kb": 150.0,
-          "param_BCO_MS2_epsilon": -0.7,
-          "param_BCO_MS2_rmin": 5.3,
-          "param_BCO_MS2_DUP_ktheta": 12.0,
-          "param_BCO_MS2_DUP_theta0": 80.0,
-          "param_DUN_BCO_MS2_ktheta": 12.0,
-          "param_DUN_BCO_MS2_theta0": 80.0,
-          "param_MS2_BCO_bl": 4.0,
-          "param_MS2_BCO_kb": 90.0
+          "param_OCB_DUN_kb": 150.0,
+          "param_MS2_OCB_bl": 1.25,
+          "param_MS2_OCB_kb": 100.0,
+          "param_DUP_MS2_OCB_theta0": 170.0,
+          "param_DUP_MS2_OCB_ktheta": 10.0,
+          "param_DUN_OCB_MS2_theta0": 170.0,
+          "param_DUN_OCB_MS2_ktheta": 10.0
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 26.2192,
-            "Heat_of_Vaporization": 1.1065,
-            "Surface_Tension": 1.4255,
-            "Dipole_Moment": 2.4975
+            "Density": 8.4651,
+            "Heat_of_Vaporization": 15.528,
+            "Surface_Tension": 8.9059,
+            "Dipole_Moment": 1.2197
           },
           "323K": {
-            "Density": 27.2015,
-            "Heat_of_Vaporization": 3.2123,
-            "Surface_Tension": 3.9428,
-            "Dipole_Moment": 2.452
+            "Density": 8.0005,
+            "Heat_of_Vaporization": 16.9489,
+            "Surface_Tension": 7.2654,
+            "Dipole_Moment": 1.303
           }
         },
-        "mean_error_pct": 8.5072,
-        "total_error_pct": 68.0573
+        "mean_error_pct": 8.4546,
+        "total_error_pct": 67.6366
       },
       "v2": {
         "best_epoch": 23,
-        "max_epoch": 23,
-        "abs_error": 92.49581915351072,
+        "max_epoch": 33,
+        "abs_error": 47.92610782925084,
         "properties": {
           "298K": {
-            "Density": 0.8359339824744929,
-            "Heat_of_Vaporization": 12.131654255218224,
-            "Surface_Tension": 44.2044,
-            "Dipole_Moment": 2.136
+            "Density": 0.7575102832535798,
+            "Heat_of_Vaporization": 13.204396404933572,
+            "Surface_Tension": 45.0183,
+            "Dipole_Moment": 3.6373
           },
           "323K": {
-            "Density": 0.8194290672354816,
-            "Heat_of_Vaporization": 11.720695856926,
-            "Surface_Tension": 52.7196,
-            "Dipole_Moment": 2.1534
+            "Density": 0.742251944350407,
+            "Heat_of_Vaporization": 12.598748656166991,
+            "Surface_Tension": 42.0633,
+            "Dipole_Moment": 3.6332
           }
         },
         "params": {
-          "param_CGD2_DUP_bl": 1.2,
-          "param_CGD2_DUP_kb": 220.0,
-          "param_CGD2_SUL_DUN_ktheta": 35.0,
-          "param_CGD2_SUL_DUN_theta0": 110.0,
-          "param_CGD2_SUL_bl": 1.5,
-          "param_CGD2_SUL_epsilon": -0.65,
-          "param_CGD2_SUL_kb": 30.0,
-          "param_CGD2_SUL_rmin": 5.4,
-          "param_DUP_CGD2_SUL_ktheta": 35.0,
-          "param_DUP_CGD2_SUL_theta0": 110.0,
-          "param_SUL_DUN_bl": 1.2,
-          "param_SUL_DUN_kb": 220.0,
-          "param_SUL_epsilon": -0.65,
-          "param_SUL_rminby2": 2.95,
+          "param_CGD2_DUP_bl": 1.93,
+          "param_CGD2_DUP_kb": 120.0,
+          "param_CGD2_SUL_bl": 3.1,
+          "param_CGD2_SUL_kb": 7.0,
+          "param_CGD2_SUL_epsilon": -0.85,
+          "param_CGD2_SUL_rmin": 5.43,
+          "param_SUL_epsilon": -0.823,
+          "param_SUL_rminby2": 2.415,
           "param_DUP_charge": 0.18,
-          "param_DUN_charge": -0.18
+          "param_DUN_charge": -0.18,
+          "param_SUL_DUN_bl": 1.76,
+          "param_SUL_DUN_kb": 120.0,
+          "param_CGD2_SUL_DUN_theta0": 120.0,
+          "param_CGD2_SUL_DUN_ktheta": 4.0,
+          "param_DUP_CGD2_SUL_theta0": 120.0,
+          "param_DUP_CGD2_SUL_ktheta": 4.0
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 23.659,
-            "Heat_of_Vaporization": 4.0824,
-            "Surface_Tension": 5.0235,
-            "Dipole_Moment": 46.0606
+            "Density": 30.821,
+            "Heat_of_Vaporization": 4.3991,
+            "Surface_Tension": 6.9572,
+            "Dipole_Moment": 8.149
           },
           "323K": {
-            "Density": 23.4322,
-            "Heat_of_Vaporization": 5.4783,
-            "Surface_Tension": 31.6345,
-            "Dipole_Moment": 45.6212
+            "Density": 30.6436,
+            "Heat_of_Vaporization": 1.6028,
+            "Surface_Tension": 5.027,
+            "Dipole_Moment": 8.2525
           }
         },
-        "mean_error_pct": 23.124,
-        "total_error_pct": 184.9916
+        "mean_error_pct": 11.9815,
+        "total_error_pct": 95.8522
       }
     },
     "Swarm_4": {
       "v0": {
-        "best_epoch": 12,
-        "max_epoch": 18,
-        "abs_error": 182.25780011043668,
+        "best_epoch": 40,
+        "max_epoch": 66,
+        "abs_error": 131.9159293416012,
         "properties": {
           "298K": {
-            "Density": 0.8732719290753933,
-            "Heat_of_Vaporization": 8.232752730170784,
-            "Surface_Tension": 32.199,
+            "Density": 0.852297603594184,
+            "Heat_of_Vaporization": 11.781831594117644,
+            "Surface_Tension": 43.6544,
             "Dipole_Moment": 0.0
           },
           "323K": {
-            "Density": 0.8429127801062724,
-            "Heat_of_Vaporization": 7.87799624611006,
-            "Surface_Tension": 28.7749,
+            "Density": 0.8257943516250227,
+            "Heat_of_Vaporization": 11.400365509108166,
+            "Surface_Tension": 39.9686,
             "Dipole_Moment": 0.0
           }
         },
         "params": {
-          "param_BCO_MS2_epsilon": -1.0,
-          "param_BCO_MS2_rmin": 4.9,
-          "param_MS2_BCO_bl": 1.3,
-          "param_MS2_BCO_kb": 17.5
+          "param_BCO_MS2_epsilon": -0.85,
+          "param_BCO_MS2_rmin": 5.5,
+          "param_MS2_BCO_bl": 4.49,
+          "param_MS2_BCO_kb": 23.9,
+          "param_BCO_charge": null,
+          "param_MS2_charge": null,
+          "param_BCO_MS2_charge": null,
+          "param_MS2_BCO_charge": null
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 20.2491,
-            "Heat_of_Vaporization": 34.9087,
-            "Surface_Tension": 23.4996
+            "Density": 22.1646,
+            "Heat_of_Vaporization": 6.8483,
+            "Surface_Tension": 3.7168
           },
           "323K": {
-            "Density": 21.2378,
-            "Heat_of_Vaporization": 36.4678,
-            "Surface_Tension": 28.1526
+            "Density": 22.8374,
+            "Heat_of_Vaporization": 8.0616,
+            "Surface_Tension": 0.2032
           }
         },
-        "mean_error_pct": 27.4193,
-        "total_error_pct": 164.5156
+        "mean_error_pct": 10.6386,
+        "total_error_pct": 63.8319
       },
       "v1": {
-        "best_epoch": 8,
-        "max_epoch": 9,
-        "abs_error": 40.04434616538221,
+        "best_epoch": 49,
+        "max_epoch": 56,
+        "abs_error": 12.926310147948053,
         "properties": {
           "298K": {
-            "Density": 0.9473544304178696,
-            "Heat_of_Vaporization": 12.227378511005696,
-            "Surface_Tension": 52.2319,
-            "Dipole_Moment": 3.8716
+            "Density": 1.018322783454971,
+            "Heat_of_Vaporization": 12.865025384250488,
+            "Surface_Tension": 42.5313,
+            "Dipole_Moment": 3.9166
           },
           "323K": {
-            "Density": 0.9244703422843792,
-            "Heat_of_Vaporization": 11.946831191271343,
-            "Surface_Tension": 47.0195,
-            "Dipole_Moment": 3.8698
+            "Density": 0.9973553905957973,
+            "Heat_of_Vaporization": 12.18301692694497,
+            "Surface_Tension": 41.9995,
+            "Dipole_Moment": 3.898
           }
         },
         "params": {
-          "param_BCO_MS2_epsilon": -0.9,
-          "param_BCO_MS2_rmin": 4.9,
-          "param_MS2_DUP_bl": 1.0,
-          "param_BCO_DUN_bl": 1.0,
-          "param_MS2_DUP_kb": 170.0,
-          "param_BCO_DUN_kb": 170.0,
-          "param_DUP_charge": 0.2,
-          "param_DUN_charge": -0.2,
-          "param_BCO_MS2_DUP_theta0": 110.0,
-          "param_BCO_MS2_DUP_ktheta": 12.0,
-          "param_DUN_BCO_MS2_theta0": 110.0,
-          "param_DUN_BCO_MS2_ktheta": 12.0,
-          "param_MS2_BCO_bl": 3.2,
-          "param_MS2_BCO_kb": 100.0
+          "param_DUN_OCB_MS2_ktheta": 45.0,
+          "param_DUN_OCB_MS2_theta0": 131.0,
+          "param_DUP_MS2_OCB_ktheta": 55.0,
+          "param_DUP_MS2_OCB_theta0": 64.0,
+          "param_MS2_DUP_bl": 0.912,
+          "param_MS2_DUP_kb": 300.0,
+          "param_MS2_OCB_bl": 1.58,
+          "param_MS2_OCB_epsilon": -0.38,
+          "param_MS2_OCB_kb": 80.0,
+          "param_MS2_OCB_rmin": 5.15,
+          "param_OCB_DUN_bl": 1.9,
+          "param_OCB_DUN_kb": 300.0,
+          "param_OCB_epsilon": -0.28,
+          "param_OCB_rminby2": 2.7,
+          "param_DUP_charge": 0.295,
+          "param_DUN_charge": -0.295
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 13.4836,
-            "Heat_of_Vaporization": 3.3256,
-            "Surface_Tension": 24.0957,
-            "Dipole_Moment": 2.2323
+            "Density": 7.0025,
+            "Heat_of_Vaporization": 1.7159,
+            "Surface_Tension": 1.0485,
+            "Dipole_Moment": 1.096
           },
           "323K": {
-            "Density": 13.617,
-            "Heat_of_Vaporization": 3.6546,
-            "Surface_Tension": 17.402,
-            "Dipole_Moment": 2.2778
+            "Density": 6.8066,
+            "Heat_of_Vaporization": 1.7499,
+            "Surface_Tension": 4.8677,
+            "Dipole_Moment": 1.5657
           }
         },
-        "mean_error_pct": 10.0111,
-        "total_error_pct": 80.0887
+        "mean_error_pct": 3.2316,
+        "total_error_pct": 25.8526
       },
       "v2": {
-        "best_epoch": 25,
-        "max_epoch": 25,
-        "abs_error": 17.24324166190609,
+        "best_epoch": 18,
+        "max_epoch": 23,
+        "abs_error": 23.230470949341655,
         "properties": {
           "298K": {
-            "Density": 1.0939196774476287,
-            "Heat_of_Vaporization": 10.843470256166984,
-            "Surface_Tension": 41.8265,
-            "Dipole_Moment": 4.0714
+            "Density": 0.9121035433053702,
+            "Heat_of_Vaporization": 12.22703119165086,
+            "Surface_Tension": 42.667,
+            "Dipole_Moment": 4.0179
           },
           "323K": {
-            "Density": 1.0705695012947951,
-            "Heat_of_Vaporization": 10.742384508918398,
-            "Surface_Tension": 39.8776,
-            "Dipole_Moment": 4.0728
+            "Density": 0.8921376376938851,
+            "Heat_of_Vaporization": 11.764795886337758,
+            "Surface_Tension": 40.1825,
+            "Dipole_Moment": 4.0196
           }
         },
         "params": {
-          "param_CGD2_DUP_bl": 1.1,
-          "param_CGD2_DUP_kb": 310.0,
-          "param_CGD2_SUL_DUN_ktheta": 24.0,
-          "param_CGD2_SUL_DUN_theta0": 122.0,
-          "param_CGD2_SUL_bl": 2.05,
-          "param_CGD2_SUL_epsilon": -0.48,
-          "param_CGD2_SUL_kb": 53.0,
-          "param_CGD2_SUL_rmin": 4.55,
-          "param_DUP_CGD2_SUL_ktheta": 30.0,
-          "param_DUP_CGD2_SUL_theta0": 118.0,
-          "param_SUL_DUN_bl": 0.82,
-          "param_SUL_DUN_kb": 185.0,
-          "param_SUL_epsilon": -0.4,
-          "param_SUL_rminby2": 2.25,
-          "param_DUP_charge": 0.27,
-          "param_DUN_charge": -0.27
+          "param_CGD2_DUP_bl": 1.15,
+          "param_CGD2_DUP_kb": 140.0,
+          "param_CGD2_SUL_DUN_ktheta": 110.0,
+          "param_CGD2_SUL_DUN_theta0": 110.0,
+          "param_CGD2_SUL_bl": 3.2,
+          "param_CGD2_SUL_epsilon": -0.73,
+          "param_CGD2_SUL_kb": 8.0,
+          "param_CGD2_SUL_rmin": 4.5,
+          "param_DUP_CGD2_SUL_ktheta": 110.0,
+          "param_DUP_CGD2_SUL_theta0": 110.0,
+          "param_SUL_DUN_bl": 1.15,
+          "param_SUL_DUN_kb": 140.0,
+          "param_SUL_epsilon": -0.73,
+          "param_SUL_rminby2": 2.5,
+          "param_DUP_charge": 0.2,
+          "param_DUN_charge": -0.2
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 0.0987,
-            "Heat_of_Vaporization": 14.2673,
-            "Surface_Tension": 0.626,
-            "Dipole_Moment": 2.8131
+            "Density": 16.7029,
+            "Heat_of_Vaporization": 3.3283,
+            "Surface_Tension": 1.3709,
+            "Dipole_Moment": 1.4621
           },
           "323K": {
-            "Density": 0.0345,
-            "Heat_of_Vaporization": 13.3679,
-            "Surface_Tension": 0.4305,
-            "Dipole_Moment": 2.8485
+            "Density": 16.6382,
+            "Heat_of_Vaporization": 5.1226,
+            "Surface_Tension": 0.3308,
+            "Dipole_Moment": 1.5051
           }
         },
-        "mean_error_pct": 4.3108,
-        "total_error_pct": 34.4865
+        "mean_error_pct": 5.8076,
+        "total_error_pct": 46.4609
       }
     },
     "Swarm_8": {
       "v0": {
-        "best_epoch": 112,
-        "max_epoch": 117,
-        "abs_error": 5153.858846747766,
+        "best_epoch": 32,
+        "max_epoch": 33,
+        "abs_error": 70.94982425430561,
         "properties": {
           "298K": {
-            "Density": 10000.0,
-            "Heat_of_Vaporization": 10000.0,
-            "Surface_Tension": 10000.0,
-            "Dipole_Moment": 4.8599
+            "Density": 1.089085869137441,
+            "Heat_of_Vaporization": 20.206555166603422,
+            "Surface_Tension": 41.8054,
+            "Dipole_Moment": 3.4359
           },
           "323K": {
-            "Density": 0.0027591238887811,
-            "Heat_of_Vaporization": 1.7731192574952583,
-            "Surface_Tension": -0.012989,
-            "Dipole_Moment": 4.8408
+            "Density": 1.0556470973010426,
+            "Heat_of_Vaporization": 18.689210842314985,
+            "Surface_Tension": 40.4221,
+            "Dipole_Moment": 3.3787
           }
         },
         "params": {
-          "param_DUN_OC_MS2_ktheta": 1.0,
-          "param_DUN_OC_MS2_theta0": 165.0,
-          "param_DUP_MS2_OC_ktheta": 1.0,
-          "param_DUP_MS2_OC_theta0": 165.0,
-          "param_MS2_DUP_bl": 0.8,
-          "param_MS2_DUP_kb": 3.0,
-          "param_MS2_OC_bl": 3.6,
-          "param_MS2_OC_epsilon": -0.5,
-          "param_MS2_OC_kb": 3.0,
-          "param_MS2_OC_rmin": 4.0,
-          "param_OC_DUN_bl": 0.8,
-          "param_OC_DUN_kb": 3.0,
-          "param_OC_epsilon": -0.3,
-          "param_OC_rminby2": 2.0,
-          "param_DUP_charge": 0.22,
-          "param_DUN_charge": -0.22
+          "param_DUN_OC_MS2_ktheta": 5.0,
+          "param_DUN_OC_MS2_theta0": 152.0,
+          "param_DUP_MS2_OC_ktheta": 6.0,
+          "param_DUP_MS2_OC_theta0": 154.0,
+          "param_MS2_DUP_bl": 1.15,
+          "param_MS2_DUP_kb": 9.0,
+          "param_MS2_OC_bl": 3.55,
+          "param_MS2_OC_epsilon": -0.65,
+          "param_MS2_OC_kb": 20.0,
+          "param_MS2_OC_rmin": 4.15,
+          "param_OC_DUN_bl": 1.15,
+          "param_OC_DUN_kb": 10.0,
+          "param_OC_epsilon": -0.45,
+          "param_OC_rminby2": 2.15,
+          "param_DUP_charge": 0.11,
+          "param_DUN_charge": -0.11
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 913142.0091,
-            "Heat_of_Vaporization": 78963.8836,
-            "Surface_Tension": 23658.6125
+            "Density": 0.5401,
+            "Heat_of_Vaporization": 59.7609,
+            "Surface_Tension": 0.6762
           },
           "323K": {
-            "Density": 99.7422,
-            "Heat_of_Vaporization": 85.7007,
-            "Surface_Tension": 100.0324
+            "Density": 1.3598,
+            "Heat_of_Vaporization": 50.7194,
+            "Surface_Tension": 0.9291
           }
         },
-        "mean_error_pct": 169341.6634,
-        "total_error_pct": 1016049.9805
+        "mean_error_pct": 18.9976,
+        "total_error_pct": 113.9855
       },
       "v1": {
-        "best_epoch": 39,
-        "max_epoch": 39,
-        "abs_error": 31.71479451340477,
+        "best_epoch": 61,
+        "max_epoch": 62,
+        "abs_error": 15.31362626950956,
         "properties": {
           "298K": {
-            "Density": 1.001282464717062,
-            "Heat_of_Vaporization": 11.609124369070203,
-            "Surface_Tension": 46.9759,
-            "Dipole_Moment": 4.3508
+            "Density": 1.0764033208970472,
+            "Heat_of_Vaporization": 11.659240311574948,
+            "Surface_Tension": 42.3733,
+            "Dipole_Moment": 3.8529
           },
           "323K": {
-            "Density": 0.9776470856946776,
-            "Heat_of_Vaporization": 12.425438640037951,
-            "Surface_Tension": 42.6082,
-            "Dipole_Moment": 4.3536
+            "Density": 1.0475143438712178,
+            "Heat_of_Vaporization": 10.851270841176474,
+            "Surface_Tension": 40.0846,
+            "Dipole_Moment": 3.8397
           }
         },
         "params": {
-          "param_BCO_DUN_bl": 0.95,
-          "param_BCO_DUN_kb": 105.0,
-          "param_MS2_BCO_bl": 3.7,
-          "param_MS2_BCO_kb": 5.0,
-          "param_MS2_DUP_bl": 1.0,
-          "param_MS2_DUP_kb": 105.0,
-          "param_BCO_MS2_epsilon": -0.8,
-          "param_BCO_MS2_rmin": 4.5,
+          "param_DUN_OCB_MS2_ktheta": 5.5,
+          "param_DUN_OCB_MS2_theta0": 158.0,
+          "param_DUP_MS2_OCB_ktheta": 5.5,
+          "param_DUP_MS2_OCB_theta0": 158.0,
+          "param_MS2_DUP_bl": 1.4,
+          "param_MS2_DUP_kb": 140.0,
+          "param_MS2_OCB_bl": 3.26,
+          "param_MS2_OCB_epsilon": -0.65,
+          "param_MS2_OCB_kb": 7.0,
+          "param_MS2_OCB_rmin": 4.3,
+          "param_OCB_DUN_bl": 1.4,
+          "param_OCB_DUN_kb": 140.0,
+          "param_OCB_epsilon": -0.65,
+          "param_OCB_rminby2": 1.9,
           "param_DUP_charge": 0.14,
-          "param_DUN_charge": -0.14,
-          "param_BCO_MS2_DUP_ktheta": 50.0,
-          "param_BCO_MS2_DUP_theta0": 170.0,
-          "param_DUN_BCO_MS2_ktheta": 50.0,
-          "param_DUN_BCO_MS2_theta0": 170.0
+          "param_DUN_charge": -0.14
         },
         "error_pct_by_property": {
           "298K": {
-            "Density": 8.5587,
-            "Heat_of_Vaporization": 8.2138,
-            "Surface_Tension": 11.6082,
-            "Dipole_Moment": 9.8687
+            "Density": 1.6983,
+            "Heat_of_Vaporization": 7.8175,
+            "Surface_Tension": 0.6731,
+            "Dipole_Moment": 2.7045
           },
           "323K": {
-            "Density": 8.6482,
-            "Heat_of_Vaporization": 0.2052,
-            "Surface_Tension": 6.3875,
-            "Dipole_Moment": 9.9394
+            "Density": 2.1198,
+            "Heat_of_Vaporization": 12.4898,
+            "Surface_Tension": 0.0864,
+            "Dipole_Moment": 3.0379
           }
         },
-        "mean_error_pct": 7.9287,
-        "total_error_pct": 63.4296
+        "mean_error_pct": 3.8284,
+        "total_error_pct": 30.6273
       },
-      "v2": null
+      "v2": {
+        "best_epoch": 13,
+        "max_epoch": 13,
+        "abs_error": 6.593829764762889,
+        "properties": {
+          "298K": {
+            "Density": 1.0819672483887202,
+            "Heat_of_Vaporization": 12.49850014667932,
+            "Surface_Tension": 43.9971,
+            "Dipole_Moment": 3.964
+          },
+          "323K": {
+            "Density": 1.0597930476919597,
+            "Heat_of_Vaporization": 12.227285085388994,
+            "Surface_Tension": 41.4932,
+            "Dipole_Moment": 3.9685
+          }
+        },
+        "params": {
+          "param_CGD2_DUP_bl": 1.08,
+          "param_CGD2_DUP_kb": 300.0,
+          "param_CGD2_SUL_DUN_ktheta": 45.0,
+          "param_CGD2_SUL_DUN_theta0": 115.0,
+          "param_CGD2_SUL_bl": 1.65,
+          "param_CGD2_SUL_epsilon": -0.38,
+          "param_CGD2_SUL_kb": 30.0,
+          "param_CGD2_SUL_rmin": 4.6,
+          "param_DUP_CGD2_SUL_ktheta": 45.0,
+          "param_DUP_CGD2_SUL_theta0": 130.0,
+          "param_SUL_DUN_bl": 1.08,
+          "param_SUL_DUN_kb": 300.0,
+          "param_SUL_epsilon": -0.48,
+          "param_SUL_rminby2": 2.6,
+          "param_DUP_charge": 0.28,
+          "param_DUN_charge": -0.28
+        },
+        "error_pct_by_property": {
+          "298K": {
+            "Density": 1.1902,
+            "Heat_of_Vaporization": 1.182,
+            "Surface_Tension": 4.531,
+            "Dipole_Moment": 0.101
+          },
+          "323K": {
+            "Density": 0.9724,
+            "Heat_of_Vaporization": 1.3929,
+            "Surface_Tension": 3.6035,
+            "Dipole_Moment": 0.2146
+          }
+        },
+        "mean_error_pct": 1.6485,
+        "total_error_pct": 13.1877
+      }
     }
   }
 }

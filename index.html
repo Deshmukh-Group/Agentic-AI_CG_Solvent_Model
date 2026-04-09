@@ -156,6 +156,7 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
 .vpill {
   display: inline-block; padding: 2px 8px; border-radius: 4px;
   font-family: var(--mono); font-size: 11px; font-weight: 600;
+  white-space: nowrap; min-width: fit-content;
 }
 .vpill-v0 { background: rgba(110,118,229,0.15); color: var(--v0); }
 .vpill-v1 { background: rgba(63,185,80,0.15); color: var(--v1); }
@@ -177,13 +178,14 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
 .epoch-num { font-family: var(--mono); font-size: 12px; }
 
 /* ERROR GRID - per property */
-.prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; }
 .prop-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
 }
+.prop-card-inner { overflow-x: auto; }
 .prop-card-header {
   padding: 10px 14px;
   background: var(--surface2);
@@ -193,15 +195,16 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
 .prop-name { font-size: 12px; font-weight: 600; }
 .prop-temp { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
 .prop-card table { font-size: 12px; }
-.prop-card thead th { font-size: 10px; background: transparent; }
+.prop-card thead th { font-size: 10px; background: transparent; white-space: nowrap; }
 
 /* PARAMS SECTION */
-.params-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.params-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 16px; }
 .param-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px; overflow: hidden;
 }
+.param-card-inner { overflow-x: auto; }
 .param-card-header {
   padding: 10px 16px;
   background: var(--surface2);
@@ -210,7 +213,7 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
   display: flex; align-items: center; gap: 8px;
 }
 .param-card table { font-size: 11.5px; }
-.param-card thead th { font-size: 10px; background: transparent; padding: 7px 12px; }
+.param-card thead th { font-size: 10px; background: transparent; padding: 7px 12px; white-space: nowrap; }
 .param-card tbody td { padding: 6px 12px; }
 .param-name { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
 .param-val { font-family: var(--mono); font-size: 11.5px; }
@@ -228,8 +231,8 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
   font-size: 12px; font-weight: 600;
 }
 .heatmap-table { width: 100%; border-collapse: collapse; }
-.heatmap-table th, .heatmap-table td { padding: 9px 14px; text-align: center; border-bottom: 1px solid var(--border-light); font-size: 12px; }
-.heatmap-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); background: transparent; }
+.heatmap-table th, .heatmap-table td { padding: 9px 14px; text-align: center; border-bottom: 1px solid var(--border-light); font-size: 12px; white-space: nowrap; }
+.heatmap-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); background: transparent; white-space: nowrap; }
 .heatmap-table td:first-child { text-align: left; }
 .heat-cell { display: inline-block; padding: 3px 10px; border-radius: 4px; font-family: var(--mono); font-weight: 600; font-size: 12px; }
 
@@ -409,6 +412,22 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
 :root.light .err-med { color: var(--med); }
 :root.light .err-high { color: var(--high); }
 
+/* PERFORMANCE TABLE — Arial 12 */
+.perf-wrap,
+.perf-wrap .pub-table,
+.perf-wrap .pub-table th,
+.perf-wrap .pub-table td,
+.perf-wrap .pub-title,
+.perf-wrap .pub-subtitle,
+.perf-wrap .pub-mol-label,
+.perf-wrap .pub-note {
+  font-family: Arial, sans-serif !important;
+}
+.perf-wrap .pub-table td,
+.perf-wrap .pub-table th { font-size: 12px; }
+.perf-wrap .pub-table th { font-size: 10.5px; }
+.perf-wrap .pub-th-unit { font-size: 9.5px; }
+
 /* MD RESULTS — Arial 12 font override */
 .md-results-wrap,
 .md-results-wrap .pub-table,
@@ -427,6 +446,9 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
 .md-results-wrap .pub-title { font-size: 14px; }
 .md-results-wrap .pub-subtitle { font-size: 11.5px; }
 .md-results-wrap .pub-mol-label { font-size: 13px; }
+
+/* Toggle-hide parenthetical annotations */
+.hide-parens .paren-hint { display: none; }
 </style>
 </head>
 <body>
@@ -478,8 +500,8 @@ const MOL_COLORS = {
   DMA_RE1: '#79c0ff',
   DMA_RE2: '#a5d6ff',
   DMSO:    '#f0883e',
-  DMSO_RE2:'#ffa657',
-  DMSO_RE4:'#ffc78e',
+  DMSO_RE5:'#ffa657',
+  DMSO_RE6:'#ffc78e',
 };
 
 const GROUP_LABELS = {
@@ -489,25 +511,25 @@ const GROUP_LABELS = {
 
 const GROUPS = {
   DMA: ['DMA', 'DMA_RE1', 'DMA_RE2'],
-  DMSO: ['DMSO', 'DMSO_RE2', 'DMSO_RE4'],
+  DMSO: ['DMSO', 'DMSO_RE5', 'DMSO_RE6'],
 };
 
 const RUNS = ['Swarm_2', 'Swarm_4', 'Swarm_8'];
 const VERSIONS = ['v0', 'v1', 'v2'];
 
 const VERSION_LABELS = {
-  v0: 'Scheme 1 (v0)',
-  v1: 'Scheme 2 (v1)',
-  v2: 'Scheme 3 (v2)',
+  v0: 'Scheme1',
+  v1: 'Scheme2',
+  v2: 'Scheme3',
 };
 
 const MOL_RUN_LABELS = {
-  DMA:      'DMA (Run 1)',
-  DMA_RE1:  'DMA (Run 2) (RE1)',
-  DMA_RE2:  'DMA (Run 3) (RE2)',
-  DMSO:     'DMSO (Run 1)',
-  DMSO_RE2: 'DMSO (Run 2) (RE2)',
-  DMSO_RE4: 'DMSO (Run 3) (RE4)',
+  DMA:      'DMA (Run1)',
+  DMA_RE1:  'DMA (Run2)',
+  DMA_RE2:  'DMA (Run3)',
+  DMSO:     'DMSO (Run1)',
+  DMSO_RE5: 'DMSO (Run2)',
+  DMSO_RE6: 'DMSO (Run3)',
 };
 
 function errClass(v) {
@@ -572,7 +594,7 @@ function init() {
       if (!DATA[mol]) continue;
       html += `<button class="mol-btn" id="mol-${mol}" onclick="selectMol('${mol}')">
         <span class="mol-dot" style="background:${MOL_COLORS[mol]||'#666'}"></span>
-        ${mol}
+        ${MOL_RUN_LABELS[mol] || mol}
       </button>`;
     }
   }
@@ -679,7 +701,7 @@ function renderResults(mol) {
     <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>Run</th><th>Version</th><th>Best Epoch</th><th>Max Epoch</th>
+        <th>Run</th><th>Mapping</th><th>Best Epoch</th><th>Max Epoch</th>
         <th>Mean Err %</th><th>Total Err %</th><th>Abs Error</th>
       </tr></thead>
       <tbody>`;
@@ -692,7 +714,7 @@ function renderResults(mol) {
       const pct = e.best_epoch / e.max_epoch * 100;
       html += `<tr>
         <td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>
-        <td><span class="vpill vpill-${ver}">${ver}</span></td>
+        <td><span class="vpill vpill-${ver}">${VERSION_LABELS[ver] || ver}</span></td>
         <td>
           <div class="epoch-bar-wrap">
             <div class="epoch-bar"><div class="epoch-bar-fill" style="width:${pct}%"></div></div>
@@ -730,8 +752,8 @@ function renderResults(mol) {
           <span class="prop-name">${prop.replace(/_/g,' ')}</span>
           <span class="prop-temp">${temp}</span>
         </div>
-        <table>
-          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}" title="${VERSION_LABELS[v]}">${v}</span></th>`).join('')}</tr></thead>
+        <div class="prop-card-inner"><table>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${VERSION_LABELS[v] || v}</span></th>`).join('')}</tr></thead>
           <tbody>`;
       RUNS.forEach(run => {
         if (!d[run]) return;
@@ -744,7 +766,7 @@ function renderResults(mol) {
         });
         html += '</tr>';
       });
-      html += `</tbody></table></div>`;
+      html += `</tbody></table></div></div>`;
     });
   });
 
@@ -763,8 +785,8 @@ function renderResults(mol) {
           <span class="prop-name">${prop.replace(/_/g,' ')}</span>
           <span class="prop-temp">${temp}</span>
         </div>
-        <table>
-          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}" title="${VERSION_LABELS[v]}">${v}</span></th>`).join('')}</tr></thead>
+        <div class="prop-card-inner"><table>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${VERSION_LABELS[v] || v}</span></th>`).join('')}</tr></thead>
           <tbody>`;
       RUNS.forEach(run => {
         if (!d[run]) return;
@@ -777,7 +799,7 @@ function renderResults(mol) {
         });
         html += '</tr>';
       });
-      html += `</tbody></table></div>`;
+      html += `</tbody></table></div></div>`;
     });
   });
 
@@ -815,12 +837,12 @@ function renderParams(mol) {
         <span class="spill spill-s${run.split('_')[1]}">${run}</span>
         <span style="color:var(--text-muted);font-size:11px;font-weight:400">${sorted.length} parameters</span>
       </div>
-      <table>
+      <div class="param-card-inner"><table>
         <thead><tr>
           <th style="text-align:left">Parameter</th>
-          <th style="text-align:center"><span class="vpill vpill-v0">v0</span></th>
-          <th style="text-align:center"><span class="vpill vpill-v1">v1</span></th>
-          <th style="text-align:center"><span class="vpill vpill-v2">v2</span></th>
+          <th style="text-align:center"><span class="vpill vpill-v0">Scheme1</span></th>
+          <th style="text-align:center"><span class="vpill vpill-v1">Scheme2</span></th>
+          <th style="text-align:center"><span class="vpill vpill-v2">Scheme3</span></th>
         </tr></thead>
         <tbody>`;
 
@@ -844,7 +866,7 @@ function renderParams(mol) {
       html += `</tr>`;
     });
 
-    html += `</tbody></table></div>`;
+    html += `</tbody></table></div></div>`;
   });
 
   html += `</div></div>`;
@@ -862,10 +884,10 @@ function renderParams(mol) {
 
     html += `<div class="param-card">
       <div class="param-card-header">
-        <span class="vpill vpill-${ver}">${ver}</span>
+        <span class="vpill vpill-${ver}">${VERSION_LABELS[ver] || ver}</span>
         <span style="color:var(--text-muted);font-size:11px;font-weight:400">${sorted.length} params · across runs</span>
       </div>
-      <table>
+      <div class="param-card-inner"><table>
         <thead><tr>
           <th style="text-align:left">Parameter</th>
           ${runData.map(r=>`<th style="text-align:center"><span class="spill spill-s${r.split('_')[1]}">${r}</span></th>`).join('')}
@@ -898,7 +920,7 @@ function renderParams(mol) {
       html += `</tr>`;
     });
 
-    html += `</tbody></table></div>`;
+    html += `</tbody></table></div></div>`;
   });
 
   html += `</div></div>`;
@@ -920,7 +942,7 @@ function renderHeatmap(mol) {
   html += `<div class="section"><div class="section-title">Mean Error % — Runs vs Versions</div>
     <div class="table-wrap">
     <table class="heatmap-table">
-      <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${v}</span></th>`).join('')}</tr></thead>
+      <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${VERSION_LABELS[v] || v}</span></th>`).join('')}</tr></thead>
       <tbody>`;
 
   RUNS.forEach(run => {
@@ -939,7 +961,7 @@ function renderHeatmap(mol) {
   html += `<div class="section"><div class="section-title">Total Error % — Runs vs Versions</div>
     <div class="table-wrap">
     <table class="heatmap-table">
-      <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${v}</span></th>`).join('')}</tr></thead>
+      <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${VERSION_LABELS[v] || v}</span></th>`).join('')}</tr></thead>
       <tbody>`;
 
   RUNS.forEach(run => {
@@ -975,7 +997,7 @@ function renderHeatmap(mol) {
         <div class="section-title">${prop.replace(/_/g,' ')} @ ${temp}</div>
         <div class="table-wrap">
         <table class="heatmap-table">
-          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${v}</span></th>`).join('')}</tr></thead>
+          <thead><tr><th>Run</th>${VERSIONS.map(v=>`<th><span class="vpill vpill-${v}">${VERSION_LABELS[v] || v}</span></th>`).join('')}</tr></thead>
           <tbody>`;
 
       RUNS.forEach(run => {
@@ -1024,12 +1046,12 @@ function renderMappingScheme() {
 // ═══════════════════════════════════════
 function renderPublicationTable() {
   const FAMILY_RUNS = [
-    { family: 'DMA',  mols: ['DMA','DMA_RE1','DMA_RE2'],    runLabels: ['DMA (Run 1)', 'DMA (Run 2) (RE1)', 'DMA (Run 3) (RE2)'] },
-    { family: 'DMSO', mols: ['DMSO','DMSO_RE2','DMSO_RE4'], runLabels: ['DMSO (Run 1)', 'DMSO (Run 2) (RE2)', 'DMSO (Run 3) (RE4)'] },
+    { family: 'DMA',  mols: ['DMA','DMA_RE1','DMA_RE2'],    runLabels: ['DMA <span class="paren-hint">(Run1)</span>', 'DMA <span class="paren-hint">(Run2)</span>', 'DMA <span class="paren-hint">(Run3)</span>'] },
+    { family: 'DMSO', mols: ['DMSO','DMSO_RE5','DMSO_RE6'], runLabels: ['DMSO <span class="paren-hint">(Run1)</span>', 'DMSO <span class="paren-hint">(Run2)</span>', 'DMSO <span class="paren-hint">(Run3)</span>'] },
   ];
   const SWARMS_ORDER = ['Swarm_1','Swarm_2','Swarm_4','Swarm_8'];
   const VERSIONS_PUB = ['v0','v1','v2'];
-  const VER_DISPLAY  = { v0: 'Scheme 1 (v0)', v1: 'Scheme 2 (v1)', v2: 'Scheme 3 (v2)' };
+  const VER_DISPLAY  = { v0: 'Scheme1', v1: 'Scheme2', v2: 'Scheme3' };
 
   const SUB = [
     { label: 'Density',        unit: '(g cm⁻³)'   },
@@ -1134,9 +1156,13 @@ function renderPublicationTable() {
     </div>`;
   }
 
-  return `<div class="pub-tab-wrap">
-  <div class="pub-title">
-    Table 1. Optimization Performance of CG Mapping Schemes Across Swarm Sizes and Molecular Systems
+  return `<div class="pub-tab-wrap perf-wrap" id="perfWrap">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div class="pub-title" style="margin-bottom:0">
+      Table 1. Optimization Performance of CG Mapping Schemes Across Swarm Sizes and Molecular Systems
+    </div>
+    <button onclick="(function(){var w=document.getElementById('perfWrap');w.classList.toggle('hide-parens');this.textContent=w.classList.contains('hide-parens')?'Show (RunN)':'Hide (RunN)';}).call(this)"
+      style="flex-shrink:0;margin-left:16px;padding:4px 12px;border:1px solid #999;border-radius:4px;background:#f5f5f5;font-size:11px;cursor:pointer;font-family:Arial,sans-serif">Hide (RunN)</button>
   </div>
   <div class="pub-subtitle">
     Error percentages are mean absolute deviations (%) from experimental reference data averaged across all temperatures.
@@ -1146,9 +1172,9 @@ function renderPublicationTable() {
   </div>
   ${FAMILY_RUNS.map(fr => buildFamilyTable(fr)).join('<hr class="pub-separator">')}
   <div class="pub-note">
-    Swarm 1/2/4/8: number of parallel Fork optimization agents. Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): coarse-grained mapping scheme variants.
-    DMA family — Run 1: DMA; Run 2: DMA_RE1 (RE1); Run 3: DMA_RE2 (RE2).
-    DMSO family — Run 1: DMSO; Run 2: DMSO_RE2 (RE2); Run 3: DMSO_RE4 (RE4).
+    Swarm 1/2/4/8: number of parallel Fork optimization agents. Scheme1, Scheme2, Scheme3: coarse-grained mapping scheme variants.
+    DMA family — Run1: DMA; Run2: DMA_RE1; Run3: DMA_RE2.
+    DMSO family — Run1: DMSO; Run2: DMSO_RE5; Run3: DMSO_RE6.
   </div>
 </div>`;
 }
@@ -1174,7 +1200,7 @@ function renderOptRuns() {
   };
 
   const results = OPT_DATA.results || OPT_DATA;
-  const VER_DISPLAY = { v0:'Scheme 1 (v0)', v1:'Scheme 2 (v1)', v2:'Scheme 3 (v2)' };
+  const VER_DISPLAY = { v0:'Scheme1', v1:'Scheme2', v2:'Scheme3' };
   const SWARM_VER_ORDER = [
     'Swarm_2/v0','Swarm_2/v1','Swarm_2/v2',
     'Swarm_4/v0','Swarm_4/v1','Swarm_4/v2',
@@ -1314,12 +1340,12 @@ function renderOptRuns() {
   <div class="pub-subtitle">
     Values shown as: <em>simulated value</em> <span style="color:#555">(% error)</span>.
     Error is the absolute percentage deviation from the experimental target.
-    Mean Error is averaged over all applicable properties. Dipole Moment omitted from mean for v0/Scheme 1 runs (value = 0).
+    Mean Error is averaged over all applicable properties. Dipole Moment omitted from mean for Scheme1 runs (value = 0).
   </div>
   ${tablesHtml}
   <div class="pub-note">
     Swarm 2/4/8: number of parallel Fork optimization agents used during training.
-    Scheme 1 (v0), Scheme 2 (v1), Scheme 3 (v2): CG mapping scheme variants. Simulations run for 100 ns.
+    Scheme1, Scheme2, Scheme3: CG mapping scheme variants. Simulations run for 100 ns.
   </div>
 </div>`;
 }
@@ -1377,7 +1403,7 @@ function renderAgentsEfficiency() {
         <span style="font-size:12px;color:var(--text-muted)">8 parallel Fork agents</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <span class="vpill vpill-v0">v0</span><span class="vpill vpill-v1">v1</span><span class="vpill vpill-v2">v2</span>
+        <span class="vpill vpill-v0">Scheme1</span><span class="vpill vpill-v1">Scheme2</span><span class="vpill vpill-v2">Scheme3</span>
         <span style="font-size:12px;color:var(--text-muted)">CG mapping scheme variants</span>
       </div>
     </div>

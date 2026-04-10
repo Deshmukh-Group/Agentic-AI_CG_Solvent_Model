@@ -489,6 +489,8 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
   <div class="main" id="mainContent"></div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script>
 let DATA = null;
 let OPT_DATA = null;
@@ -538,6 +540,9 @@ function errClass(v) {
   if (v < 30) return 'err-med';
   return 'err-high';
 }
+
+// Converts data key 'Swarm_2' → display label 'Fork 2'
+function forkLabel(runKey) { return runKey.replace('Swarm_', 'Fork '); }
 
 function fmt(v, digits=3) {
   if (v === null || v === undefined || isNaN(v)) return '<span style="color:var(--text-dim)">—</span>';
@@ -633,6 +638,7 @@ function renderView() {
   if (currentView === 'optruns') {
     main.innerHTML = renderOptRuns();
     main.style.background = isLight ? '' : '#fff';
+    setTimeout(initMDCharts, 0);
     return;
   }
   if (currentView === 'table') {
@@ -713,7 +719,7 @@ function renderResults(mol) {
       if (!e) return;
       const pct = e.best_epoch / e.max_epoch * 100;
       html += `<tr>
-        <td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>
+        <td><span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span></td>
         <td><span class="vpill vpill-${ver}">${VERSION_LABELS[ver] || ver}</span></td>
         <td>
           <div class="epoch-bar-wrap">
@@ -757,7 +763,7 @@ function renderResults(mol) {
           <tbody>`;
       RUNS.forEach(run => {
         if (!d[run]) return;
-        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span></td>`;
         VERSIONS.forEach(ver => {
           const val = d[run]?.[ver]?.error_pct_by_property?.[temp]?.[prop];
           html += val !== undefined
@@ -790,7 +796,7 @@ function renderResults(mol) {
           <tbody>`;
       RUNS.forEach(run => {
         if (!d[run]) return;
-        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span></td>`;
         VERSIONS.forEach(ver => {
           const val = d[run]?.[ver]?.properties?.[temp]?.[prop];
           html += val !== undefined && !isNaN(val)
@@ -834,7 +840,7 @@ function renderParams(mol) {
 
     html += `<div class="param-card">
       <div class="param-card-header">
-        <span class="spill spill-s${run.split('_')[1]}">${run}</span>
+        <span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span>
         <span style="color:var(--text-muted);font-size:11px;font-weight:400">${sorted.length} parameters</span>
       </div>
       <div class="param-card-inner"><table>
@@ -947,7 +953,7 @@ function renderHeatmap(mol) {
 
   RUNS.forEach(run => {
     if (!d[run]) return;
-    html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+    html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span></td>`;
     VERSIONS.forEach(ver => {
       const v = d[run]?.[ver]?.mean_error_pct;
       html += `<td><span class="heat-cell" style="background:${heatBg(v)};color:${heatColor(v)}">${v !== undefined && !isNaN(v) ? v.toFixed(2)+'%' : '—'}</span></td>`;
@@ -966,7 +972,7 @@ function renderHeatmap(mol) {
 
   RUNS.forEach(run => {
     if (!d[run]) return;
-    html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+    html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span></td>`;
     VERSIONS.forEach(ver => {
       const v = d[run]?.[ver]?.total_error_pct;
       html += `<td><span class="heat-cell" style="background:${heatBg(v)};color:${heatColor(v)}">${v !== undefined && !isNaN(v) ? v.toFixed(2)+'%' : '—'}</span></td>`;
@@ -1002,7 +1008,7 @@ function renderHeatmap(mol) {
 
       RUNS.forEach(run => {
         if (!d[run]) return;
-        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${run}</span></td>`;
+        html += `<tr><td><span class="spill spill-s${run.split('_')[1]}">${forkLabel(run)}</span></td>`;
         VERSIONS.forEach(ver => {
           const v = d[run]?.[ver]?.error_pct_by_property?.[temp]?.[prop];
           html += `<td><span class="heat-cell" style="background:${heatBg(v)};color:${heatColor(v)}">${v !== undefined && !isNaN(v) ? v.toFixed(2)+'%' : '—'}</span></td>`;
@@ -1057,6 +1063,7 @@ function renderPublicationTable() {
     { label: 'Density',        unit: '(g cm⁻³)'   },
     { label: 'Heat of Vap.',   unit: '(cal mol⁻¹)' },
     { label: 'Surf. Tension',  unit: '(dyn cm⁻¹)'  },
+    { label: 'Dipole Mom.',    unit: '(D)'          },
     { label: 'Mean Error',     unit: '(%)'          },
     { label: 'Best Epoch',     unit: ''             },
   ];
@@ -1125,6 +1132,7 @@ function renderPublicationTable() {
           const densErr   = getErrPct(mol, swarm, ver, 'density');
           const hvapErr   = getErrPct(mol, swarm, ver, 'heat_of_vaporization');
           const stErr     = getErrPct(mol, swarm, ver, 'surface_tension');
+          const dipErr    = getErrPct(mol, swarm, ver, 'dipole_moment');
           const meanErr   = e.mean_error_pct ?? null;
           const bestEpoch = e.best_epoch ?? null;
           const isMin     = meanErr !== null && minMeanErr !== null && meanErr === minMeanErr;
@@ -1135,6 +1143,7 @@ function renderPublicationTable() {
             <td style="${lb}">${fmtN(densErr)}</td>
             <td>${fmtN(hvapErr)}</td>
             <td>${fmtN(stErr)}</td>
+            <td>${fmtN(dipErr)}</td>
             <td>${meanErrCell}</td>
             <td>${bestEpoch !== null ? bestEpoch : '—'}</td>`;
         });
@@ -1159,7 +1168,7 @@ function renderPublicationTable() {
   return `<div class="pub-tab-wrap perf-wrap" id="perfWrap">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
     <div class="pub-title" style="margin-bottom:0">
-      Table 1. Optimization Performance of CG Mapping Schemes Across Swarm Sizes and Molecular Systems
+      Table 1. Optimization Performance of CG Mapping Schemes Across Fork Sizes and Molecular Systems
     </div>
     <button onclick="(function(){var w=document.getElementById('perfWrap');w.classList.toggle('hide-parens');this.textContent=w.classList.contains('hide-parens')?'Show (RunN)':'Hide (RunN)';}).call(this)"
       style="flex-shrink:0;margin-left:16px;padding:4px 12px;border:1px solid #999;border-radius:4px;background:#f5f5f5;font-size:11px;cursor:pointer;font-family:Arial,sans-serif">Hide (RunN)</button>
@@ -1168,11 +1177,11 @@ function renderPublicationTable() {
     Error percentages are mean absolute deviations (%) from experimental reference data averaged across all temperatures.
     Units: Density in g cm⁻³; Heat of Vaporization in cal mol⁻¹; Surface Tension in dyn cm⁻¹.
     Best Epoch: training epoch yielding minimum total error.
-    <span style="display:inline-block;background:#c8f7c5;color:#1a6b16;padding:0 6px;border-radius:2px;font-style:normal;font-weight:bold">Green cell</span> = lowest Mean Error in the row (across runs for that Swarm &amp; Scheme).
+    <span style="display:inline-block;background:#c8f7c5;color:#1a6b16;padding:0 6px;border-radius:2px;font-style:normal;font-weight:bold">Green cell</span> = lowest Mean Error in the row (across runs for that Fork &amp; Scheme).
   </div>
   ${FAMILY_RUNS.map(fr => buildFamilyTable(fr)).join('<hr class="pub-separator">')}
   <div class="pub-note">
-    Swarm 1/2/4/8: number of parallel Fork optimization agents. Scheme1, Scheme2, Scheme3: coarse-grained mapping scheme variants.
+    Fork 1/2/4/8: number of parallel Fork optimization agents. Scheme1, Scheme2, Scheme3: coarse-grained mapping scheme variants.
     DMA family — Run1: DMA; Run2: DMA_RE1; Run3: DMA_RE2.
     DMSO family — Run1: DMSO; Run2: DMSO_RE5; Run3: DMSO_RE6.
   </div>
@@ -1180,24 +1189,25 @@ function renderPublicationTable() {
 }
 
 // ═══════════════════════════════════════
-// MD RESULTS VIEW  (opt_run.json) — publication-style, two temps side-by-side
+// MD RESULTS VIEW  (opt_run.json) — two family tables, averaged across runs
 // ═══════════════════════════════════════
 function renderOptRuns() {
   if (!OPT_DATA) return '<div style="padding:24px"><div class="error-msg">opt_run.json not loaded.</div></div>';
 
   const PROPS = ['Density','Heat_of_Vaporization','Surface_Tension','Dipole_Moment'];
   const PROP_LABEL = {
-    Density:             'Density',
-    Heat_of_Vaporization:'Heat of Vap.',
-    Surface_Tension:     'Surf. Tension',
-    Dipole_Moment:       'Dipole',
+    Density:              'Density',
+    Heat_of_Vaporization: 'Heat of Vap.',
+    Surface_Tension:      'Surf. Tension',
+    Dipole_Moment:        'Dipole',
   };
   const PROP_UNIT = {
-    Density:             'g cm⁻³',
-    Heat_of_Vaporization:'kcal mol⁻¹',
-    Surface_Tension:     'dyn cm⁻¹',
-    Dipole_Moment:       'D',
+    Density:              'g cm⁻³',
+    Heat_of_Vaporization: 'kcal mol⁻¹',
+    Surface_Tension:      'dyn cm⁻¹',
+    Dipole_Moment:        'D',
   };
+  const PROP_DEC = { Density: 4, Heat_of_Vaporization: 3, Surface_Tension: 3, Dipole_Moment: 4 };
 
   const results = OPT_DATA.results || OPT_DATA;
   const VER_DISPLAY = { v0:'Scheme1', v1:'Scheme2', v2:'Scheme3' };
@@ -1206,11 +1216,22 @@ function renderOptRuns() {
     'Swarm_4/v0','Swarm_4/v1','Swarm_4/v2',
     'Swarm_8/v0','Swarm_8/v1','Swarm_8/v2',
   ];
+  const FAMILIES = {
+    DMA:  { mols: ['DMA','DMA_RE1','DMA_RE2'],    shortLabels: ['DMA (Run1)','DMA (Run2)','DMA (Run3)']    },
+    DMSO: { mols: ['DMSO','DMSO_RE1','DMSO_RE2'], shortLabels: ['DMSO (Run1)','DMSO (Run2)','DMSO (Run3)'] },
+  };
 
-  function fmtV(v, dec=4) {
-    return (v === null || v === undefined || isNaN(v)) ? null : v.toFixed(dec);
+  function calcMean(arr) {
+    const v = arr.filter(x => x !== null && x !== undefined && !isNaN(x));
+    return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null;
   }
-  function errColor(v) {
+  function calcStd(arr) {
+    const v = arr.filter(x => x !== null && x !== undefined && !isNaN(x));
+    if (v.length < 2) return null;
+    const m = v.reduce((a,b)=>a+b,0)/v.length;
+    return Math.sqrt(v.reduce((a,b)=>a+(b-m)**2,0)/(v.length-1));
+  }
+  function errColorStyle(v) {
     if (v === null || v === undefined || isNaN(v)) return '';
     if (v < 5)  return 'color:#1a6b16';
     if (v < 15) return 'color:#5a6e0a';
@@ -1218,30 +1239,33 @@ function renderOptRuns() {
     return 'color:#8b1a0a';
   }
 
-  function buildMolTable(mol, molData) {
-    const temps = Object.keys(molData);
-    const nDataCols = PROPS.length + 1; // 4 props + Mean Err
+  function buildFamilyTable(familyName, familyDef) {
+    const mols = familyDef.mols.filter(m => results[m]);
+    if (!mols.length) return `<div class="pub-mol-section"><div class="pub-mol-label">${familyName} — No data</div></div>`;
+    const temps = Object.keys(results[mols[0]]);
 
-    // Targets per temp
+    // Targets (first mol, first run key)
     const targets = {};
     temps.forEach(temp => {
-      const firstKey = Object.keys(molData[temp])[0];
-      targets[temp] = molData[temp][firstKey]?.targets || {};
+      const firstKey = Object.keys(results[mols[0]][temp])[0];
+      targets[temp] = results[mols[0]][temp][firstKey]?.targets || {};
     });
 
-    // ── Header row 1: "Mapping Scheme" | Temp1 colspan | Temp2 colspan ──
+    const nDataCols = PROPS.length + 1;
+
+    // ── Header row 1 ──
     let hdr1 = `<th rowspan="2" style="text-align:left;vertical-align:bottom;min-width:152px;border-right:2px solid #888;padding-bottom:6px">Mapping<br>Scheme</th>`;
     temps.forEach(temp => {
       hdr1 += `<th colspan="${nDataCols}" style="border-left:2px solid #888;border-bottom:1px solid #999;font-size:11px;letter-spacing:.04em">${temp}</th>`;
     });
 
-    // ── Header row 2: prop labels repeated per temp ──
+    // ── Header row 2 ──
     let hdr2 = '';
     temps.forEach(temp => {
       PROPS.forEach((p, pi) => {
-        hdr2 += `<th style="${pi===0?'border-left:2px solid #888;':''}font-size:9px;min-width:82px;font-weight:600">${PROP_LABEL[p]}<span class="pub-th-unit">${PROP_UNIT[p]}</span></th>`;
+        hdr2 += `<th style="${pi===0?'border-left:2px solid #888;':''}font-size:9px;min-width:90px;font-weight:600">${PROP_LABEL[p]}<span class="pub-th-unit">${PROP_UNIT[p]}</span></th>`;
       });
-      hdr2 += `<th style="font-size:9px;min-width:62px;font-weight:600">Mean Err<span class="pub-th-unit">(%)</span></th>`;
+      hdr2 += `<th style="font-size:9px;min-width:68px;font-weight:600">Mean Err<span class="pub-th-unit">(%)</span></th>`;
     });
 
     // ── Target row ──
@@ -1251,7 +1275,7 @@ function renderOptRuns() {
       const tgt = targets[temp];
       PROPS.forEach((p, pi) => {
         const v = tgt[p];
-        targetRow += `<td style="${pi===0?'border-left:2px solid #888;':''}border-bottom:2px solid #666;font-weight:bold;font-size:10.5px;color:#1a3a6b">${v != null ? parseFloat(v).toFixed(4) : '—'}</td>`;
+        targetRow += `<td style="${pi===0?'border-left:2px solid #888;':''}border-bottom:2px solid #666;font-weight:bold;font-size:10.5px;color:#1a3a6b">${v != null ? parseFloat(v).toFixed(PROP_DEC[p]) : '—'}</td>`;
       });
       targetRow += `<td style="border-bottom:2px solid #666;color:#aaa;font-size:10px">—</td>`;
     });
@@ -1259,60 +1283,105 @@ function renderOptRuns() {
 
     // ── Data rows ──
     const SWARM_BG    = { '2':'rgba(30,100,210,0.05)', '4':'rgba(150,60,200,0.05)', '8':'rgba(20,155,70,0.05)' };
-    const SWARM_COLOR = { '2':'#1a4a9a',               '4':'#6a2a9a',              '8':'#0a6a35' };
+    const SWARM_COLOR = { '2':'#1a4a9a', '4':'#6a2a9a', '8':'#0a6a35' };
     let lastSwarm = null;
     let dataRows = '';
+
     SWARM_VER_ORDER.forEach(key => {
+      const hasAny = mols.some(m => temps.some(t => results[m]?.[t]?.[key]));
+      if (!hasAny) return;
       const [swarmPart, verPart] = key.split('/');
       const swarmN   = swarmPart.split('_')[1];
       const verLabel = VER_DISPLAY[verPart] || verPart;
-      const hasAny   = temps.some(t => molData[t]?.[key]);
-      if (!hasAny) return;
-
-      const isNewSwarm  = swarmPart !== lastSwarm;
+      const isNewSwarm = swarmPart !== lastSwarm;
       lastSwarm = swarmPart;
-      const rowBg       = SWARM_BG[swarmN]    || '';
-      const swarmColor  = SWARM_COLOR[swarmN] || '#333';
-      const thickTop    = isNewSwarm ? 'border-top:2.5px solid #444;' : '';
+      const rowBg      = SWARM_BG[swarmN] || '';
+      const swarmColor = SWARM_COLOR[swarmN] || '#333';
+      const thickTop   = isNewSwarm ? 'border-top:2.5px solid #444;' : '';
 
       dataRows += `<tr style="background:${rowBg}">
         <td style="${thickTop}border-right:2px solid #888;font-weight:bold;font-size:12px;padding-left:6px">
           ${verLabel}<br>
-          <span style="font-weight:normal;font-size:10px;color:${swarmColor}">Swarm ${swarmN}</span>
+          <span style="font-weight:normal;font-size:10px;color:${swarmColor}">Fork ${swarmN}</span>
         </td>`;
 
       temps.forEach(temp => {
-        const entry = molData[temp]?.[key];
         const lb = `border-left:2px solid #888;${thickTop}`;
         const tt = thickTop;
-        if (!entry) {
-          PROPS.forEach((p, pi) => { dataRows += `<td style="${pi===0?lb:tt}color:#ccc">—</td>`; });
-          dataRows += `<td style="${tt}color:#ccc">—</td>`;
-          return;
-        }
-        const meanErr = entry.mean_pct_error;
-        PROPS.forEach((p, pi) => {
-          const simVal = entry.simulated?.[p];
-          const errVal = entry.errors?.[p];
-          const simStr = fmtV(simVal);
-          if (simStr === null) {
+
+        PROPS.forEach((prop, pi) => {
+          const vals = mols.map(m => {
+            const v = results[m]?.[temp]?.[key]?.simulated?.[prop];
+            return (v !== null && v !== undefined && !isNaN(v)) ? v : null;
+          });
+          const errs = mols.map(m => {
+            const e = results[m]?.[temp]?.[key]?.errors?.[prop];
+            return (e !== null && e !== undefined && !isNaN(e)) ? e : null;
+          });
+          const meanV   = calcMean(vals);
+          const stdV    = calcStd(vals);
+          const meanErr = calcMean(errs);
+
+          if (meanV === null) {
             dataRows += `<td style="${pi===0?lb:tt}color:#bbb">—</td>`;
-          } else {
-            const errDisp = (errVal !== null && errVal !== undefined && !isNaN(errVal))
-              ? `<span style="font-size:9.5px;${errColor(errVal)}">(${errVal.toFixed(2)}%)</span>`
-              : '';
-            dataRows += `<td style="${pi===0?lb:tt}font-size:12px">${simStr} ${errDisp}</td>`;
+            return;
           }
+
+          const dec     = PROP_DEC[prop];
+          const meanStr = meanV.toFixed(dec);
+          const stdStr  = stdV !== null ? stdV.toFixed(dec) : '—';
+          const errStr  = meanErr !== null ? `(${meanErr.toFixed(2)}%)` : '';
+          const errStyle = errColorStyle(meanErr);
+
+          // Tooltip: individual run values with errors
+          const tooltipLines = mols.map((m, mi) => {
+            const v = vals[mi];
+            const e = errs[mi];
+            const vStr = v !== null ? v.toFixed(dec) : '—';
+            const eStr = e !== null ? ` (${e.toFixed(2)}%)` : '';
+            return `${familyDef.shortLabels[mi]}: ${vStr}${eStr}`;
+          });
+          const tooltip = tooltipLines.join('\n');
+
+          dataRows += `<td style="${pi===0?lb:tt}font-size:11px;cursor:default" title="${tooltip}">
+            <div style="font-weight:600;white-space:nowrap">${meanStr} ± ${stdStr}</div>
+            <div style="font-size:9px;${errStyle}">${errStr}</div>
+          </td>`;
         });
-        const mec = errColor(meanErr);
-        dataRows += `<td style="${tt}font-weight:bold;font-size:12px;${mec}">${meanErr != null ? meanErr.toFixed(2)+'%' : '—'}</td>`;
+
+        // Mean Err% cell
+        const allMeanErrs = mols.map(m => {
+          const v = results[m]?.[temp]?.[key]?.mean_pct_error;
+          return (v !== null && v !== undefined && !isNaN(v)) ? v : null;
+        });
+        const meanME = calcMean(allMeanErrs);
+        const stdME  = calcStd(allMeanErrs);
+        const meStyle = errColorStyle(meanME);
+        const meTip = mols.map((m, mi) => {
+          const v = allMeanErrs[mi];
+          return `${familyDef.shortLabels[mi]}: ${v !== null ? v.toFixed(2)+'%' : '—'}`;
+        }).join('\n');
+
+        if (meanME === null) {
+          dataRows += `<td style="${tt}color:#bbb">—</td>`;
+        } else {
+          dataRows += `<td style="${tt}font-size:11px;cursor:default" title="${meTip}">
+            <div style="font-weight:bold;white-space:nowrap;${meStyle}">${meanME.toFixed(2)} ± ${stdME !== null ? stdME.toFixed(2) : '—'}%</div>
+          </td>`;
+        }
       });
 
       dataRows += `</tr>`;
     });
 
     return `<div class="pub-mol-section">
-      <div class="pub-mol-label">${mol}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div class="pub-mol-label">${familyName} Family</div>
+        <button onclick="downloadMDXlsx('${familyName}')"
+          style="padding:5px 14px;border:1px solid #888;border-radius:4px;background:#f0f4f8;font-size:11px;cursor:pointer;font-family:Arial,sans-serif">
+          ⬇ Download XLSX
+        </button>
+      </div>
       <div class="pub-table-wrap">
       <table class="pub-table">
         <thead>
@@ -1328,26 +1397,298 @@ function renderOptRuns() {
     </div>`;
   }
 
-  const tablesHtml = Object.entries(results)
-    .filter(([, v]) => typeof v === 'object' && !Array.isArray(v))
-    .map(([mol, molData]) => buildMolTable(mol, molData))
-    .join('<hr class="pub-separator">');
-
   return `<div class="pub-tab-wrap md-results-wrap">
   <div class="pub-title">
     Table 2. MD Simulation Results (100 ns) — Simulated Properties vs Experimental Targets
   </div>
   <div class="pub-subtitle">
-    Values shown as: <em>simulated value</em> <span style="color:#555">(% error)</span>.
-    Error is the absolute percentage deviation from the experimental target.
-    Mean Error is averaged over all applicable properties. Dipole Moment omitted from mean for Scheme1 runs (value = 0).
+    Values shown as: <em>mean ± std</em> across replicate runs, with <em>(mean error %)</em> below each value.
+    Hover over any cell to see individual run values and errors.
+    Mean Error is averaged over all applicable properties (Dipole Moment excluded when value = 0).
   </div>
-  ${tablesHtml}
+  ${buildFamilyTable('DMA', FAMILIES.DMA)}
+  <hr class="pub-separator">
+  ${buildFamilyTable('DMSO', FAMILIES.DMSO)}
   <div class="pub-note">
-    Swarm 2/4/8: number of parallel Fork optimization agents used during training.
-    Scheme1, Scheme2, Scheme3: CG mapping scheme variants. Simulations run for 100 ns.
+    DMA family: DMA (Run1), DMA_RE1 (Run2), DMA_RE2 (Run3).
+    DMSO family: DMSO (Run1), DMSO_RE1 (Run2), DMSO_RE2 (Run3).
+    Fork 2/4/8: number of parallel Fork optimization agents. Scheme1/2/3: CG mapping scheme variants.
+    Std is the sample standard deviation across the three replicate runs. Simulations run for 100 ns.
+  </div>
+  <hr class="pub-separator">
+  <div class="pub-title" style="margin-top:16px;">Error % Summary — Bar Charts</div>
+  <div class="pub-subtitle">Mean error % averaged across forks &amp; temperatures (left) and across schemes &amp; temperatures (right). Error bars = std across 3 replicate runs.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:12px;">
+    <div>
+      <div style="text-align:center;font-weight:600;font-size:13px;margin-bottom:4px;">DMA — By Scheme</div>
+      <div id="md-chart-dma-scheme" style="width:100%;height:360px;"></div>
+    </div>
+    <div>
+      <div style="text-align:center;font-weight:600;font-size:13px;margin-bottom:4px;">DMA — By Fork</div>
+      <div id="md-chart-dma-fork" style="width:100%;height:360px;"></div>
+    </div>
+    <div>
+      <div style="text-align:center;font-weight:600;font-size:13px;margin-bottom:4px;">DMSO — By Scheme</div>
+      <div id="md-chart-dmso-scheme" style="width:100%;height:360px;"></div>
+    </div>
+    <div>
+      <div style="text-align:center;font-weight:600;font-size:13px;margin-bottom:4px;">DMSO — By Fork</div>
+      <div id="md-chart-dmso-fork" style="width:100%;height:360px;"></div>
+    </div>
   </div>
 </div>`;
+}
+
+// ═══════════════════════════════════════
+// XLSX DOWNLOAD for MD Results
+// ═══════════════════════════════════════
+function downloadMDXlsx(familyName) {
+  if (!window.XLSX) { alert('XLSX library not loaded. Check your internet connection.'); return; }
+  const PROPS    = ['Density','Heat_of_Vaporization','Surface_Tension','Dipole_Moment'];
+  const PROP_LBL = { Density:'Density', Heat_of_Vaporization:'Heat of Vap.', Surface_Tension:'Surf. Tension', Dipole_Moment:'Dipole' };
+  const PROP_UN  = { Density:'g/cm3',   Heat_of_Vaporization:'kcal/mol',     Surface_Tension:'dyn/cm',        Dipole_Moment:'D'      };
+  const PROP_DEC = { Density: 4, Heat_of_Vaporization: 3, Surface_Tension: 3, Dipole_Moment: 4 };
+  const results  = OPT_DATA.results || OPT_DATA;
+  const VER_DISPLAY = { v0:'Scheme1', v1:'Scheme2', v2:'Scheme3' };
+  const SWARM_VER_ORDER = [
+    'Swarm_2/v0','Swarm_2/v1','Swarm_2/v2',
+    'Swarm_4/v0','Swarm_4/v1','Swarm_4/v2',
+    'Swarm_8/v0','Swarm_8/v1','Swarm_8/v2',
+  ];
+  const FAMILY_MOLS = {
+    DMA:  ['DMA','DMA_RE1','DMA_RE2'],
+    DMSO: ['DMSO','DMSO_RE1','DMSO_RE2'],
+  };
+
+  function calcMean(arr) {
+    const v = arr.filter(x => x !== null && x !== undefined && !isNaN(x));
+    return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null;
+  }
+  function calcStd(arr) {
+    const v = arr.filter(x => x !== null && x !== undefined && !isNaN(x));
+    if (v.length < 2) return null;
+    const m = v.reduce((a,b)=>a+b,0)/v.length;
+    return Math.sqrt(v.reduce((a,b)=>a+(b-m)**2,0)/(v.length-1));
+  }
+
+  const mols = FAMILY_MOLS[familyName].filter(m => results[m]);
+  if (!mols.length) { alert(`No data for ${familyName}`); return; }
+  const temps = Object.keys(results[mols[0]]);
+
+  // Targets
+  const targets = {};
+  temps.forEach(temp => {
+    const firstKey = Object.keys(results[mols[0]][temp])[0];
+    targets[temp] = results[mols[0]][temp][firstKey]?.targets || {};
+  });
+
+  // Header row
+  const hdrRow = ['Mapping Scheme'];
+  temps.forEach(temp => {
+    PROPS.forEach(p  => hdrRow.push(`${temp} ${PROP_LBL[p]} (${PROP_UN[p]})`));
+    hdrRow.push(`${temp} Mean Err (%)`);
+  });
+
+  // Target row
+  const tgtRow = ['Experimental Target'];
+  temps.forEach(temp => {
+    PROPS.forEach(p => {
+      const v = targets[temp]?.[p];
+      tgtRow.push(v != null ? parseFloat(v).toFixed(PROP_DEC[p]) : '—');
+    });
+    tgtRow.push('—');
+  });
+
+  // Data rows
+  const dataRows = [];
+  SWARM_VER_ORDER.forEach(key => {
+    const hasAny = mols.some(m => temps.some(t => results[m]?.[t]?.[key]));
+    if (!hasAny) return;
+    const [swarmPart, verPart] = key.split('/');
+    const row = [`${VER_DISPLAY[verPart] || verPart} / Fork ${swarmPart.split('_')[1]}`];
+    temps.forEach(temp => {
+      PROPS.forEach(prop => {
+        const vals = mols.map(m => { const v = results[m]?.[temp]?.[key]?.simulated?.[prop]; return (v != null && !isNaN(v)) ? v : null; });
+        const errs = mols.map(m => { const e = results[m]?.[temp]?.[key]?.errors?.[prop]; return (e != null && !isNaN(e)) ? e : null; });
+        const meanV = calcMean(vals), stdV = calcStd(vals), meanErr = calcMean(errs);
+        if (meanV === null) { row.push('—'); return; }
+        const dec = PROP_DEC[prop];
+        const errStr = meanErr !== null ? ` (${meanErr.toFixed(2)}%)` : '';
+        row.push(`${meanV.toFixed(dec)} ± ${stdV !== null ? stdV.toFixed(dec) : '—'}${errStr}`);
+      });
+      const allME = mols.map(m => { const v = results[m]?.[temp]?.[key]?.mean_pct_error; return (v != null && !isNaN(v)) ? v : null; });
+      const meanME = calcMean(allME), stdME = calcStd(allME);
+      row.push(meanME !== null ? `${meanME.toFixed(2)} ± ${stdME !== null ? stdME.toFixed(2) : '—'}%` : '—');
+    });
+    dataRows.push(row);
+  });
+
+  const wsData = [hdrRow, tgtRow, ...dataRows];
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws['!cols'] = [{ wch: 24 }, ...Array(hdrRow.length - 1).fill({ wch: 28 })];
+  XLSX.utils.book_append_sheet(wb, ws, familyName);
+  XLSX.writeFile(wb, `MD_Results_${familyName}_100ns.xlsx`);
+}
+
+// ═══════════════════════════════════════
+// MD CHARTS (ECharts bar + error bars)
+// ═══════════════════════════════════════
+function initMDCharts() {
+  if (typeof echarts === 'undefined' || !OPT_DATA) return;
+  const results = OPT_DATA.results || OPT_DATA;
+
+  const FORKS   = ['Swarm_2', 'Swarm_4', 'Swarm_8'];
+  const SCHEMES = ['v0', 'v1', 'v2'];
+  const SCHEME_LABELS = ['Scheme 1', 'Scheme 2', 'Scheme 3'];
+  const FORK_LABELS   = ['Fork 2',   'Fork 4',   'Fork 8'];
+
+  // Publication-quality color palette (ColorBrewer Set1 variants)
+  const BAR_COLORS = ['#2166AC', '#1A9641', '#D6604D'];
+
+  const FAM = {
+    DMA:  ['DMA','DMA_RE1','DMA_RE2'],
+    DMSO: ['DMSO','DMSO_RE1','DMSO_RE2'],
+  };
+
+  // IQR-based outlier removal (1.5 × IQR fence)
+  function removeOutliers(vals) {
+    if (vals.length < 4) return vals;
+    const sorted = [...vals].sort((a, b) => a - b);
+    const q1 = sorted[Math.floor((sorted.length - 1) * 0.25)];
+    const q3 = sorted[Math.floor((sorted.length - 1) * 0.75)];
+    const iqr = q3 - q1;
+    const lo = q1 - 1.5 * iqr, hi = q3 + 1.5 * iqr;
+    return vals.filter(v => v >= lo && v <= hi);
+  }
+
+  // For each mol, compute avg mean_pct_error across given fork×scheme×temp combinations
+  // filterOutliers: apply IQR removal before averaging
+  function molAvg(mol, forks, schemes, filterOutliers) {
+    const temps = Object.keys(results[mol] || {});
+    const vals = [];
+    forks.forEach(fork => {
+      schemes.forEach(ver => {
+        const key = `${fork}/${ver}`;
+        temps.forEach(t => {
+          const v = results[mol]?.[t]?.[key]?.mean_pct_error;
+          if (v != null && !isNaN(v)) vals.push(v);
+        });
+      });
+    });
+    const clean = filterOutliers ? removeOutliers(vals) : vals;
+    return clean.length ? clean.reduce((a, b) => a + b, 0) / clean.length : null;
+  }
+
+  function computeGroupData(famMols, mode) {
+    const groupKeys = mode === 'scheme' ? SCHEMES     : FORKS;
+    const otherKeys = mode === 'scheme' ? FORKS       : SCHEMES;
+    const labels    = mode === 'scheme' ? SCHEME_LABELS : FORK_LABELS;
+    const doFilter  = mode === 'fork';   // outlier removal only for By Fork
+
+    const means = [], stds = [], errbars = [], barData = [];
+    groupKeys.forEach((gk, gi) => {
+      const perMol = famMols.map(mol => {
+        const forks   = mode === 'scheme' ? otherKeys : [gk];
+        const schemes = mode === 'scheme' ? [gk]      : otherKeys;
+        return molAvg(mol, forks, schemes, doFilter);
+      }).filter(v => v !== null);
+      const m = perMol.length ? perMol.reduce((a, b) => a + b, 0) / perMol.length : 0;
+      const s = perMol.length > 1
+        ? Math.sqrt(perMol.reduce((a, b) => a + (b - m) ** 2, 0) / (perMol.length - 1))
+        : 0;
+      means.push(+m.toFixed(3));
+      stds.push(+s.toFixed(3));
+      errbars.push([gi, +(m + s).toFixed(3), +Math.max(0, m - s).toFixed(3)]);
+      barData.push({ value: +m.toFixed(3), itemStyle: { color: BAR_COLORS[gi], borderRadius: [3, 3, 0, 0] } });
+    });
+    return { labels, means, stds, errbars, barData };
+  }
+
+  function makeChart(elId, data) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const chart = echarts.init(el, null, { renderer: 'svg' });
+    chart.setOption({
+      backgroundColor: '#fff',
+      grid: { top: 36, bottom: 64, left: 72, right: 28, containLabel: false },
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(255,255,255,0.97)',
+        borderColor: '#ccc',
+        borderWidth: 1,
+        textStyle: { color: '#333', fontSize: 13 },
+        formatter(params) {
+          const idx = params[0].dataIndex;
+          const m = data.means[idx], s = data.stds[idx];
+          return `<b>${data.labels[idx]}</b><br/>Mean Error: <b>${m.toFixed(2)} %</b><br/>Std: ${s.toFixed(2)} %`;
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: data.labels,
+        axisLine: { lineStyle: { color: '#555' } },
+        axisTick: { alignWithLabel: true },
+        axisLabel: { fontSize: 14, fontFamily: 'Arial', color: '#333', fontWeight: 'bold' },
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Mean Error (%)',
+        nameLocation: 'middle',
+        nameGap: 52,
+        nameTextStyle: { fontSize: 14, fontFamily: 'Arial', color: '#333', fontWeight: 'bold' },
+        axisLabel: { fontSize: 13, fontFamily: 'Arial', color: '#444', formatter: v => v + '%' },
+        axisLine: { show: true, lineStyle: { color: '#555' } },
+        splitLine: { lineStyle: { type: 'dashed', color: '#ddd' } },
+      },
+      series: [
+        {
+          name: 'Mean Error',
+          type: 'bar',
+          data: data.barData,
+          barMaxWidth: 52,
+          barCategoryGap: '40%',
+          label: {
+            show: true,
+            position: 'top',
+            fontSize: 13,
+            fontFamily: 'Arial',
+            fontWeight: 'bold',
+            color: '#333',
+            formatter: p => p.value.toFixed(2) + '%',
+          },
+        },
+        {
+          name: 'Std',
+          type: 'custom',
+          z: 10,
+          renderItem(params, api) {
+            const [idx, upper, lower] = data.errbars[params.dataIndex];
+            const xPx  = api.coord([idx, 0])[0];
+            const yTop = api.coord([idx, upper])[1];
+            const yBot = api.coord([idx, lower])[1];
+            const hw = 7;
+            const col = '#444';
+            return {
+              type: 'group',
+              children: [
+                { type: 'line', shape: { x1: xPx, y1: yTop, x2: xPx, y2: yBot },  style: { stroke: col, lineWidth: 2 } },
+                { type: 'line', shape: { x1: xPx-hw, y1: yTop, x2: xPx+hw, y2: yTop }, style: { stroke: col, lineWidth: 2 } },
+                { type: 'line', shape: { x1: xPx-hw, y1: yBot,  x2: xPx+hw, y2: yBot  }, style: { stroke: col, lineWidth: 2 } },
+              ]
+            };
+          },
+          data: data.errbars,
+          encode: { x: 0, y: [1, 2] },
+        }
+      ]
+    });
+  }
+
+  makeChart('md-chart-dma-scheme',  computeGroupData(FAM.DMA,  'scheme'));
+  makeChart('md-chart-dma-fork',    computeGroupData(FAM.DMA,  'fork'));
+  makeChart('md-chart-dmso-scheme', computeGroupData(FAM.DMSO, 'scheme'));
+  makeChart('md-chart-dmso-fork',   computeGroupData(FAM.DMSO, 'fork'));
 }
 
 loadData();
@@ -1391,15 +1732,15 @@ function renderAgentsEfficiency() {
     <div class="section-title">Legend</div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;padding:4px 0;">
       <div style="display:flex;align-items:center;gap:8px;">
-        <span class="spill spill-s2">Swarm 2</span>
+        <span class="spill spill-s2">Fork 2</span>
         <span style="font-size:12px;color:var(--text-muted)">2 parallel Fork agents</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <span class="spill spill-s4">Swarm 4</span>
+        <span class="spill spill-s4">Fork 4</span>
         <span style="font-size:12px;color:var(--text-muted)">4 parallel Fork agents</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <span class="spill spill-s8">Swarm 8</span>
+        <span class="spill spill-s8">Fork 8</span>
         <span style="font-size:12px;color:var(--text-muted)">8 parallel Fork agents</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">

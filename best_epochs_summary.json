@@ -835,17 +835,7 @@
           "param_MS2_OC_epsilon": -0.285,
           "param_MS2_OC_rmin": 5.19,
           "param_OC_epsilon": -0.285,
-          "param_OC_rminby2": 2.595,
-          "param_MS2_DUP_bl": 0.9,
-          "param_MS2_DUP_kb": 150.0,
-          "param_OC_DUN_bl": 0.9,
-          "param_OC_DUN_kb": 150.0,
-          "param_DUP_MS2_OC_theta0": 175.0,
-          "param_DUP_MS2_OC_ktheta": 32.0,
-          "param_DUN_OC_MS2_theta0": 175.0,
-          "param_DUN_OC_MS2_ktheta": 32.0,
-          "param_DUP_charge": 0.258,
-          "param_DUN_charge": -0.258
+          "param_OC_rminby2": 2.595
         },
         "error_pct_by_property": {
           "298K": {
@@ -2277,22 +2267,12 @@
           }
         },
         "params": {
-          "param_DUN_OC_MS2_ktheta": 8.0,
-          "param_DUN_OC_MS2_theta0": 180.0,
-          "param_DUP_MS2_OC_ktheta": 8.0,
-          "param_DUP_MS2_OC_theta0": 180.0,
-          "param_MS2_DUP_bl": 0.8,
-          "param_MS2_DUP_kb": 15.0,
           "param_MS2_OC_bl": 2.7,
           "param_MS2_OC_epsilon": -0.8,
           "param_MS2_OC_kb": 15.0,
           "param_MS2_OC_rmin": 5.3,
-          "param_OC_DUN_bl": 0.8,
-          "param_OC_DUN_kb": 15.0,
           "param_OC_epsilon": -0.66,
-          "param_OC_rminby2": 2.7,
-          "param_DUP_charge": 0.2,
-          "param_DUN_charge": -0.2
+          "param_OC_rminby2": 2.7
         },
         "error_pct_by_property": {
           "298K": {
@@ -2739,22 +2719,12 @@
           }
         },
         "params": {
-          "param_DUN_OC_MS2_ktheta": 5.0,
-          "param_DUN_OC_MS2_theta0": 152.0,
-          "param_DUP_MS2_OC_ktheta": 6.0,
-          "param_DUP_MS2_OC_theta0": 154.0,
-          "param_MS2_DUP_bl": 1.15,
-          "param_MS2_DUP_kb": 9.0,
           "param_MS2_OC_bl": 3.55,
           "param_MS2_OC_epsilon": -0.65,
           "param_MS2_OC_kb": 20.0,
           "param_MS2_OC_rmin": 4.15,
-          "param_OC_DUN_bl": 1.15,
-          "param_OC_DUN_kb": 10.0,
           "param_OC_epsilon": -0.45,
-          "param_OC_rminby2": 2.15,
-          "param_DUP_charge": 0.11,
-          "param_DUN_charge": -0.11
+          "param_OC_rminby2": 2.15
         },
         "error_pct_by_property": {
           "298K": {

@@ -1283,7 +1283,7 @@
                         "Density": 1.0415865341037311,
                         "Heat_of_Vaporization": 11.001390683301693,
                         "Surface_Tension": 45.0625,
-                        "Dipole_Moment": 4.0228
+                        "Dipole_Moment": 0.0
                     },
                     "targets": {
                         "Density": 1.095,
@@ -1474,7 +1474,7 @@
                         "Density": 1.0213003202939142,
                         "Heat_of_Vaporization": 10.595359037760907,
                         "Surface_Tension": 41.9865,
-                        "Dipole_Moment": 4.0222
+                        "Dipole_Moment": 0.0
                     },
                     "targets": {
                         "Density": 1.0702,
@@ -1667,7 +1667,7 @@
                         "Density": 1.0413008800587509,
                         "Heat_of_Vaporization": 10.997038147438339,
                         "Surface_Tension": 45.0121,
-                        "Dipole_Moment": 4.0231
+                        "Dipole_Moment": 0.0
                     },
                     "targets": {
                         "Density": 1.095,
@@ -1858,7 +1858,7 @@
                         "Density": 1.0412239515973203,
                         "Heat_of_Vaporization": 10.82647297798862,
                         "Surface_Tension": 44.9778,
-                        "Dipole_Moment": 4.0231
+                        "Dipole_Moment": 0.0
                     },
                     "targets": {
                         "Density": 1.0702,
@@ -2051,7 +2051,7 @@
                         "Density": 1.0414221606174543,
                         "Heat_of_Vaporization": 10.794538868500954,
                         "Surface_Tension": 44.9776,
-                        "Dipole_Moment": 4.0228
+                        "Dipole_Moment": 0.0
                     },
                     "targets": {
                         "Density": 1.095,
@@ -2242,7 +2242,7 @@
                         "Density": 1.0416150157203075,
                         "Heat_of_Vaporization": 11.057936058444012,
                         "Surface_Tension": 44.4978,
-                        "Dipole_Moment": 4.023
+                        "Dipole_Moment": 0.0
                     },
                     "targets": {
                         "Density": 1.0702,

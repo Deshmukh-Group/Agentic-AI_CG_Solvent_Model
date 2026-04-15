@@ -67,9 +67,9 @@
                 },
                 "Swarm_4/v0": {
                     "simulated": {
-                        "Density": 1.191645573782764,
-                        "Heat_of_Vaporization": 10.137716495560252,
-                        "Surface_Tension": 87.8175,
+                        "Density": 0.9018400198133785,
+                        "Heat_of_Vaporization": 8.612569329175477,
+                        "Surface_Tension": 32.6163,
                         "Dipole_Moment": 0.0
                     },
                     "targets": {
@@ -79,12 +79,12 @@
                         "Dipole_Moment": 3.72
                     },
                     "errors": {
-                        "Density": 27.298960985232775,
-                        "Heat_of_Vaporization": 7.426568390464331,
-                        "Surface_Tension": 170.790934320074,
+                        "Density": 3.6598632824080304,
+                        "Heat_of_Vaporization": 21.35358114167221,
+                        "Surface_Tension": 0.5744680851063916,
                         "Dipole_Moment": null
                     },
-                    "mean_pct_error": 68.5055
+                    "mean_pct_error": 8.5293
                 },
                 "Swarm_4/v1": {
                     "simulated": {
@@ -258,9 +258,9 @@
                 },
                 "Swarm_4/v0": {
                     "simulated": {
-                        "Density": 1.0266000771038426,
-                        "Heat_of_Vaporization": 8.296271185412262,
-                        "Surface_Tension": 32.242,
+                        "Density": 0.8910128108180536,
+                        "Heat_of_Vaporization": 8.446181213742067,
+                        "Surface_Tension": 31.9411,
                         "Dipole_Moment": 0.0
                     },
                     "targets": {
@@ -270,12 +270,12 @@
                         "Dipole_Moment": 3.72
                     },
                     "errors": {
-                        "Density": 11.091881517567641,
-                        "Heat_of_Vaporization": 22.775098339269643,
-                        "Surface_Tension": 2.16096324461343,
+                        "Density": 3.580477132555613,
+                        "Heat_of_Vaporization": 21.379677801898293,
+                        "Surface_Tension": 1.2075411913814955,
                         "Dipole_Moment": null
                     },
-                    "mean_pct_error": 12.0093
+                    "mean_pct_error": 8.7226
                 },
                 "Swarm_4/v1": {
                     "simulated": {
@@ -451,9 +451,9 @@
                 },
                 "Swarm_4/v0": {
                     "simulated": {
-                        "Density": 1.2161881046521126,
-                        "Heat_of_Vaporization": 10.346039714164919,
-                        "Surface_Tension": 15.8476,
+                        "Density": 0.9022086309314614,
+                        "Heat_of_Vaporization": 8.599998569767441,
+                        "Surface_Tension": 32.8746,
                         "Dipole_Moment": 0.0
                     },
                     "targets": {
@@ -463,12 +463,12 @@
                         "Dipole_Moment": 3.72
                     },
                     "errors": {
-                        "Density": 29.920746143800077,
-                        "Heat_of_Vaporization": 5.524246971373225,
-                        "Surface_Tension": 51.13290163428924,
+                        "Density": 3.620485959677238,
+                        "Heat_of_Vaporization": 21.46837211425951,
+                        "Surface_Tension": 1.3709528214616133,
                         "Dipole_Moment": null
                     },
-                    "mean_pct_error": 28.8593
+                    "mean_pct_error": 8.8199
                 },
                 "Swarm_4/v1": {
                     "simulated": {
@@ -642,9 +642,9 @@
                 },
                 "Swarm_4/v0": {
                     "simulated": {
-                        "Density": 1.049056283310763,
-                        "Heat_of_Vaporization": 8.501186153065534,
-                        "Surface_Tension": 34.9322,
+                        "Density": 0.8910100182857633,
+                        "Heat_of_Vaporization": 8.48594098541226,
+                        "Surface_Tension": 31.3108,
                         "Dipole_Moment": 0.0
                     },
                     "targets": {
@@ -654,12 +654,12 @@
                         "Dipole_Moment": 3.72
                     },
                     "errors": {
-                        "Density": 13.521943870875774,
-                        "Heat_of_Vaporization": 20.867670547653972,
-                        "Surface_Tension": 10.685044359949313,
+                        "Density": 3.5807793219604713,
+                        "Heat_of_Vaporization": 21.009578465863733,
+                        "Surface_Tension": 0.7896070975918832,
                         "Dipole_Moment": null
                     },
-                    "mean_pct_error": 15.0249
+                    "mean_pct_error": 8.46
                 },
                 "Swarm_4/v1": {
                     "simulated": {
@@ -835,8 +835,9 @@
                 },
                 "Swarm_4/v0": {
                     "simulated": {
-                        "Density": 1.184412441902184,
-                        "Heat_of_Vaporization": 10.095855062156447,
+                        "Density": 0.90186140389214,
+                        "Heat_of_Vaporization": 8.570376020930231,
+                        "Surface_Tension": 33.6453,
                         "Dipole_Moment": 0.0
                     },
                     "targets": {
@@ -846,11 +847,12 @@
                         "Dipole_Moment": 3.72
                     },
                     "errors": {
-                        "Density": 26.52627303730199,
-                        "Heat_of_Vaporization": 7.8088296762264005,
+                        "Density": 3.6575789026663883,
+                        "Heat_of_Vaporization": 21.73887297114208,
+                        "Surface_Tension": 3.7474560592044375,
                         "Dipole_Moment": null
                     },
-                    "mean_pct_error": 17.1676
+                    "mean_pct_error": 9.7146
                 },
                 "Swarm_4/v1": {
                     "simulated": {
@@ -1022,9 +1024,9 @@
                 },
                 "Swarm_4/v0": {
                     "simulated": {
-                        "Density": 1.0492451164661292,
-                        "Heat_of_Vaporization": 8.538493054122624,
-                        "Surface_Tension": 34.6798,
+                        "Density": 0.8907145852178951,
+                        "Heat_of_Vaporization": 8.460715106342494,
+                        "Surface_Tension": 31.3856,
                         "Dipole_Moment": 0.0
                     },
                     "targets": {
@@ -1034,12 +1036,12 @@
                         "Dipole_Moment": 3.72
                     },
                     "errors": {
-                        "Density": 13.542378148049899,
-                        "Heat_of_Vaporization": 20.52040348019526,
-                        "Surface_Tension": 9.885297845373895,
+                        "Density": 3.612749137767004,
+                        "Heat_of_Vaporization": 21.24439070704185,
+                        "Surface_Tension": 0.5525982256020233,
                         "Dipole_Moment": null
                     },
-                    "mean_pct_error": 14.6494
+                    "mean_pct_error": 8.4699
                 },
                 "Swarm_4/v1": {
                     "simulated": {
@@ -2301,5 +2303,5 @@
             }
         }
     },
-    "mean_pct_error": 9.0568
+    "mean_pct_error": 8.0985
 }

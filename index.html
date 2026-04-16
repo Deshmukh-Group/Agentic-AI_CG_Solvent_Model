@@ -424,9 +424,11 @@ tbody tr:hover td { background: rgba(255,255,255,0.02); }
   font-family: Arial, sans-serif !important;
 }
 .perf-wrap .pub-table td,
-.perf-wrap .pub-table th { font-size: 12px; }
-.perf-wrap .pub-table th { font-size: 10.5px; }
-.perf-wrap .pub-th-unit { font-size: 9.5px; }
+.perf-wrap .pub-table th { font-size: 11px; padding: 3px 5px; }
+.perf-wrap .pub-table th { font-size: 9.5px; }
+.perf-wrap .pub-th-unit { font-size: 8.5px; }
+.perf-wrap .pub-mol-section { margin-bottom: 18px; }
+.perf-wrap.pub-tab-wrap { padding: 18px 20px; }
 
 /* MD RESULTS — Arial 12 font override */
 .md-results-wrap,
@@ -1065,7 +1067,6 @@ function renderPublicationTable() {
     { label: 'Surf. Tension',  unit: '(dyn cm⁻¹)'  },
     { label: 'Dipole Mom.',    unit: '(D)'          },
     { label: 'Mean Error',     unit: '(%)'          },
-    { label: 'Best Epoch',     unit: ''             },
   ];
   const nSub = SUB.length;
 
@@ -1101,13 +1102,13 @@ function renderPublicationTable() {
       hdr1 += `<th colspan="${nSub}" style="${lb}border-bottom:1px solid #bbb;font-size:10px">${fr.runLabels[mi]}</th>`;
       SUB.forEach((sh, si) => {
         const lb2 = (si === 0 && mi === 0) ? 'border-left:2px solid #888;' : (si === 0 ? 'border-left:1px solid #ccc;' : '');
-        hdr2 += `<th style="${lb2}font-size:9px;min-width:64px;font-weight:600">${sh.label}<span class="pub-th-unit">${sh.unit || '&nbsp;'}</span></th>`;
+        hdr2 += `<th style="${lb2}font-size:9px;min-width:52px;font-weight:600">${sh.label}<span class="pub-th-unit">${sh.unit || '&nbsp;'}</span></th>`;
       });
     });
 
     let body = '';
     SWARMS_PRESENT.forEach(swarm => {
-      const swarmLabel = swarm.replace('_', ' ');
+      const swarmLabel = swarm.replace('Swarm_', 'Fork ');
       body += `<tr class="pub-swarm-header"><td colspan="${totalCols}">${swarmLabel}</td></tr>`;
 
       VERSIONS_PUB.forEach(ver => {
@@ -1144,8 +1145,7 @@ function renderPublicationTable() {
             <td>${fmtN(hvapErr)}</td>
             <td>${fmtN(stErr)}</td>
             <td>${fmtN(dipErr)}</td>
-            <td>${meanErrCell}</td>
-            <td>${bestEpoch !== null ? bestEpoch : '—'}</td>`;
+            <td>${meanErrCell}</td>`;
         });
         body += `</tr>`;
       });
@@ -1176,7 +1176,6 @@ function renderPublicationTable() {
   <div class="pub-subtitle">
     Error percentages are mean absolute deviations (%) from experimental reference data averaged across all temperatures.
     Units: Density in g cm⁻³; Heat of Vaporization in cal mol⁻¹; Surface Tension in dyn cm⁻¹.
-    Best Epoch: training epoch yielding minimum total error.
     <span style="display:inline-block;background:#c8f7c5;color:#1a6b16;padding:0 6px;border-radius:2px;font-style:normal;font-weight:bold">Green cell</span> = lowest Mean Error in the row (across runs for that Fork &amp; Scheme).
   </div>
   ${FAMILY_RUNS.map(fr => buildFamilyTable(fr)).join('<hr class="pub-separator">')}

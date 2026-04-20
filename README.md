@@ -25,7 +25,7 @@ CGAgentX leverages specialized LLM agents to automate the complex process of CG 
 | **Boundary Agent** | Sets parameter ranges based on chemical intuition |
 | **Diagnostic Agent** | Analyzes simulation results and system behavior |
 | **Hypothesis Agent** | Generates hypotheses for parameter adjustments |
-| **Optimization Agent** | Proposes parameter updates based on diagnostic results |
+| **Optimization Agent** | Proposes parameter updates based on hypothesis from HA and diagnostic results from DA |
 
 ### Data Flow
 
@@ -249,8 +249,8 @@ If you use this framework in your research, please cite:
 @software{cgagentx,
   title = {CGAgentX: Agentic AI Framework to Develop Transferable Coarse-Grained Models},
   author = {Swarnadeep Setha and Sanket A. Deshmukh},
-  year = {2024},
-  url = {https://github.com/yourusername/CGAgentX}
+  year = {2026},
+  url = {https://www.biorxiv.org/cgi/content/short/2026.04.17.719081v1}
 }
 ```
 

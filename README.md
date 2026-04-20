@@ -248,7 +248,7 @@ If you use this framework in your research, please cite:
 ```bibtex
 @software{cgagentx,
   title = {CGAgentX: Agentic AI Framework to Develop Transferable Coarse-Grained Models},
-  author = {Swarnadeep Setha and Sanket A. Deshmukh},
+  author = {Swarnadeep Seth and Sanket A. Deshmukh},
   year = {2026},
   url = {https://www.biorxiv.org/cgi/content/short/2026.04.17.719081v1}
 }

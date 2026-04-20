@@ -256,5 +256,5 @@ If you use this framework in your research, please cite:
 
 ## Support
 
-- Issues: https://github.com/yourusername/CGAgentX/issues
+- Issues: https://github.com/Deshmukh-Group/Agentic-AI_CG_Solvent_Model/issues
 - Documentation: See inline code documentation

@@ -1,0 +1,48 @@
+Design a coarse-grained mapping scheme for the following molecule:
+
+Previous validation errors: {previous_errors}
+
+CRITICAL: Do NOT generate any of these previous mapping schemes. The ATOM GROUPINGS in each bead must be COMPLETELY DIFFERENT - do not group the same atoms together in the same way:
+{previous_mappings}
+
+Molecule: {molecule_name}
+SMILES: {smiles}
+Structure: {structure}
+
+Key Properties:
+- Polarity: {polarity}
+- Dipole Moment: {dipole_moment} Debye
+- Molecular Weight: {molecular_weight} g/mol
+- Total Atoms: {atom_count}
+
+MOLECULAR CONNECTIVITY (CRITICAL):
+{connectivity_matrix}
+
+CONNECTED COMPONENTS:
+{connected_components}
+
+Target properties to reproduce:
+{targets}
+
+Requirements:
+1. Minimize number of core beads while maintaining chemical accuracy
+2. CRITICAL: Each core bead MUST contain at least 2 heavy atoms
+3. STRICT RULE: Single heavy atoms CANNOT form CG beads (defeats coarse-graining purpose)
+4. STRICT CONNECTIVITY: Only group atoms that are directly bonded OR share a common heavy atom neighbor
+5. GROUP BY FUNCTIONAL GROUPS: Prefer chemically meaningful groupings over arbitrary connectivity
+6. For molecules that cannot satisfy the 2+ heavy atom rule, use larger beads or fewer beads
+6. Ensure the masses of the core beads are not significantly different
+7. Include dummy beads if dipole moment > 0.1 Debye for accurate electrostatic representation
+8. CRITICAL: Two dummy beads (DUP and DUN) MUST be attached to DIFFERENT core beads:
+   - DUP attached to the core bead at the positive/electropositive end of the molecule
+   - DUN attached to the core bead at the negative/electronegative end of the molecule
+   - This spatial separation properly represents the molecular dipole vector
+9. Dummy beads should NOT be connected to each other
+10. Each dummy bead connects to exactly ONE core bead
+11. Define clear bead types and connectivity
+12. Specify which interactions need to be parameterized
+
+CONNECTIVITY CONSTRAINTS (CRITICAL):
+1. ONLY group atoms that are either DIRECTLY CONNECTED or CONNECTED to each other through another common heavy atom (1sr order neighbors)
+2. For each bead, provide the bond path that connects all atoms (e.g., "C1-S2-C3")
+3. If you cannot find a valid grouping, use more beads rather than invalid connections (dummy beads have no VdW interactions)

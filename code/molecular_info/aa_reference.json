@@ -1,0 +1,61 @@
+{
+    "bond_lengths": {
+        "C-C(=O)": 1.52,
+        "C=O": 1.23,
+        "C-N": 1.45,
+        "N-C(methyl)": 1.45,
+        "C-H(acetyl)": 1.11,
+        "C-H(methyl)": 1.11
+    },
+    "bond_angles": {
+        "C-C=O": 120.5,
+        "O=C-N": 122.0,
+        "C-N-C": 117.5,
+        "H-C-H": 108.4,
+        "H-C-C(=O)": 109.5,
+        "C-N-C(methyl)": 117.5
+    },
+    "partial_charges": {
+        "C(acetyl)": 0.55,
+        "O": -0.51,
+        "N": -0.47,
+        "C(carbonyl)": 0.63,
+        "C(N-methyl)": -0.11,
+        "H(acetyl)": 0.09,
+        "H(N-methyl)": 0.09
+    },
+    "lj_parameters": {
+        "C(sp3)": {
+            "epsilon": 0.078,
+            "sigma": 2.04
+        },
+        "C(carbonyl)": {
+            "epsilon": 0.110,
+            "sigma": 2.00
+        },
+        "O(carbonyl)": {
+            "epsilon": 0.120,
+            "sigma": 1.70
+        },
+        "N(amide)": {
+            "epsilon": 0.200,
+            "sigma": 1.85
+        },
+        "H": {
+            "epsilon": 0.024,
+            "sigma": 1.34
+        }
+    },
+    "dihedral_parameters": {
+        "C-C-N-C": {
+            "periodicity": 2,
+            "phase": 180.0,
+            "force_constant": 1.0
+        },
+        "O=C-N-C": {
+            "periodicity": 2,
+            "phase": 180.0,
+            "force_constant": 2.5
+        }
+    }
+}

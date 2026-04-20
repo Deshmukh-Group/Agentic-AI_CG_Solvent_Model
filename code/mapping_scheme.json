@@ -1,0 +1,54 @@
+{
+  "bead_types": [
+    "MOC",
+    "CNI",
+    "CGD2",
+    "DUP",
+    "DUN"
+  ],
+  "bead_descriptions": {
+    "MOC": "atoms C1, O3 - methyl carbon C1 with hydrogens H1, H2, H3 and carbonyl oxygen O3",
+    "CNI": "atoms C2, N4 - carbonyl carbon C2 and amide nitrogen N4",
+    "CGD2": "atoms C5, C6 - methyl carbon C5 with hydrogens H4, H5, H6 and methyl carbon C6 with hydrogens H7, H8, H9",
+    "DUP": "positive dummy bead for dipole representation attached to electropositive CNI bead",
+    "DUN": "negative dummy bead for dipole representation attached to electronegative MOC bead"
+  },
+  "connectivity": [
+    [
+      "MOC",
+      "CNI"
+    ],
+    [
+      "CNI",
+      "CGD2"
+    ],
+    [
+      "MOC",
+      "DUN"
+    ],
+    [
+      "CNI",
+      "DUP"
+    ]
+  ],
+  "dummy_beads": [
+    "DUP",
+    "DUN"
+  ],
+  "interaction_matrix": {
+    "MOC": [
+      "MOC",
+      "CNI",
+      "CGD2"
+    ],
+    "CNI": [
+      "CNI",
+      "CGD2"
+    ],
+    "CGD2": [
+      "CGD2"
+    ],
+    "DUP": [],
+    "DUN": []
+  }
+}

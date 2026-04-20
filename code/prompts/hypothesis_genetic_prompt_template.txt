@@ -1,0 +1,23 @@
+Generate a scientific hypothesis for a genetic crossover operation at Generation {generation}, Iteration {iteration}.
+
+The goal is to predict which properties the offspring can improve by combining characteristics of the two parent parameter sets.
+
+Parent 1 (Score: {parent1_score:.4f}, from Iteration {parent1_iter}):
+{parent1}
+
+Parent 2 (Score: {parent2_score:.4f}, from Iteration {parent2_iter}):
+{parent2}
+
+Parameter Boundaries:
+{boundaries}
+
+Target Properties:
+{targets}
+
+Current Best Score: {best_score:.4f}
+Stuck Counter: {stuck_counter}
+
+Analyze the parents and generate a hypothesis about:
+1. What physical characteristics each parent excels at (based on their parameter values)
+2. Which parent's parameters for which interactions should be inherited to combine their strengths
+3. What properties the offspring is expected to improve over both parents

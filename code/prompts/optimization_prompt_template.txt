@@ -1,0 +1,46 @@
+Propose the next parameter set for optimization.
+You must propose exactly {nforks} different parameter sets to be evaluated in parallel.
+
+MEMORY CONTEXT:
+{memory_context}
+
+Scientific Hypothesis (from Hypothesis Agent):
+{hypothesis}
+
+Current State:
+- Iteration: {iteration}
+- Phase: {phase}
+- Best Score: {best_score}
+- Recent Scores: {recent_scores}
+- Stuck Counter: {stuck_counter}
+
+Current Best Parameters:
+{best_params}
+
+Diagnostic Report:
+- Phase State: {phase_state}
+- Density: {density_assessment}
+- HVap: {hvap_assessment}
+- Surface Tension: {surface_tension_assessment}
+
+Warnings:
+{warnings}
+
+Recommendations from Diagnostic Agent:
+{recommendations}
+
+Parameter Boundaries:
+{boundaries}
+
+Target Properties:
+{targets}
+
+Crash Regions to Avoid:
+{crash_regions}
+
+Strategy Guidelines:
+- Translate the hypothesis into concrete numerical values respecting the suggested_direction
+- If diagnostic.phase_state != "liquid": Make significant adjustments to restore liquid state
+- If stuck_counter > 5: Increase exploration, try different parameter combinations
+- If improving: Continue current direction with refinements
+- Follow diagnostic recommendations while respecting physical constraints

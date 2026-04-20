@@ -1,0 +1,21 @@
+{
+    "name": "N,N-Dimethylacetamide (DMA)",
+    "smiles": "CC(=O)N(C)C",
+    "structure": "CH3C(=O)N(CH3)2",
+    "polarity": "polar aprotic",
+    "molecular_weight": 87.12,
+    "properties": {
+        "298K": {
+            "Density": 0.9361,
+            "Heat_of_Vaporization": 10.951,
+            "Surface_Tension": 32.43,
+            "Dipole_Moment": 3.72
+        },
+        "313K": {
+            "Density": 0.9241,
+            "Heat_of_Vaporization": 10.743,
+            "Surface_Tension": 31.56,
+            "Dipole_Moment": 3.72
+        }
+    }
+}

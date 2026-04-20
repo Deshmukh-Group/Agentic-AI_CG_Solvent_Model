@@ -1,0 +1,18 @@
+Set parameter boundaries for CG mapping of {molecule_name}.
+
+Bead Types: {bead_types}
+Connectivity: {connectivity}
+Dummy Beads: {dummy_beads}
+
+Bead Descriptions: {bead_descriptions}
+Interaction Matrix: {interaction_matrix}
+{aa_info}
+
+REQUIRED PARAMETERS (from parameter file):
+{required_params}
+
+IMPORTANT: Respond with ONLY valid JSON. Do not include any text before or after the JSON. The response must be parsable JSON.
+The parameter values must be two decimal places.
+You MUST respond with valid, complete JSON. Every number must be fully written (e.g., 5.00 not 5.0).
+Do not use placeholders, comments, or incomplete values.
+Test your JSON mentally before responding to ensure it's valid.

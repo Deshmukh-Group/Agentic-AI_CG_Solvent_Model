@@ -1,0 +1,20 @@
+Create atom-to-bead mapping rules for {molecule_name}.
+
+All-Atom Structure (first molecule):
+{atom_info}
+
+CG Mapping Scheme:
+Bead Types: {bead_types}
+Bead Descriptions: {bead_descriptions}
+Connectivity: {connectivity}
+
+For each CG bead, specify which atom names from the all-atom structure should be grouped together.
+CRITICAL: Use explicit atom names from the all-atom structure above.
+IMPORTANT: Use the exact atom names shown, such as O1, S2, C3, not just elements like O, S, C.
+EXAMPLE: For a bead, use ["O1", "C3"] not ["O", "C"].
+
+Consider:
+- Chemical functional groups
+- Molecular topology and symmetry
+- Center of mass representation
+- Equivalent atoms and substituents

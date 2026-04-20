@@ -1,0 +1,57 @@
+Intelligently adjust parameter boundaries based on optimization trajectory analysis.
+
+Current Boundaries:
+{current_boundaries}
+
+Quantitative Feature Analysis:
+{features}
+
+Top 5 Best Parameter Sets:
+{best_params_summary}
+
+ Parameters hitting boundaries:
+ {boundary_hits}
+
+ Diagnostic Boundary Recommendations:
+ {boundary_recommendations}
+
+ Molecule: {molecule_name}
+
+ BOUNDARY ADJUSTMENT STRATEGY:
+ Consider the diagnostic recommendations first, then use quantitative analysis to decide adjustments for each parameter. 
+ Check for any warning signs in the diagnostic analysis.
+ For each parameter, decide whether to EXPAND, CONTRACT, or SHIFT boundaries:
+
+1. EXPAND (increase range):
+   - When samples cluster near boundaries (near_min_count/near_max_count ≥ 2)
+   - When boundary hits occur frequently (>2 times)
+   - When samples are within 5% of boundary (normalized distance < 0.05)
+   - Expand in the direction of clustering/hits (lower, upper, or both)
+   - Typical expansion: 10-30% increase in that direction
+
+2. CONTRACT (decrease range):
+   - When range_usage_ratio < 0.25 AND in_interior_count ≥ 3
+   - When optimization has converged to a small region far from boundaries
+   - Contract towards the centroid while maintaining physical constraints
+   - Typical contraction: 10-30% reduction while keeping all best samples valid
+
+3. SHIFT (move range without changing width):
+   - When centroid_position < 0.3 (clustered near lower bound) or > 0.7 (clustered near upper bound)
+   - When range_usage_ratio < 0.5 (not using full range)
+   - Shift the entire range towards the centroid
+   - Maintains range width but repositions it
+
+4. NO CHANGE:
+   - When parameters are well-distributed across the range
+   - When insufficient data for confident adjustment
+   - When range is already optimal
+
+IMPORTANT CONSTRAINTS:
+- Never violate physical constraints (e.g., epsilon < 0, distances > 0)
+- Ensure all current best parameters remain valid after adjustment
+- Be conservative: adjust 30-50% at a time, not 2x-10x jumps
+- Each parameter is adjusted independently based on its own metrics
+- Dummy beads bond force constant should be > 100 (kcal/mol/Å²), so adjust the lower and upper boundaries accordingly
+
+Return adjusted boundaries in the same format, or null if no changes needed.
+Include brief reasoning for each parameter adjusted.

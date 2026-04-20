@@ -1,0 +1,107 @@
+GENETIC CROSSOVER - Generation {generation}, Iteration {iteration}
+
+You are performing genetic crossover to create Generation {generation} offspring.
+
+PARENT SELECTION:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Parent 1** (Best performer, Score: {parent1_score:.4f}, from Iteration {parent1_iter}):
+{parent1}
+
+**Parent 2** (Second best, Score: {parent2_score:.4f}, from Iteration {parent2_iter}):
+{parent2}
+
+Parent Analysis:
+{parent_comparison}
+
+GENETIC BOUNDARIES (Focused Search Zone):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+These boundaries are FOCUSED around the parent locations with {buffer_percent:.0f}% buffer.
+Your offspring MUST stay within these genetic boundaries.
+
+{genetic_boundaries}
+
+GLOBAL BOUNDARIES (Physical Limits):
+{global_boundaries}
+
+PARAMETER BLOCKS FOR CROSSOVER:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{parameter_blocks}
+
+GENERAL CROSSOVER PRINCIPLES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Block-Aware Crossover**: Parameters that work together (e.g., bond length and force constant for the same bond, or epsilon and rmin for the same interaction) should be inherited as a unit from the same parent.
+
+**Charge Neutrality**: If there are charge parameters, they must maintain overall charge neutrality (sum of charges = 0).
+
+**Parameter Categories**:
+- **Bond Parameters**: [bond_length, force_constant] - inherit together
+- **LJ Parameters**: [epsilon, rmin/rminby2] - inherit together for same interaction
+- **Cross LJ Parameters**: [epsilon, rmin] - inherit together for cross interactions
+- **Charge Parameters**: All charges for a molecule - inherit together to maintain neutrality
+
+CROSSOVER INSTRUCTIONS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1 - BLOCK-AWARE CROSSOVER:
+For each parameter block listed above:
+1. Randomly choose Parent 1 OR Parent 2 as the source
+2. Inherit ALL parameters in that block from the chosen parent
+3. This preserves physically meaningful parameter correlations
+
+Example Strategy:
+- If Parent 1 has better density → consider inheriting SO-SO LJ block from Parent 1
+- If Parent 2 has better surface tension → consider inheriting charge block from Parent 2
+- Create a novel combination not yet explored
+
+STEP 2 - ADAPTIVE MUTATION:
+After crossover, apply Gaussian mutation to introduce novelty:
+1. Select 1-2 parameters randomly (10% probability per parameter)
+2. For selected parameters, apply: new_value = old_value × (1 + N(0, 0.05))
+   where N(0, 0.05) is Gaussian noise with mean=0, std=0.05 (5% perturbation)
+3. Ensure mutated values stay within genetic boundaries
+4. Never mutate related parameters independently - if mutating charges, adjust all charges together to maintain neutrality
+
+MUTATION GUIDELINES:
+- Early generations ({generation} ≤ 2): 15% mutation rate, 8% perturbation strength
+- Mid generations (3 ≤ {generation} ≤ 4): 10% mutation rate, 5% perturbation strength
+- Late generations ({generation} ≥ 5): 5% mutation rate, 3% perturbation strength
+
+STEP 3 - VALIDATION:
+Before returning, verify:
+✓ All parameters within genetic boundaries
+✓ Physical constraints satisfied (epsilon < 0, distances > 0, charges sum to neutrality if applicable)
+✓ At least ONE parameter differs from both parents (novelty)
+
+OPTIMIZATION CONTEXT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Target Properties:
+{targets}
+
+Current Best Score: {best_score:.4f}
+Stuck Counter: {stuck_counter}
+
+Scientific Hypothesis (from Hypothesis Agent):
+{hypothesis}
+
+Strategy Guidance:
+- If stuck_counter > 10: Use more aggressive mutation (10-15% perturbation)
+- If stuck_counter < 5: Use conservative mutation (3-5% perturbation)
+- Consider which parent performed better on which property
+- Use the hypothesis to guide which parent's blocks to prefer
+
+{memory_context}
+
+CRITICAL REMINDERS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. **Stay within GENETIC boundaries** (not global boundaries) - these are the focused search zones
+2. **Inherit parameter BLOCKS together** - don't mix unrelated parameters from different parents (e.g., don't take epsilon from Parent 1 and rmin from Parent 2 for the same interaction)
+3. **Maintain physical constraints** - epsilon values < 0, distances > 0, charge neutrality if applicable
+4. **Apply mutation** - create novelty, don't just copy parents
+5. **Explain your reasoning** - which blocks from which parent and why
+
+Now perform the genetic crossover and return the offspring parameters in valid JSON format.

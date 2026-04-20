@@ -1,0 +1,46 @@
+Diagnose the following simulation results:
+Iteration: {iteration}
+Current Results (per temperature):
+{best_results_by_temperature}
+Target Values (per temperature):
+{targets_by_temperature}
+Current Parameters:
+{current_parameters}
+Stuck Counter: {stuck_counter}
+{memory_context}
+{traj_info}
+{crash_info}
+Phase Analysis:
+{phase_info}
+Percentage Errors (per property and temperature):
+{deviations_by_property_and_temp}
+{fork_analysis}
+Analyze:
+
+Is the system in a liquid state or has it transitioned to gas/solid? Does phase behavior change with temperature?
+Are the LJ epsilon signs correct? LJ epsilon should be negative, LJ rmin should be positive (NAMD convention)
+Are there signs of instability (crashes, extreme values)? "10000.0" value in any property is a crash indicator
+Is the dummy atom charge too high? May leads to collisions and simulation crashes
+Which properties are most problematic? How do deviations vary across temperatures?
+What physical phenomena might explain the deviations? Consider temperature dependence (e.g., density should decrease with increasing T)
+Are the parameters in reasonable physical ranges?
+If stuck counter is high (>=20) or boundaries are being hit, specify which parameters should have their boundaries expanded, contracted, shifted up, or shifted down.
+
+[NEW] If fork analysis is provided:
+Which parameters show the strongest correlation with better/worse performance?
+Are certain parameter combinations more stable across forks and temperatures?
+Which properties show high variance across forks (suggesting sensitivity to parameters)?
+Do the best forks share common parameter characteristics?
+How does fork performance vary across temperatures?
+
+Provide specific, actionable recommendations for parameter adjustments, and explicitly list parameter names in boundary_recommendations for expand/contract/shift actions.
+When multiple forks are analyzed:
+Focus recommendations on patterns observed across ALL forks, not just the best one
+If a parameter consistently leads to better results in multiple forks, emphasize adjusting in that direction
+If high variance in a property across forks indicates parameter sensitivity, recommend targeted parameter exploration
+Use the best vs worst fork comparison to identify which parameters have the strongest impact
+
+Multi-temperature considerations:
+Evaluate if the model performs well at one temperature but poorly at another (e.g., overfitting to room temp)
+Recommend adjustments that improve consistency across temperatures
+Note if temperature-dependent properties (like density) follow expected trends (e.g., decreasing with T)

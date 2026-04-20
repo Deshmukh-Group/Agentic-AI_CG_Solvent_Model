@@ -90,7 +90,7 @@ CGAgentX/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/CGAgentX.git
+   git clone https://github.com/Deshmukh-Group/Agentic-AI_CG_Solvent_Model.git
    cd CGAgentX
    ```
 

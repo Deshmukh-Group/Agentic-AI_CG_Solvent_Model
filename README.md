@@ -1,17 +1,17 @@
-# CG Solvent - Multi-Agent Coarse-Grained Force Field Optimization Framework
+# CGAgentX - Multi-Agent Coarse-Grained Molecular Dynamics Force Field Optimization Framework
 
-A multi-agent AI-driven framework for optimizing coarse-grained (CG) force field parameters for molecular simulations using Large Language Model (LLM) agents.
+A multi-agent AI-driven framework for optimizing coarse-grained (CG) force field parameters for molecular dynamics (MD) simulations using Large Language Model (LLM) agents.
 
 ## Overview
 
-This framework leverages specialized LLM agents to automate the complex process of CG force field parameter optimization for molecular solvents. The system iteratively runs molecular dynamics simulations, analyzes results, and proposes parameter updates to match experimental properties.
+CGAgentX leverages specialized LLM agents to automate the complex process of CG force field parameter optimization for molecular dynamics simulations. The system iteratively runs molecular dynamics simulations, analyzes results, and proposes parameter updates to match experimental properties.
 
 ### Key Features
 
 - **Multi-Agent Architecture**: Coordinated agents for mapping, topology creation, boundary setting, diagnostics, and optimization
 - **LLM-Powered Decision Making**: Uses Large Language Models for chemical intuition and parameter decisions
 - **Automated MD Simulations**: Runs NAMD simulations with automated setup and execution
-- **Property Matching**: Optimizes to match experimental density, heat of vaporization, and surface tension
+- **Property Matching**: Optimizes to match experimental density, heat of vaporization, surface tension, and dipole moment for MD simulations
 
 ## Architecture
 
@@ -24,7 +24,7 @@ This framework leverages specialized LLM agents to automate the complex process 
 | **Topology Agent** | Constructs CG topology files (PSF) from mapping scheme |
 | **Boundary Agent** | Sets parameter ranges based on chemical intuition |
 | **Diagnostic Agent** | Analyzes simulation results and system behavior |
-| **Hypothesis Agent** | Generates hypotheses for parameter adjustments using genetic algorithms |
+| **Hypothesis Agent** | Generates hypotheses for parameter adjustments |
 | **Optimization Agent** | Proposes parameter updates based on diagnostic results |
 
 ### Data Flow
@@ -36,7 +36,9 @@ SMILES → Mapping Agent → Topology Agent → Boundary Agent
                                     ↓
                             Diagnostic Agent
                                     ↓
-                            Hypothesis/Optimization Agent
+                            Hypothesis Agent
+                                    ↓
+                            Optimization Agent
                                     ↓
                             Parameter Updates (loop)
 ```
@@ -44,7 +46,7 @@ SMILES → Mapping Agent → Topology Agent → Boundary Agent
 ## Project Structure
 
 ```
-CG_Solvent/
+CGAgentX/
 ├── master_agent.py           # Main orchestrator coordinating all agents
 ├── common.py                 # Shared data structures and base classes
 ├── mapping_agent.py          # CG mapping scheme generation
@@ -52,7 +54,7 @@ CG_Solvent/
 ├── topology_creator_agent.py # PSF topology file generation
 ├── boundary_agent.py         # Parameter boundary/range setting
 ├── diagnostic_agent.py       # Simulation result analysis
-├── hypothesis_agent.py       # Hypothesis generation with genetic algorithms
+├── hypothesis_agent.py       # Hypothesis generation
 ├── optimization_agent.py     # Parameter optimization logic
 ├── smiles_parser.py          # SMILES molecular structure parsing
 ├── analyze_AA2CG.py          # Analysis tools
@@ -88,8 +90,8 @@ CG_Solvent/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/CG_Solvent.git
-   cd CG_Solvent
+   git clone https://github.com/yourusername/CGAgentX.git
+   cd CGAgentX
    ```
 
 2. Install dependencies:
@@ -145,7 +147,14 @@ Configure your target molecule in `molecular_info/molecule_info.json`:
         "298K": {
             "Density": 0.9361,
             "Heat_of_Vaporization": 10.951,
-            "Surface_Tension": 32.43
+            "Surface_Tension": 32.43,
+            "Dipole_Moment": 3.72
+        },
+        "313K": {
+            "Density": 0.9241,
+            "Heat_of_Vaporization": 10.743,
+            "Surface_Tension": 31.56,
+            "Dipole_Moment": 3.72
         }
     }
 }
@@ -237,15 +246,15 @@ Contributions welcome! Please submit pull requests or open issues for:
 If you use this framework in your research, please cite:
 
 ```bibtex
-@software{cg_solvent,
-  title = {CG Solvent: Multi-Agent CG Force Field Optimization},
-  author = {Your Name},
+@software{cgagentx,
+  title = {CGAgentX: Agentic AI Framework to Develop Transferable Coarse-Grained Models},
+  author = {Swarnadeep Setha and Sanket A. Deshmukh},
   year = {2024},
-  url = {https://github.com/yourusername/CG_Solvent}
+  url = {https://github.com/yourusername/CGAgentX}
 }
 ```
 
 ## Support
 
-- Issues: https://github.com/yourusername/CG_Solvent/issues
+- Issues: https://github.com/yourusername/CGAgentX/issues
 - Documentation: See inline code documentation
